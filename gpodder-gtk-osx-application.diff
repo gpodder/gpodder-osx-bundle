@@ -1,0 +1,130 @@
+--- src/gpodder/gui.py.orig	2011-10-19 16:16:12.000000000 +0200
++++ src/gpodder/gui.py	2011-11-01 15:42:34.000000000 +0100
+@@ -36,6 +36,8 @@
+ 
+ from xml.sax import saxutils
+ 
++from gtk_osxapplication import *
++
+ import gpodder
+ 
+ try:
+@@ -166,7 +168,7 @@
+     # Delay until live search is started after typing stop
+     LIVE_SEARCH_DELAY = 200
+ 
+-    def __init__(self, bus_name, config):
++    def __init__(self, bus_name, config, macapp):
+         dbus.service.Object.__init__(self, object_path=gpodder.dbus_gui_object_path, bus_name=bus_name)
+         self.podcasts_proxy = DBusPodcastsProxy(lambda: self.channels, \
+                 self.on_itemUpdate_activate, \
+@@ -176,6 +178,7 @@
+                 bus_name)
+         self.db = Database(gpodder.database_file)
+         self.config = config
++        self.macapp = macapp
+         BuilderWidget.__init__(self, None)
+     
+     def new(self):
+@@ -278,28 +281,21 @@
+         if gpodder.ui.desktop:
+             # Mac OS X-specific UI tweaks: Native main menu integration
+             # http://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
+-            if getattr(gtk.gdk, 'WINDOWING', 'x11') == 'quartz':
+-                try:
+-                    import igemacintegration as igemi
+ 
+-                    # Move the menu bar from the window to the Mac menu bar
+-                    self.mainMenu.hide()
+-                    igemi.ige_mac_menu_set_menu_bar(self.mainMenu)
+-
+-                    # Reparent some items to the "Application" menu
+-                    for widget in ('/mainMenu/menuHelp/itemAbout', \
+-                                   '/mainMenu/menuPodcasts/itemPreferences'):
+-                        item = self.uimanager1.get_widget(widget)
+-                        group = igemi.ige_mac_menu_add_app_menu_group()
+-                        igemi.ige_mac_menu_add_app_menu_item(group, item, None)
+-
+-                    quit_widget = '/mainMenu/menuPodcasts/itemQuit'
+-                    quit_item = self.uimanager1.get_widget(quit_widget)
+-                    igemi.ige_mac_menu_set_quit_menu_item(quit_item)
+-                except ImportError:
+-                    print >>sys.stderr, """
+-                    Warning: ige-mac-integration not found - no native menus.
+-                    """
++            # Move the menu bar from the window to the Mac menu bar
++            self.mainMenu.hide()
++            self.macapp.set_menu_bar(self.mainMenu)
++
++            # Reparent some items to the "Application" menu
++            item = self.uimanager1.get_widget('/mainMenu/menuHelp/itemAbout')
++            self.macapp.insert_app_menu_item(item, 0)
++            self.macapp.insert_app_menu_item(gtk.SeparatorMenuItem(), 1)
++            item = self.uimanager1.get_widget('/mainMenu/menuPodcasts/itemPreferences')
++            self.macapp.insert_app_menu_item(item, 2)
++
++            quit_item = self.uimanager1.get_widget('/mainMenu/menuPodcasts/itemQuit')
++            quit_item.hide()
++
+ 
+             self.sync_ui = gPodderSyncUI(self.config, self.notification, \
+                     self.main_window, self.show_confirmation, \
+@@ -3106,6 +3102,13 @@
+             self.close_gpodder()
+ 
+         return True
++       
++    def quit_cb(self, macapp):
++        """Called when OSX wants to quit the app (Cmd-Q or gPodder > Quit)
++        """
++        # event can't really be cancelled : crash when it's done
++        self.close_gpodder()
++        return False
+ 
+     def close_gpodder(self):
+         """ clean everything and exit properly
+@@ -3130,7 +3133,6 @@
+         self.db.close()
+ 
+         self.quit()
+-        sys.exit(0)
+ 
+     def get_expired_episodes(self):
+         for channel in self.channels:
+@@ -4253,12 +4255,13 @@
+ 
+     config.mygpo_device_type = util.detect_device_type()
+ 
+-    gp = gPodder(bus_name, config)
++    macapp = OSXApplication()
++
++    gp = gPodder(bus_name, config, macapp)
+ 
+     # Handle options
+     if options.subscribe:
+         util.idle_add(gp.subscribe_to_url, options.subscribe)
+-
+     # mac OS X stuff :
+     # handle "subscribe to podcast" events from firefox
+     if platform.system() == 'Darwin':
+@@ -4266,6 +4269,9 @@
+         gpodderosx.register_handlers(gp)
+     # end mac OS X stuff
+ 
++    macapp.connect("NSApplicationBlockTermination", gp.quit_cb)
++    macapp.ready()
++    
+     gp.run()
+ 
+ 
+--- src/gpodder/util.py.orig	2011-10-19 15:51:02.000000000 +0200
++++ src/gpodder/util.py	2011-11-01 16:15:36.000000000 +0100
+@@ -1195,6 +1195,8 @@
+             rpc.rpc_run(svc, path, svc, 'mime_open', (filename,))
+         elif gpodder.win32:
+             os.startfile(filename)
++        elif platform.system() == 'Darwin':
++            subprocess.Popen(['open', filename])
+         else:
+             subprocess.Popen(['xdg-open', filename])
+         return True

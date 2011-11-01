@@ -1,0 +1,179 @@
+<!ELEMENT moduleset (repository|include|autotools|metamodule|tarball|distutils|perl|linux|testmodule|cvsroot|cvsmodule|waf)+>
+<!ATTLIST moduleset
+	name     CDATA  #IMPLIED>
+
+<!ELEMENT repository (mirror*)>
+<!ATTLIST repository
+	name	 CDATA  #REQUIRED
+	type	 (arch|bzr|cvs|darcs|fossil|git|hg|svn|tarball)  #REQUIRED
+	default  (yes|no)  "no"
+	password CDATA  #IMPLIED
+	cvsroot	 CDATA  #IMPLIED
+	archive	 CDATA	#IMPLIED
+	href	 CDATA  #IMPLIED
+	server   CDATA  #IMPLIED
+	database CDATA  #IMPLIED
+	defbranch CDATA #IMPLIED
+	developer-href-example CDATA #IMPLIED
+	trunk-template CDATA #IMPLIED
+	branches-template CDATA #IMPLIED
+	tags-template CDATA #IMPLIED>
+<!-- note the following attributes are specific to some repository types:
+      - CVS: password & cvsroot
+      - Arch: archive & href
+      - Monotone: server, database, defbranch
+      - Subversion: *-template -->
+
+<!ELEMENT mirror EMPTY>
+<!ATTLIST mirror
+	type	(arch|bzr|cvs|darcs|fossil|git|hg|svn|tarball)  #REQUIRED
+	trunk-template CDATA #IMPLIED
+	branches-template CDATA #IMPLIED
+	href	CDATA  #IMPLIED>
+
+<!ELEMENT include EMPTY>
+<!ATTLIST include href CDATA #REQUIRED>
+
+<!ELEMENT autotools (branch,dependencies?,suggests?,after?)>
+<!-- Note: Here the ID type is not used as some existing IDs in modsets are not
+     valid XML ID types - instead CDATA is used -->
+<!ATTLIST autotools
+	id		CDATA	#REQUIRED
+	autogenargs	CDATA	#IMPLIED
+	makeargs	CDATA	#IMPLIED
+	makeinstallargs CDATA	#IMPLIED
+	autogen-sh	CDATA	#IMPLIED
+	makefile	CDATA	#IMPLIED
+	skip-autogen	(true|false|never) "false"
+	supports-non-srcdir-builds (yes|no) "yes"
+	autogen-template CDATA  #IMPLIED
+	check-target	(true|false) "true">
+
+<!ELEMENT waf (branch,dependencies?,suggests?,after?)>
+<!-- Note: Here the ID type is not used as some existing IDs in modsets are not
+     valid XML ID types - instead CDATA is used -->
+<!ATTLIST waf
+	id		CDATA	#REQUIRED
+	waf-command	CDATA	#IMPLIED>
+
+<!ELEMENT metamodule (dependencies,after?)>
+<!ATTLIST metamodule
+	id		CDATA	#REQUIRED>
+
+<!-- tarball module type is deprecated, a tarball repository inside the
+     appropriate modtype should be used instead -->
+<!ELEMENT tarball (source,branch?,dependencies?,patches?,suggests?,after?)>
+<!ATTLIST tarball
+	id		CDATA	#REQUIRED
+	version		CDATA	#REQUIRED
+	checkoutdir 	CDATA	#IMPLIED
+	autogenargs	CDATA	#IMPLIED
+	makeargs	CDATA	#IMPLIED
+	autogen-sh	CDATA	#IMPLIED
+	supports-non-srcdir-builds (yes|no) "yes">
+
+<!ELEMENT distutils (branch?,dependencies?,after?)>
+<!ATTLIST distutils
+	id	ID	#REQUIRED
+	supports-non-srcdir-builds (yes|no) "yes">
+
+<!ELEMENT cmake (branch?,dependencies?,after?)>
+<!ATTLIST cmake
+	id		CDATA	#REQUIRED
+	cmakeargs	CDATA	#IMPLIED>
+	makeargs	CDATA	#IMPLIED>
+
+<!ELEMENT perl (branch?,dependencies?,after?)>
+<!ATTLIST perl
+	id		CDATA	#REQUIRED
+	makeargs	CDATA	#IMPLIED>
+
+<!ELEMENT linux (branch?,dependencies?,after?,kconfig+)>
+<!ATTLIST linux
+	id		CDATA	#REQUIRED
+	makeargs	CDATA	#IMPLIED>
+
+<!ELEMENT ant (branch?,dependencies?,after?)>
+<!ATTLIST ant
+	id		CDATA	#REQUIRED
+	makeargs	CDATA	#IMPLIED>
+
+<!ELEMENT testmodule (branch?,dependencies?,after?,testedmodules?)>
+<!ATTLIST testmodule
+	id		CDATA	#REQUIRED
+	type		CDATA	#REQUIRED>
+
+<!ELEMENT cvsroot EMPTY>
+<!ATTLIST cvsroot
+	name	CDATA	#REQUIRED
+	root	CDATA	#REQUIRED
+	password CDATA	"">
+
+
+<!ELEMENT cvsmodule (suggests?,dependencies?,after?)>
+<!ATTLIST cvsmodule
+	id	CDATA	#REQUIRED
+	cvsroot	CDATA	#REQUIRED
+	supports-non-srcdir-builds (yes|no) "yes">
+
+<!-- Tarball's children -->
+<!ELEMENT source EMPTY>
+<!ATTLIST source
+	href	CDATA	#REQUIRED
+	size	CDATA	#IMPLIED
+	md5sum	CDATA	#IMPLIED
+	hash    CDATA   #IMPLIED>
+
+<!ELEMENT patches (patch*)>
+<!ELEMENT patch EMPTY>
+<!ATTLIST patch
+	file	CDATA	#REQUIRED
+	strip	CDATA	"0">
+
+
+<!-- Linux's children -->
+<!ELEMENT kconfig EMPTY>
+<!ATTLIST kconfig
+	repo	CDATA	#IMPLIED
+	version	CDATA	#REQUIRED
+	module	CDATA	#IMPLIED
+	config	CDATA	#IMPLIED>
+
+
+<!-- Testmodule's children -->
+<!ELEMENT testedmodules (tested)>
+<!ELEMENT tested EMPTY>
+<!ATTLIST tested
+	package	CDATA	#REQUIRED>
+
+<!-- Other children -->
+<!ELEMENT dependencies (dep*)>
+<!ELEMENT suggests (dep*)>
+<!ELEMENT after (dep*)>
+<!ELEMENT dep EMPTY>
+<!ATTLIST dep
+	package	CDATA	#REQUIRED>
+
+<!ELEMENT branch (patch*)>
+<!ATTLIST branch
+	repo		CDATA	#IMPLIED
+	module		CDATA	#IMPLIED
+	checkoutdir	CDATA	#IMPLIED
+	override-checkoutdir (yes|no) "yes"
+	update-new-dirs (yes|no) "yes"
+	source-subdir   CDATA   #IMPLIED
+	revision	CDATA	#IMPLIED
+	tag             CDATA   #IMPLIED
+        user            CDATA   #IMPLIED
+        revspec         CDATA   #IMPLIED
+        branch          CDATA   #IMPLIED
+	version		CDATA	#IMPLIED
+	size		CDATA	#IMPLIED
+	md5sum		CDATA	#IMPLIED
+	hash		CDATA	#IMPLIED>
+	<!-- override-checkoutdir and update-new-dirs are CVS only
+	     source-subdir is tarballs only -->
+
+<!ELEMENT quilt (branch)>
+<!ATTLIST quilt
+	id		CDATA	#REQUIRED>
