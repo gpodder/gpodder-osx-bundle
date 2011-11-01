@@ -1,0 +1,99 @@
+This is a collection of files required to build gPodder.app :
+gPodder as a native GTK+ Quartz application for Mac OS X 10.6
+
+Instructions:
+
+place into ~/mymodules
+
+copy dot_jhbuildrc-custom to ~/.jhbuildrc-custom or better, merge my modifications to your config file
+
+Follow instructions in http://live.gnome.org/GTK%2B/OSX/Building
+ - bootstrap
+ - meta-gtk-osx-bootstrap
+ - meta-gtk-osx-core
+ - python
+ - pygtk
+
+chmod u+w ~/gtk/inst/lib/libpython2.7.dylib
+chmod u+w ~/gtk/inst/lib/libreadline.6.2.dylib 
+ 
+
+Failing checkouts of specific branches :
+I choose the "modulesets" moduleset, so git is used to get many things,
+but specific branches are checkout. This failed each time :
+choose to start a shell an adapt following command (git branch -a to confirm remote branch exists)
+git checkout -b WANTED_BRANCH origin/WANTED_BRANCH
+
+
+ 
+Failing autogen.sh for pygtk:
+insert following macros in m4/jhflags.m4 if autogen.sh fails
+
+dnl  _LT_DECL_SED
+dnl  ------------
+dnl  Check for a fully-functional sed program, that truncates
+dnl  as few characters as possible.  Prefer GNU sed if found.
+AC_DEFUN([_LT_DECL_SED],
+[AC_PROG_SED
+test -z "$SED" && SED=sed
+Xsed="$SED -e 1s/^X//"
+_LT_DECL([], [SED], [1], [A sed program that does not truncate output])
+_LT_DECL([], [Xsed], ["\$SED -e 1s/^X//"],
+    [Sed that helps us avoid accidentally triggering echo(1) options like -n])
+])dnl  _LT_DECL_SED
+
+
+dnl  _LT_FUNC_STRIPNAME_CNF
+dnl  ----------------------
+dnl  func_stripname_cnf prefix suffix name
+dnl  strip PREFIX and SUFFIX off of NAME.
+dnl  PREFIX and SUFFIX must not contain globbing or regex special
+dnl  characters, hashes, percent signs, but SUFFIX may contain a leading
+dnl  dot (in which case that matches only a dot).
+dnl 
+dnl  This function is identical to the (non-XSI) version of func_stripname,
+dnl  except this one can be used by m4 code that may be executed by configure,
+dnl  rather than the libtool script.
+AC_DEFUN([_LT_FUNC_STRIPNAME_CNF],[dnl
+AC_REQUIRE([_LT_DECL_SED])
+AC_REQUIRE([_LT_PROG_ECHO_BACKSLASH])
+func_stripname_cnf ()
+{
+  case ${2} in
+  .*) func_stripname_result=`$ECHO "${3}" | $SED "s%^${1}%%; s%\\\\${2}\$%%"`;;
+  *)  func_stripname_result=`$ECHO "${3}" | $SED "s%^${1}%%; s%${2}\$%%"`;;
+  esac
+} dnl  func_stripname_cnf
+])dnl  _LT_FUNC_STRIPNAME_CNF
+
+
+
+Installing gPodder:
+gPodder 2.20 is used, with a few custom patches
+
+jhbuild build gtk-mac-integration-python
+jhbuild build gpodder
+
+
+At this point,
+	jhbuild shell
+	gpodder
+should work.
+
+
+Bundling gPodder:
+install gtk-mac-bundler, following http://live.gnome.org/GTK%2B/OSX/Bundling
+cd mymodules/gpodder-bundle
+jhbuild shell
+~/.local/bin/gtk-mac-bundler gpodder.bundle && ./postproc.sh 
+
+produces gPodder.app in Desktop
+test by double-clicking on gPodder.app
+test by moving ~/gtk/inst away and re-launching
+
+Issues:
+- webkit is not bundled (for html shownotes).
+I get errors when building libgnutls, one of its deps.
+
+- I set the locale explicitely to fr_FR.UTF-8 in gpodder.sh.
+I need to investigate why auto-detection doesn't work
