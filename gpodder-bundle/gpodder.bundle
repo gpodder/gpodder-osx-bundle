@@ -53,13 +53,6 @@
     ${prefix}/bin/python
   </binary>
 
-  <!-- This is a modified pygtk-demo which points to the python module
-       in the bundle instead of in $prefix. Note that pygtk-demo.sh
-       calls this instead of PyGtkDemo-bin as it usually would. -->
-  <data dest="${bundle}/Contents/MacOS/">
-    ${project}/gpodder
-  </data>
-
   <!-- Copy in libpyglib, which will pull in other dependencies we need -->
   <binary>
     ${prefix}/lib/libpyglib-2.0-python.0.dylib
