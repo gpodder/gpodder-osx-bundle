@@ -35,31 +35,11 @@ export PYTHONPATH
 echo "PYTHONPATH=$PYTHONPATH"
 PYTHONHOME="$bundle_res"
 export PYTHONHOME
-# We need a UTF-8 locale.
-lang=`defaults read .GlobalPreferences AppleLocale 2>/dev/null`
-if test "$?" != "0"; then
-  lang=`defaults read .GlobalPreferences AppleCollationOrder 2>/dev/null | sed 's/_.*//'`
-fi
-if test "$?" == "0"; then
-    export LANG="`grep \"\`echo $lang\`_\" /usr/share/locale/locale.alias | \
-  tail -n1 | sed 's/\./ /' | awk '{print $2}'`.UTF-8"
-fi
-
-if test -f "$bundle_lib/charset.alias"; then
-    export CHARSETALIASDIR="$bundle_lib"
-fi
-
-# Extra arguments can be added in environment.sh.
-EXTRA_ARGS=
-if test -f "$bundle_res/environment.sh"; then
-  source "$bundle_res/environment.sh"
-fi
 
 # Strip out the argument added by the OS.
 if /bin/expr "x$1" : "x-psn_.*" > /dev/null; then
     shift 1
 fi
-export LANG="fr_FR.UTF-8"
 
 # use launchctl to load the session dbus if not already started by the session
 if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
