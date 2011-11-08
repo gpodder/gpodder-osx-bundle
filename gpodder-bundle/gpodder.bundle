@@ -163,8 +163,11 @@
   <data>
     ${prefix}/bin/gpodder
   </data>
-    <data>
+  <data>
     ${prefix}/bin/gpo
+  </data>
+  <data>
+    ${prefix}/bin/gpodder-migrate2tres
   </data>
 
 
@@ -178,6 +181,10 @@
 
   <data dest="${bundle}/Contents/Resources/gPodder.icns">
     ${project}/gPodder.icns
+  </data>
+  <!-- Wrapper for gPodder 2 to 3 conversion script -->
+  <data dest="${bundle}/Contents/MacOS/gpodder-migrate2tres">
+    ${project}/gpodder-migrate2tres.sh
   </data>
   
   <!-- Copy in the themes data. You may want to trim this to save space

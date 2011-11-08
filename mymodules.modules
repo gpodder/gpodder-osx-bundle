@@ -8,7 +8,7 @@
               href="http://effbot.org/downloads/"/>
 
   <repository type="tarball" name="gpodder" 
-              href="http://gpodder.org/source/"/>
+              href="http://gpodder.org/"/>
               
   <repository type="tarball" name="feedparser"
               href="http://feedparser.googlecode.com/files/"/>
@@ -21,9 +21,10 @@
 <repository type="tarball" name="webkitgtk.org"
     href="http://webkitgtk.org/"/>
 
-  <autotools id="gpodder" skip-autogen="true" skip-configure="true" checkoutdir="gpodder-2.20">
-    <branch repo="gpodder" module="gpodder/gpodder-2.20.tar.gz"
-	    version="2.20">
+  <autotools id="gpodder" skip-autogen="true" skip-configure="true" checkoutdir="gpodder-3.0.0">
+    <branch repo="gpodder" module="src/gpodder-3.0.0.tar.gz" md5sum="a6137625e21c494e04c96e5735f51128"
+    		sha1sum="32644629f534aaa33a13e3c1bc08f5fb2fcc07ac"
+	    version="3.0.0">
 	   <patch file="gpodder-gtk-osx-application.diff" strip="0"/>
     </branch>
     <dependencies>
@@ -79,17 +80,15 @@
 	    md5sum="aa2a4517de0e9144be3bce2cf8cdd924" size="674953">
     </branch>
     <dependencies>
-      <dep package="libxml2"/>
       <dep package="dbus"/>
       <dep package="glib"/>
     </dependencies>
   </autotools>
 
   <autotools id="dbus-python">
-    <branch module="dbus-python/dbus-python-0.83.0.tar.gz" version="0.83.0"
+    <branch module="dbus-python/dbus-python-0.84.0.tar.gz" version="0.84.0"
             repo="dbus"
-	    hash="sha256:89dd1d5aa5c2ba04677d1aa2616caa50274d8c08f3d6bc164e6f7b9930776191"
-	    md5sum="562c78876219bf458d79a041af18293d" size="494281"/>
+	    size="563906"/>
     <dependencies>
       <dep package="dbus"/>
     </dependencies>
@@ -124,6 +123,12 @@
       <dep package="enchant"/>
     </suggests>
   </autotools>
-  
+
+  <!-- not needed here : it's in bootstrap
+   <autotools id="libxml2" autogen-sh="configure">
+    <branch version="2.7.8" module="libxml2-2.7.8.tar.gz"
+            repo="xmlsoft.org"/>
+  </autotools>
+  -->
 
 </moduleset>
