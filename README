@@ -95,5 +95,5 @@ Issues:
 - webkit is not bundled (for html shownotes).
 I get errors when building libgnutls, one of its deps.
 
-- I set the locale explicitely to fr_FR.UTF-8 in gpodder.sh.
-I need to investigate why auto-detection doesn't work
+Using gPodder:
+see https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
