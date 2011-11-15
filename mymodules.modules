@@ -36,8 +36,11 @@
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
 	    tag="gpodder-3.0.1">
-	   <!-- <patch file="gpodder-gtk-osx-application.diff" strip="0"/> -->
     </branch>
+   <!-- can't have patches with git ? -->
+   <patches>
+   <patch file="gpodder-gtk-osx-application.diff" strip="1"/>
+   </patches>
     <dependencies>
       <dep package="pil"/>
       <dep package="feedparser"/>

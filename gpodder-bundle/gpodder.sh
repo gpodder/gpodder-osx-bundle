@@ -36,34 +36,6 @@ echo "PYTHONPATH=$PYTHONPATH"
 PYTHONHOME="$bundle_res"
 export PYTHONHOME
 
-# Strip out the argument added by the OS.
-if /bin/expr "x$1" : "x-psn_.*" > /dev/null; then
-    shift 1
-fi
-
-# use launchctl to load the session dbus if not already started by the session
-if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-    if test ! -f $bundle_res/var/lib/dbus/machine-id ; then
-        echo generating dbus machine id
-        mkdir -p $bundle_res/var/lib/dbus
-        $bundle_bin/dbus-uuidgen --ensure=$bundle_res/var/lib/dbus/machine-id
-    fi
-    plist="$bundle_res"/Library/LaunchAgents/org.freedesktop.dbus-session.plist
-    daemon_path="$bundle_res"/bin/dbus-daemon
-    if ! grep -q $daemon_path "$plist" ; then
-        echo rewritting plist
-        /usr/bin/sed "s,@BUNDLE_RES@,$bundle_res," $plist.in > $plist
-    fi
-    echo launching session dbus
-    launchctl load $bundle_res/Library/LaunchAgents/org.freedesktop.dbus-session.plist
-fi
-
 #Note that we're calling $PYTHON here to override the version in
 #pygtk-demo's shebang.
-$EXEC $PYTHON "$bundle_contents/Resources/bin/gpodder" "-v"
-
-# unload the session dbus on exit 
-if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-    echo unlaunch session dbus
-    launchctl unload $bundle_res/Library/LaunchAgents/org.freedesktop.dbus-session.plist
-fi
+$EXEC $PYTHON "$bundle_contents/Resources/bin/gpodder" $*

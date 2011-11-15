@@ -108,10 +108,51 @@
   </translations>
 
 
-  <!-- We have to pull in the python modules, which are mixed python
-       and loadable modules.  -->
+  <!-- Be careful, only to pick required python modules  -->
+  
+  <!-- standard install minus unused -->
   <data>
-    ${prefix}/lib/python2.7/
+  ${prefix}/lib/python2.7/*.py
+  </data>
+  <data>${prefix}/lib/python2.7/bsddb</data>
+  <data>${prefix}/lib/python2.7/compiler</data>
+  <data>${prefix}/lib/python2.7/config</data>
+  <data>${prefix}/lib/python2.7/ctypes</data>
+  <data>${prefix}/lib/python2.7/curses</data>
+  <data>${prefix}/lib/python2.7/email</data>
+  <data>${prefix}/lib/python2.7/encodings</data>
+  <data>${prefix}/lib/python2.7/hotshot</data>
+  <data>${prefix}/lib/python2.7/importlib</data>
+  <data>${prefix}/lib/python2.7/json</data>
+  <data>${prefix}/lib/python2.7/lib-dynload</data>
+  <data>${prefix}/lib/python2.7/logging</data>
+  <data>${prefix}/lib/python2.7/multiprocessing</data>
+  <data>${prefix}/lib/python2.7/plat-darwin</data>
+  <data>${prefix}/lib/python2.7/plat-mac</data>
+  <data>${prefix}/lib/python2.7/sqlite3</data>
+  <data>${prefix}/lib/python2.7/wsgiref</data>
+  <data>${prefix}/lib/python2.7/xml</data>
+  <!-- only required extra modules (no dbus, for instance) -->
+  <data>${prefix}/lib/python2.7/site-packages/feedparser.py</data>
+  <data>${prefix}/lib/python2.7/site-packages/pygtk.py</data>
+  <data>${prefix}/lib/python2.7/site-packages/pygtk.pth</data>
+  <data>${prefix}/lib/python2.7/site-packages/cairo</data>
+  <data>${prefix}/lib/python2.7/site-packages/glib</data>
+  <data>${prefix}/lib/python2.7/site-packages/gobject</data>
+  <data>${prefix}/lib/python2.7/site-packages/gpodder</data>
+  <data>${prefix}/lib/python2.7/site-packages/gtk-2.0</data>
+  <data>${prefix}/lib/python2.7/site-packages/gtk_osxapplication</data>
+  <data>${prefix}/lib/python2.7/site-packages/mygpoclient</data>
+  <data>${prefix}/lib/python2.7/site-packages/webkit</data>
+	
+
+  <!-- Fake dbus module.
+       d-bus can be built and bundled, but it doesn't add any service
+       so it's not bundled to reduce the App size.
+       If somebody requires it, it will be added.
+    -->
+  <data dest="${bundle}/Contents/Resources/lib/python2.7/site-packages/dbus">
+    ${env:JHBUILD_SOURCE}/gpodder/tools/fake-dbus-module/dbus
   </data>
 
   <binary>
@@ -119,41 +160,12 @@
   </binary>
 
   <binary>
-    ${prefix}/lib/python2.7/site-packages/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/PIL/*.so
-  </binary>
-  <binary>
     ${prefix}/lib/python2.7/site-packages/gtk_osxapplication/*.so
   </binary>
   <binary>
     ${prefix}/lib/python2.7/site-packages/webkit/*.so
   </binary>
 
-  <binary>
-    ${prefix}/bin/dbus-uuidgen
-  </binary>
-
-  <binary>
-    ${prefix}/bin/dbus-daemon
-  </binary>
-
-
-  
-  
-  
-  <!-- <data dest='${bundle}/Contents/Resources/var/lib/dbus/machine-id'>
-    ${prefix}/var/lib/dbus/machine-id
-  </data> -->
-
-  <data dest='${bundle}/Contents/Resources/Library/LaunchAgents/org.freedesktop.dbus-session.plist.in'>
-    ${project}/org.freedesktop.dbus-session.plist.in
-  </data>
-  
-  <data dest='${bundle}/Contents/Resources/etc/dbus-1/'>
-    ${prefix}/etc/dbus-1/
-  </data>
   
   <data>
     ${prefix}/include/python2.7
@@ -182,9 +194,16 @@
     ${prefix}/share/icons/hicolor/scalable/apps
   </data>
 
+  <!-- use the icons of gpodder itself
+  <data dest="${bundle}/Contents/Resources/gPodder.icns">
+    ${env:JHBUILD_SOURCE}/gpodder/data/osx/icon.icns
+  </data>
+   -->
+   
   <data dest="${bundle}/Contents/Resources/gPodder.icns">
     ${project}/gPodder.icns
   </data>
+  
   <!-- Wrapper for gPodder 2 to 3 conversion script -->
   <data dest="${bundle}/Contents/MacOS/gpodder-migrate2tres">
     ${project}/gpodder-migrate2tres.sh
@@ -195,14 +214,6 @@
   <data>
     ${prefix}/share/themes/ClearLooks
   </data>
-
-  <!-- Copy icons. Note that the .icns file is an Apple format which
-       contains up to 4 sizes of icon. You can use
-       /Developer/Applications/Utilities/Icon Composer.app to import
-       artwork and create the file. >
-  <data dest="${bundle}/Contents/Resources">
-    ${project}/Giggle.icns
-  </data -->
 
   <!-- This is where theme commands go. You can copy them in from your
        theme of choice if they provide and example, or you can just
