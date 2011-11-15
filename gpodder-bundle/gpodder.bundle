@@ -127,6 +127,9 @@
   <binary>
     ${prefix}/lib/python2.7/site-packages/gtk_osxapplication/*.so
   </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/webkit/*.so
+  </binary>
 
   <binary>
     ${prefix}/bin/dbus-uuidgen

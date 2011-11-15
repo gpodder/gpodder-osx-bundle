@@ -18,8 +18,20 @@
     href="http://dbus.freedesktop.org/releases/"/>
   <repository type="tarball" name="xmlsoft.org"
 	    href="ftp://xmlsoft.org/"/>
-<repository type="tarball" name="webkitgtk.org"
+  <repository type="tarball" name="webkitgtk.org"
     href="http://webkitgtk.org/"/>
+  <repository type='tarball' name='ftp.gnu.org' href="ftp://ftp.gnu.org/gnu/"/>
+  <repository type='tarball' name='ftp.gnupg.org' href="ftp://ftp.gnupg.org/" />
+  <repository type='tarball' name='libproxy.google.com'
+              href='http://libproxy.googlecode.com/files/'/>
+  <repository type='tarball' name='pywebkitgtk'
+              href='http://pywebkitgtk.googlecode.com/files/'/>
+  <repository type="tarball" name="webkit.org"
+              href="http://www.webkitgtk.org/"/>
+  <repository type="tarball" name="ftp.gnome.org"
+              href="http://ftp.gnome.org/pub/GNOME/sources/"/>
+  <repository type="tarball" name="icu-project.org"
+              href="http://download.icu-project.org/files"/>
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" checkoutdir="gpodder-3.0.0">
     <branch repo="gpodder" module="src/gpodder-3.0.0.tar.gz" md5sum="a6137625e21c494e04c96e5735f51128"
@@ -124,6 +136,120 @@
     </suggests>
   </autotools>
 
+  <autotools id="libgcrypt" autogen-sh="configure" autogenargs="--disable-asm">
+    <branch repo='ftp.gnupg.org' version='1.5.0'
+	    module='gcrypt/libgcrypt/libgcrypt-1.5.0.tar.bz2'/>
+    <dependencies>
+      <dep package="libgpg-error" />
+    </dependencies>
+  </autotools>
+
+  <autotools id="libtasn1" supports-non-srcdir-builds="no"
+	     autogen-sh="configure">
+    <branch repo="ftp.gnu.org" version='2.9'
+	    module="libtasn1/libtasn1-2.9.tar.gz"/>
+  </autotools>
+
+  <autotools id="gnutls" autogen-sh="configure" autogenargs="--with-libgcrypt --without-p11-kit">
+    <branch repo='ftp.gnu.org' version='2.12.11'
+            module="gnutls/gnutls-2.12.11.tar.bz2"/>
+    <dependencies>
+      <dep package="libgcrypt" />
+      <dep package="libtasn1" />
+      <dep package="zlib"/>
+      <!--dep package="opencdk" / -->
+    </dependencies>
+  </autotools>
+  <cmake id='libproxy' cmakeargs="-DWITH_PYTHON=OFF">
+    <branch version='0.4.7' module='libproxy-0.4.7.tar.gz'
+            repo='libproxy.google.com'>
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/libproxy-Bug-052-POSIX_C_SOURCE.patch" strip="1"/>
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/0001-Bug-168-libproxy-pc-file.patch" strip="1"/>
+    </branch>
+    <dependencies>
+      <dep package="cmake"/>
+    </dependencies>
+  </cmake>
+
+  <autotools id="glib-networking" autogen-sh="configure"
+	     autogenargs="--without-ca-certificates">
+    <branch repo="ftp.gnome.org"  module="glib-networking/2.28/glib-networking-2.28.7.tar.bz2"
+	    version="2.28.7" hash="sha256:98bedfbd530c4b1b53c91025fe82290bafd289d249e4eb549c3b90d23a76021c"/>
+    <dependencies>
+      <dep package="gnutls"/>
+      <dep package="libgcrypt"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="libsoup" autogen-sh="configure" autogenargs="">
+    <branch repo="ftp.gnome.org" module="libsoup/2.34/libsoup-2.34.3.tar.bz2"
+            version="2.34.3" md5sum="7112d198724f8d29fac4647ef400e39b" />
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="gnutls"/>
+      <dep package="glib-networking"/>
+      <!-- <dep package='gconf'/> -->
+      <dep package="libgnome-keyring"/>
+      <dep package="libproxy"/>
+      <dep package='sqlite'/>
+    </dependencies>
+  </autotools>
+  
+  <autotools id="icu" autogen-sh="configure" autogenargs="">
+    <branch repo="icu-project.org" module="files/icu4c/4.8.1/icu4c-4_8_1-src.tgz" checkoutdir="icu" source-subdir="source"
+            version="4.8.1" md5sum="af36f635271a239d76d038d6cf8da8df" />
+  </autotools>
+  
+   <!-- <autotools id="WebKit" autogen-sh="configure"
+	     autogenargs="- -with-target=quartz - -disable-video - -with-font-backend=pango - -enable-jit=no - -enable-introspection=no">
+    branch repo="webkit.org" module="webkit-1.1.12.tar.gz" version="1.1.12">
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit.patch" strip="1"/ 
+    <branch repo="webkit.org" module="webkit-1.1.15.4.tar.gz" version="1.1.15">
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit-1.1.15.patch" strip="1"/>
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit-disallowctype.patch" strip="1"/>
+    </branch>
+    <dependencies>
+      <dep package="libsoup"/>
+      <dep package="enchant"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+      <dep package="libcurl"/>
+      <dep package="bison"/>
+    </after>
+  </autotools> -->
+ 
+   <autotools id="WebKit" autogen-sh="configure"
+	     autogenargs="--with-target=quartz --disable-video --with-font-backend=pango --enable-jit=no --enable-introspection=no">
+    <branch repo="webkit.org" module="webkit-1.2.7.tar.gz" version="1.2.7">
+      <!-- 10.4 only <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-JavascriptCore-wtf-FastMalloc.cpp.diff" strip="0"/> -->
+      <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-quartz-WebCore-plugins-gtk-gtkxtbin.c.diff" strip="0"/>
+      <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-quartz-WebCore-plugins-gtk-PluginViewGtk.cpp.diff" strip="0"/>
+      <!-- <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-TextBreakIterator.diff" strip="0"/> -->
+      <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-WebCore-config-h.diff" strip="0"/>
+      <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-WebKitTools-DumpRenderTree-gtk-TestNetscapePlugin-TestNetscapePlugin.cpp.diff" strip="0"/>
+    </branch>
+    <dependencies>
+      <dep package="libsoup" />
+      <dep package="enchant" />
+      <dep package="icu" />
+      <dep package="libxslt" />
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+      <dep package="libcurl"/>
+      <dep package="bison"/>
+    </after>
+  </autotools>
+
+  <autotools id="pywebkitgtk" autogen-sh="configure" autogenargs="">
+    <branch repo="pywebkitgtk" module="pywebkitgtk-1.1.8.tar.bz2"
+            version="1.1.8" sha1sum="b7005c8bedd215032498dec543d937dd323d35da" />
+    <dependencies>
+      <dep package="webkitgtk"/>
+      <dep package="pygtk"/>
+    </dependencies>
+  </autotools>
   <!-- not needed here : it's in bootstrap
    <autotools id="libxml2" autogen-sh="configure">
     <branch version="2.7.8" module="libxml2-2.7.8.tar.gz"
