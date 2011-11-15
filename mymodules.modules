@@ -7,8 +7,8 @@
   <repository type="tarball" name="effbot" 
               href="http://effbot.org/downloads/"/>
 
-  <repository type="tarball" name="gpodder" 
-              href="http://gpodder.org/"/>
+  <repository type="git" name="github"
+      href="git://github.com/"/>
               
   <repository type="tarball" name="feedparser"
               href="http://feedparser.googlecode.com/files/"/>
@@ -33,11 +33,10 @@
   <repository type="tarball" name="icu-project.org"
               href="http://download.icu-project.org/files"/>
 
-  <autotools id="gpodder" skip-autogen="true" skip-configure="true" checkoutdir="gpodder-3.0.0">
-    <branch repo="gpodder" module="src/gpodder-3.0.0.tar.gz" md5sum="a6137625e21c494e04c96e5735f51128"
-    		sha1sum="32644629f534aaa33a13e3c1bc08f5fb2fcc07ac"
-	    version="3.0.0">
-	   <patch file="gpodder-gtk-osx-application.diff" strip="0"/>
+  <autotools id="gpodder" skip-autogen="true" skip-configure="true">
+    <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
+	    tag="gpodder-3.0.1">
+	   <!-- <patch file="gpodder-gtk-osx-application.diff" strip="0"/> -->
     </branch>
     <dependencies>
       <dep package="pil"/>
@@ -115,7 +114,7 @@
             hash="sha256:432464d8c9bd8060d9c1fdef1cfa75803c1a363ceac20b21f8c7e34e056e5a98"
             md5sum="8f4fda3969237c2a33bdb1583b5d06b2" size="4789450"/>
   </autotools>
-
+<!--
   <autotools id="WebKit" makefile="GNUmakefile">
     <branch repo="webkitgtk.org"
             module="webkit-1.6.1.tar.gz" version="1.6.1"
@@ -134,7 +133,7 @@
       <dep package="gst-plugins-base"/>
       <dep package="enchant"/>
     </suggests>
-  </autotools>
+  </autotools>-->
 
   <autotools id="libgcrypt" autogen-sh="configure" autogenargs="--disable-asm">
     <branch repo='ftp.gnupg.org' version='1.5.0'
@@ -200,25 +199,6 @@
             version="4.8.1" md5sum="af36f635271a239d76d038d6cf8da8df" />
   </autotools>
   
-   <!-- <autotools id="WebKit" autogen-sh="configure"
-	     autogenargs="- -with-target=quartz - -disable-video - -with-font-backend=pango - -enable-jit=no - -enable-introspection=no">
-    branch repo="webkit.org" module="webkit-1.1.12.tar.gz" version="1.1.12">
-      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit.patch" strip="1"/ 
-    <branch repo="webkit.org" module="webkit-1.1.15.4.tar.gz" version="1.1.15">
-      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit-1.1.15.patch" strip="1"/>
-      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/webkit-disallowctype.patch" strip="1"/>
-    </branch>
-    <dependencies>
-      <dep package="libsoup"/>
-      <dep package="enchant"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-core"/>
-      <dep package="libcurl"/>
-      <dep package="bison"/>
-    </after>
-  </autotools> -->
- 
    <autotools id="WebKit" autogen-sh="configure"
 	     autogenargs="--with-target=quartz --disable-video --with-font-backend=pango --enable-jit=no --enable-introspection=no">
     <branch repo="webkit.org" module="webkit-1.2.7.tar.gz" version="1.2.7">
