@@ -92,8 +92,7 @@ test by double-clicking on gPodder.app
 test by moving ~/gtk/inst away and re-launching
 
 Issues:
-- webkit is not bundled (for html shownotes).
-I get errors when building libgnutls, one of its deps.
+- none
 
 Using gPodder:
 see https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
