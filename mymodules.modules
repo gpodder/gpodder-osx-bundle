@@ -32,6 +32,8 @@
               href="http://ftp.gnome.org/pub/GNOME/sources/"/>
   <repository type="tarball" name="icu-project.org"
               href="http://download.icu-project.org/files"/>
+  <repository type="tarball" name="galago"
+              href="http://www.galago-project.org/files/releases/source/"/>
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
@@ -239,5 +241,42 @@
             repo="xmlsoft.org"/>
   </autotools>
   -->
+  
+  <autotools id="libnotify">
+    <branch repo="ftp.gnome.org" module="libnotify/0.5/libnotify-0.5.2.tar.bz2"
+            md5sum="4361058ae4e28a9ffce6764e7d03acd1"  version="0.5.2">
+    	<patch file="http://trac.macports.org/export/87274/trunk/dports/devel/libnotify/files/patch-libnotify-notification-c.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="dbus"/>
+    </dependencies>
+  </autotools>
 
+  <autotools id="notify-python">
+    <branch repo="galago" module="notify-python/notify-python-0.1.1.tar.bz2"
+            md5sum="d247cf79b46cef7495deb0a76334f81d"  version="0.1.1">
+    	<patch file="http://trac.macports.org/export/87274/trunk/dports/python/py27-notify-python/files/patch-src-pynotifymodule-c.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="dbus"/>
+      <dep package="dbus-python" />
+    </dependencies>
+  </autotools>
+  
+  <autotools id="Notifications2Growl" autogen-sh="configure">
+    <branch repo="github" module="elelay/Notifications2Growl.git"  checkoutdir="Notifications2Growl"
+    >
+    </branch>
+   <!-- can't have patches with git ? -->
+   <patches>
+   <!-- <patch file="gpodder-gtk-osx-application.diff" strip="1"/> -->
+   </patches>
+    <dependencies>
+      <dep package="dbus-glib"/>
+      <dep package="libnotify"/>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
 </moduleset>
