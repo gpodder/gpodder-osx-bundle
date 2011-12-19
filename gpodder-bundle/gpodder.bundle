@@ -194,16 +194,10 @@
     ${prefix}/share/icons/hicolor/scalable/apps
   </data>
 
-  <!-- use the icons of gpodder itself
   <data dest="${bundle}/Contents/Resources/gPodder.icns">
     ${env:JHBUILD_SOURCE}/gpodder/data/osx/icon.icns
   </data>
-   -->
    
-  <data dest="${bundle}/Contents/Resources/gPodder.icns">
-    ${project}/gPodder.icns
-  </data>
-  
   <!-- Wrapper for gPodder 2 to 3 conversion script -->
   <data dest="${bundle}/Contents/MacOS/gpodder-migrate2tres">
     ${project}/gpodder-migrate2tres.sh

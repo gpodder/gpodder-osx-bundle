@@ -35,7 +35,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.0.1">
+	    tag="gpodder-3.0.2">
     </branch>
    <!-- can't have patches with git ? -->
    <patches>
