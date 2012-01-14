@@ -10,6 +10,6 @@ rm ~/Desktop/gPodder.app/Contents/MacOS/gPodder-bin
 rm -Rf ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/qml
 
 # Command-XX shortcuts in gPodder menus 
-/usr/bin/sed -i "" 's/GDK_CONTROL_MASK/GDK_META_MASK/' ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/desktop/gpodder.ui
-/usr/bin/sed -i "" 's/<accelerator key="P"/<accelerator key=","/' ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/desktop/gpodder.ui
+/usr/bin/xsltproc -o gpodder.ui.tmp adjust-modifiers.xsl ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/desktop/gpodder.ui
+mv gpodder.ui.tmp ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/desktop/gpodder.ui
 
