@@ -28,7 +28,7 @@
 	  <xsl:copy>
 	  	<xsl:apply-templates select="@*|node()"/>
 	  </xsl:copy>
-          <accelerator key="comma" modifiers="GDK_META_MASK"/>
+          <accelerator key="question" modifiers="GDK_META_MASK"/>
 	</xsl:template>
 
 </xsl:stylesheet>
