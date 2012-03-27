@@ -195,7 +195,7 @@
   </data>
 
   <data dest="${bundle}/Contents/Resources/gPodder.icns">
-    ${env:JHBUILD_SOURCE}/gpodder/data/osx/icon.icns
+    ${env:JHBUILD_SOURCE}/gpodder/tools/mac-osx/icon.icns
   </data>
    
   <!-- Wrapper for gPodder 2 to 3 conversion script -->
