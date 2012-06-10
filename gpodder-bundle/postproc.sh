@@ -13,3 +13,5 @@ rm -Rf ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/qml
 /usr/bin/xsltproc -o gpodder.ui.tmp adjust-modifiers.xsl ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/gpodder.ui
 mv gpodder.ui.tmp ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/gpodder.ui
 
+# check for dynamic linking consistency : nothing should reference gtk/inst
+find ~/Desktop/gPodder.app -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
