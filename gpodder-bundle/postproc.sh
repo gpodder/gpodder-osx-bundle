@@ -15,3 +15,6 @@ mv gpodder.ui.tmp ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/
 
 # check for dynamic linking consistency : nothing should reference gtk/inst
 find ~/Desktop/gPodder.app -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
+
+# Set the version and copyright automatically 
+/usr/bin/xsltproc -o ~/Desktop/gPodder.app/Contents/Info.plist info-plist.xsl Info-gpodder.plist
