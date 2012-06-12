@@ -2,7 +2,9 @@
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
-    <include href="http://git.gnome.org/browse/gtk-osx/plain/modulesets/gtk-osx.modules"/>
+ <!-- I use the definitions pulled by gtk-osx-setup.sh (stable branch)
+      otherwise some packages fail -->
+    <include href="../Source/jhbuild/modulesets/gtk-osx.modules"/>
 
   <repository type="tarball" name="effbot" 
               href="http://effbot.org/downloads/"/>
@@ -43,7 +45,8 @@
       <dep package="pil"/>
       <dep package="feedparser"/>
       <dep package="mygpoclient"/>
-      <dep package="dbus-python"/>
+      <!-- <dep package="dbus-python"/> -->
+      <dep package="pywebkitgtk"/>
     </dependencies>
   </autotools>
 
@@ -225,9 +228,9 @@
 
   <autotools id="pywebkitgtk" autogen-sh="configure" autogenargs="">
     <branch repo="pywebkitgtk" module="pywebkitgtk-1.1.8.tar.bz2"
-            version="1.1.8" sha1sum="b7005c8bedd215032498dec543d937dd323d35da" />
+            version="1.1.8" hash="sha1:b7005c8bedd215032498dec543d937dd323d35da" />
     <dependencies>
-      <dep package="webkitgtk"/>
+      <dep package="WebKit"/>
       <dep package="pygtk"/>
     </dependencies>
   </autotools>
