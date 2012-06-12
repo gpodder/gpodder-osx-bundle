@@ -193,10 +193,6 @@
   </data>
 
   <data>
-    ${prefix}/bin/gpodder-backup
-  </data>
-
-  <data>
     ${prefix}/bin/gpodder
   </data>
   <data>
