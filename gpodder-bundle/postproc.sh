@@ -8,6 +8,7 @@ find ~/Desktop/gPodder.app/Contents/Resources/lib/python2.7 -name '*.pyc' -delet
 find ~/Desktop/gPodder.app/Contents/Resources/lib/python2.7 -name '*.pyo' -delete
 rm -f ~/Desktop/gPodder.app/Contents/MacOS/gPodder-bin
 rm -Rf ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/qml
+rm -Rf ~/Desktop/gPodder.app/Contents/Resources/lib/python2.7/site-packages/gpodder/{qmlui,webui}
 
 # Command-XX shortcuts in gPodder menus 
 /usr/bin/xsltproc -o gpodder.ui.tmp adjust-modifiers.xsl ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/gpodder.ui
