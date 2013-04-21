@@ -142,6 +142,7 @@
   <data>${prefix}/lib/python2.7/site-packages/gpodder</data>
   <data>${prefix}/lib/python2.7/site-packages/gtk-2.0</data>
   <data>${prefix}/lib/python2.7/site-packages/gtkosx_application</data>
+  <data>${prefix}/lib/python2.7/site-packages/mutagen</data>
   <data>${prefix}/lib/python2.7/site-packages/mygpoclient</data>
   <data>${prefix}/lib/python2.7/site-packages/webkit</data>
 	
@@ -247,4 +248,8 @@
     Tango
   </icon-theme>
 
+  <!-- gPodder icon in the about dialog (gpodder.icon_file initialised in gpodder script) -->
+  <data dest="${bundle}/Contents/Resources/share/icons/hicolor/scalable/apps">
+  	${prefix}/share/icons/hicolor/scalable/apps/gpodder.svg
+  </data>
 </app-bundle>

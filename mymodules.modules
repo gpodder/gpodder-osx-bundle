@@ -41,6 +41,8 @@
               href="http://download.icu-project.org/files"/>
   <repository type="tarball" name="galago"
               href="http://www.galago-project.org/files/releases/source/"/>
+  <repository type="tarball" name="mutagen"
+              href="http://mutagen.googlecode.com/files/"/>
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
@@ -52,6 +54,8 @@
       <dep package="mygpoclient"/>
       <!-- <dep package="dbus-python"/> -->
       <dep package="pywebkitgtk"/>
+      <dep package="librsvg"/>
+      <dep package="mutagen"/>
     </dependencies>
   </autotools>
 
@@ -80,6 +84,14 @@
     <dependencies>
     <dep package="setuptools"/>
     </dependencies>
+</distutils>
+
+<distutils id="mutagen">
+    <branch repo="mutagen" checkoutdir="mutagen-1.21" module="http://mutagen.googlecode.com/files/mutagen-1.21.tar.gz"
+	    version="1.21"/>
+    <dependencies>
+    <dep package="setuptools"/>
+</dependencies>
 </distutils>
 
 <distutils id="mygpoclient">
@@ -310,5 +322,17 @@
     </after>
   </autotools>
 
+ <!-- configured with these environment variables:
+       CFLAGS='-O2 -arch x86_64' CXXFLAGS='-O2 -arch x86_64' \
+       MACOSX_DEPLOYMENT_TARGET='10.6' \
+       F90FLAGS='-O2 -m64' \
+       LDFLAGS='-arch x86_64' OBJC='/usr/bin/gcc-4.2' FCFLAGS='-O2 -m64' \
+       OBJCFLAGS='-O2 -arch x86_64' FFLAGS='-O2 -m64' \
+       CC_PRINT_OPTIONS='YES'
+  -->
+  <autotools id="librsvg" supports-non-srcdir-builds="no" autogenargs="--disable-gtk-theme --disable-gtk-doc">
+    <branch repo="ftp.gnome.org" module="librsvg/2.32/librsvg-2.32.1.tar.bz2" version="2.32.1"
+	    hash="sha256:91b98051f352fab8a6257688d6b2fd665b4648ed66144861f2f853ccf876d334"/>
+  </autotools>
 
 </moduleset>
