@@ -244,7 +244,8 @@
        if you want just the index.theme file but no icons, mostly
        needed for the "hicolor" base theme.
   -->
-  <icon-theme icons="auto">
+  <!-- must say all to get file-dependent icons (e.g. music note if it's an audio file) -->
+  <icon-theme icons="all">
     Tango
   </icon-theme>
 
@@ -252,4 +253,10 @@
   <data dest="${bundle}/Contents/Resources/share/icons/hicolor/scalable/apps">
   	${prefix}/share/icons/hicolor/scalable/apps/gpodder.svg
   </data>
+
+  <!-- get file-dependent icons (e.g. music note if it's an audio file) -->
+  <data dest="${bundle}/Contents/Resources/share/mime">
+  	${prefix}/share/mime
+  </data>
+
 </app-bundle>

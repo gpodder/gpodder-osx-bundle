@@ -56,6 +56,8 @@
       <dep package="pywebkitgtk"/>
       <dep package="librsvg"/>
       <dep package="mutagen"/>
+      <!-- to get nice icons for downloaded files -->
+      <dep package="shared-mime-info" /> 
     </dependencies>
   </autotools>
 
@@ -334,5 +336,24 @@
     <branch repo="ftp.gnome.org" module="librsvg/2.32/librsvg-2.32.1.tar.bz2" version="2.32.1"
 	    hash="sha256:91b98051f352fab8a6257688d6b2fd665b4648ed66144861f2f853ccf876d334"/>
   </autotools>
+
+  <!-- this install has been quite hard: I couldn't use intltool-merge because
+       perl-xml-parser had been built universal and expat not.
+       So I've used the intltool-merge from macports.
+       I then had to manually modify the makefile which insisted in building for i386
+       while everything else is built x86_64 (so it couldn't find symbols).
+  -->  
+  <repository type="tarball" name="hadess"
+              href="http://freedesktop.org/~hadess/"/>
+  <autotools id="shared-mime-info"  autogen-sh="configure"
+             supports-non-srcdir-builds="no" >
+    <branch module="shared-mime-info-0.90.tar.bz2" version="0.90"
+            repo="hadess"/>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
 
 </moduleset>
