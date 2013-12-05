@@ -10,6 +10,11 @@ rm -f ~/Desktop/gPodder.app/Contents/MacOS/gPodder-bin
 rm -Rf ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/qml
 rm -Rf ~/Desktop/gPodder.app/Contents/Resources/lib/python2.7/site-packages/gpodder/{qmlui,webui}
 
+# remove the check for DISPLAY variable since it's not used AND it's not
+# available on Mavericks (see bug #1855)
+mydir=`pwd`
+(cd ~/Desktop/gPodder.app/Contents/Resources && patch -p0 < "$mydir/dont_check_display.patch")
+
 # Command-XX shortcuts in gPodder menus 
 /usr/bin/xsltproc -o gpodder.ui.tmp adjust-modifiers.xsl ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/gpodder.ui
 mv gpodder.ui.tmp ~/Desktop/gPodder.app/Contents/Resources/share/gpodder/ui/gtk/gpodder.ui
