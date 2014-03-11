@@ -46,7 +46,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.6.0">
+	    tag="gpodder-3.6.1">
     </branch>
     <dependencies>
       <dep package="pil"/>
