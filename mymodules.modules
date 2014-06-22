@@ -6,6 +6,10 @@
       otherwise some packages fail -->
     <include href="../Source/jhbuild/modulesets/gtk-osx.modules"/>
 
+  <repository type="git" name="svn.gnome.org"
+      href="git://git.gnome.org/">
+  </repository>
+
   <repository type="tarball" name="effbot" 
               href="http://effbot.org/downloads/"/>
 
@@ -46,7 +50,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.6.1">
+	    tag="gpodder-3.7.0">
     </branch>
     <dependencies>
       <dep package="pil"/>
@@ -65,6 +69,7 @@
     <branch repo="effbot" checkoutdir="pil-1.1.7" module="Imaging-1.1.7.tar.gz"
 	    version="1.1.7">
 	   <patch file="fix-pil.diff" strip="0"/>
+	   <patch file="fix-pil-ft2.diff" strip="0"/>
     </branch>
     <dependencies>
       <dep package="lcms"/>
@@ -77,9 +82,6 @@
 	    version="4.1" md5sum="7df2a529a074f613b509fb44feefe74e"/>
 </distutils>
 
-<!-- beware: creates an .egg in gtk/inst, doesn't copy the .py 
-     I didn't bother to fix this and simply unzipped the egg in place
-  -->
 <distutils id="feedparser">
     <branch repo="feedparser" checkoutdir="feedparser-5.1.3" module="feedparser-5.1.3.zip"
 	    version="5.1.3"/>
@@ -147,26 +149,6 @@
             hash="sha256:432464d8c9bd8060d9c1fdef1cfa75803c1a363ceac20b21f8c7e34e056e5a98"
             md5sum="8f4fda3969237c2a33bdb1583b5d06b2" size="4789450"/>
   </autotools>
-<!--
-  <autotools id="WebKit" makefile="GNUmakefile">
-    <branch repo="webkitgtk.org"
-            module="webkit-1.6.1.tar.gz" version="1.6.1"
-            md5sum="e6eb43bb4f75b4a2a09aec95e2f43e91" size="6059243"/>
-    <dependencies>
-      <dep package="cairo"/>
-      <dep package="fontconfig"/>
-      <dep package="libxml2"/>
-      <dep package="gtk+"/>
-      <dep package="pango"/>
-      <dep package="libsoup"/>
-    </dependencies>
-    <suggests>
-      <dep package="libxslt"/>
-      <dep package="sqlite3"/>
-      <dep package="gst-plugins-base"/>
-      <dep package="enchant"/>
-    </suggests>
-  </autotools>-->
 
   <autotools id="libgcrypt" autogen-sh="configure" autogenargs="--disable-asm">
     <branch repo='ftp.gnupg.org' version='1.5.0'
@@ -232,7 +214,7 @@
             version="4.8.1" md5sum="af36f635271a239d76d038d6cf8da8df" />
   </autotools>
   
-   <autotools id="WebKit" autogen-sh="configure"
+  <autotools id="WebKit" autogen-sh="configure"
 	     autogenargs="--with-target=quartz --disable-video --with-font-backend=pango --enable-jit=no --enable-introspection=no">
     <branch repo="webkit.org" module="webkit-1.2.7.tar.gz" version="1.2.7">
       <!-- 10.4 only <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-JavascriptCore-wtf-FastMalloc.cpp.diff" strip="0"/> -->
@@ -240,7 +222,9 @@
       <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-quartz-WebCore-plugins-gtk-PluginViewGtk.cpp.diff" strip="0"/>
       <!-- <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-TextBreakIterator.diff" strip="0"/> -->
       <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-WebCore-config-h.diff" strip="0"/>
+      <patch file="https://trac.macports.org/raw-attachment/ticket/33957/patch-JavaScriptCore-wtf-gobject-GOwnPtr.h.diff" strip="0"/>
       <patch file="http://trac.macports.org/export/87125/trunk/dports/www/webkit-gtk/files/patch-WebKitTools-DumpRenderTree-gtk-TestNetscapePlugin-TestNetscapePlugin.cpp.diff" strip="0"/>
+      <patch file="http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/net-libs/webkit-gtk/files/webkit-gtk-1.2.7-libpng15.patch?revision=1.2" strip="0"/>
     </branch>
     <dependencies>
       <dep package="libsoup" />
@@ -263,12 +247,6 @@
       <dep package="pygtk"/>
     </dependencies>
   </autotools>
-  <!-- not needed here : it's in bootstrap
-   <autotools id="libxml2" autogen-sh="configure">
-    <branch version="2.7.8" module="libxml2-2.7.8.tar.gz"
-            repo="xmlsoft.org"/>
-  </autotools>
-  -->
   
   <autotools id="libnotify">
     <branch repo="ftp.gnome.org" module="libnotify/0.5/libnotify-0.5.2.tar.bz2"
@@ -308,41 +286,11 @@
     </dependencies>
   </autotools>
   
-  <!-- built using :1,$s/i386/x86_64/g on all Makefiles because configure
-       decided to build with arch=i386 while everything else is x86_64
-    -->
-  <autotools id="gtk-mac-integration-python" autogen-sh="configure"
-             autogenargs="--enable-python">
-    <branch repo="ftp.gnome.org" module="gtk-mac-integration/2.0/gtk-mac-integration-2.0.1.tar.xz"
-            version="2.0.1"
-	    hash="sha256:1a3f6c418819499bbf63a1bb8da7f725eb07c3a929028b7bd0c3d5cd5077a181"/>
-    <dependencies>
-    </dependencies>
-    <after>
-      <dep package="pygtk"/>
-      <dep package="pygobject3"/>
-    </after>
-  </autotools>
-
- <!-- configured with these environment variables:
-       CFLAGS='-O2 -arch x86_64' CXXFLAGS='-O2 -arch x86_64' \
-       MACOSX_DEPLOYMENT_TARGET='10.6' \
-       F90FLAGS='-O2 -m64' \
-       LDFLAGS='-arch x86_64' OBJC='/usr/bin/gcc-4.2' FCFLAGS='-O2 -m64' \
-       OBJCFLAGS='-O2 -arch x86_64' FFLAGS='-O2 -m64' \
-       CC_PRINT_OPTIONS='YES'
-  -->
   <autotools id="librsvg" supports-non-srcdir-builds="no" autogenargs="--disable-gtk-theme --disable-gtk-doc">
     <branch repo="ftp.gnome.org" module="librsvg/2.32/librsvg-2.32.1.tar.bz2" version="2.32.1"
 	    hash="sha256:91b98051f352fab8a6257688d6b2fd665b4648ed66144861f2f853ccf876d334"/>
   </autotools>
 
-  <!-- this install has been quite hard: I couldn't use intltool-merge because
-       perl-xml-parser had been built universal and expat not.
-       So I've used the intltool-merge from macports.
-       I then had to manually modify the makefile which insisted in building for i386
-       while everything else is built x86_64 (so it couldn't find symbols).
-  -->  
   <repository type="tarball" name="hadess"
               href="http://freedesktop.org/~hadess/"/>
   <autotools id="shared-mime-info"  autogen-sh="configure"

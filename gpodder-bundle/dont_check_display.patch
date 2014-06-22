@@ -1,0 +1,13 @@
+--- bin/gpodder.old	2013-12-03 18:38:56.000000000 +0100
++++ bin/gpodder	2013-12-03 18:39:30.000000000 +0100
+@@ -155,10 +155,6 @@
+             except dbus.exceptions.DBusException, dbus_exception:
+                 logger.info('Cannot connect to remote object.', exc_info=True)
+ 
+-    if not gpodder.ui.win32 and os.environ.get('DISPLAY', '') == '':
+-        logger.error('Cannot start gPodder: $DISPLAY is not set.')
+-        sys.exit(1)
+-
+     if gpodder.ui.qml:
+         from gpodder import qmlui
+         gpodder.ui_folders.insert(0, os.path.join(ui_folder, 'qml'))

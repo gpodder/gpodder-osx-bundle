@@ -23,10 +23,6 @@ export GTK2_RC_FILES="$bundle_etc/gtk-2.0/gtkrc"
 export GTK_IM_MODULE_FILE="$bundle_etc/gtk-2.0/gtk.immodules"
 export GDK_PIXBUF_MODULE_FILE="$bundle_etc/gtk-2.0/gdk-pixbuf.loaders"
 
-# Pango wants these 2 otherwise it displays square boxes instead of letters
-export PANGO_SYSCONFDIR="$bundle_etc"
-export PANGO_LIBDIR="$bundle_lib"
-
 #Set $PYTHON to point inside the bundle
 export PYTHON="$bundle_contents/MacOS/python"
 #Add the bundle's python modules
@@ -40,5 +36,5 @@ PYTHONHOME="$bundle_res"
 export PYTHONHOME
 
 #Note that we're calling $PYTHON here to override the version in
-#pygtk-demo's shebang.
-$EXEC $PYTHON "$bundle_contents/Resources/bin/gpodder" $*
+#gpodder-migrate2tres's shebang.
+$EXEC $PYTHON "$bundle_contents/Resources/bin/gpodder-migrate2tres"
