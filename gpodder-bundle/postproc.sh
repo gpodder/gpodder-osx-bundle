@@ -24,3 +24,5 @@ find ~/Desktop/gPodder.app -name '*.so' -and -print -and  -exec sh -c 'otool -L 
 
 # Set the version and copyright automatically 
 /usr/bin/xsltproc -o ~/Desktop/gPodder.app/Contents/Info.plist info-plist.xsl Info-gpodder.plist
+# list the provenance of every file in the bundle
+./provenance.pl ~/Desktop/gPodder.app > ~/Desktop/gPodder.contents
