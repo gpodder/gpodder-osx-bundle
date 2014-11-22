@@ -50,7 +50,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.8.1">
+	    tag="gpodder-3.8.3">
     </branch>
     <dependencies>
       <!-- not used anymore <dep package="pil"/>-->
@@ -91,8 +91,8 @@
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="mutagen" checkoutdir="mutagen-1.21" module="http://mutagen.googlecode.com/files/mutagen-1.21.tar.gz"
-	    version="1.21"/>
+    <branch repo="mutagen" checkoutdir="mutagen-1.26" module="https://bitbucket.org/lazka/mutagen/downloads/mutagen-1.26.tar.gz"
+	    version="1.26"/>
     <dependencies>
     <dep package="setuptools"/>
 </dependencies>
