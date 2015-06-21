@@ -10,8 +10,14 @@
 	xmlns:date="http://exslt.org/dates-and-times"
         extension-element-prefixes="str date">
 
+        <xsl:param name="version-param" />
         <xsl:variable name="tag" select="string(document('../mymodules.modules')/moduleset/*[@id='gpodder']/branch/@tag)"/>
-        <xsl:variable name="myversion" select="substring-after($tag,'gpodder-')"/>
+        <xsl:variable name="myversion">
+            <xsl:choose>
+                <xsl:when test="$version-param"><xsl:value-of select="$version-param"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="substring-after($tag,'gpodder-')"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="myyear" select="date:year()"/>
         
         <xsl:template match="/">

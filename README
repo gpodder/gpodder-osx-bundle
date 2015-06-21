@@ -3,7 +3,7 @@ gPodder as a native GTK+ Quartz application for Mac OS X 10.6 and 10.7
 
 I used them to build on a 10.6 X86_64 machine.
 
-Instructions:
+# Instructions
 
 place into ~/mymodules
 
@@ -28,7 +28,7 @@ edit gtk-osx.modules to comment out gtk-osx-javascript.modules (would give an er
 chmod u+w ~/gtk/inst/lib/libpython2.7.dylib
 chmod u+w ~/gtk/inst/lib/libreadline.6.2.dylib 
 
-Installing gPodder:
+# Installing gPodder
 Latest version of gPodder is used, with a few custom patches (see postproc.sh)
 
 jhbuild build gpodder (error checkout libproxy: missing patch 404, ignore and move on)
@@ -36,7 +36,7 @@ jhbuild build meta-gtk-osx-themes
 
 
 
-Bundling gPodder:
+# Bundling gPodder
 install gtk-mac-bundler, following http://live.gnome.org/GTK%2B/OSX/Bundling
 cd mymodules/gpodder-bundle
 jhbuild shell
@@ -46,8 +46,21 @@ produces gPodder.app in Desktop
 test by double-clicking on gPodder.app
 test by moving ~/gtk/inst away and re-launching
 
-Issues:
-- none
+# Releasing
 
-Using gPodder:
-see https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
+Releasing on OS X
+ 1. see *Bundling gPodder*
+ 2. ./release.sh ~/gPodder.app version_buildnumber
+ 3. ./release_deps.sh ~/gPodder.app version_buildnumber
+ 
+Releasing on Linux by patching deps:
+ 4. ./release_on_linux.sh ~/Downloads/gPodder-3.8.4_0.deps.zip /tmp/gpodder master f699341
+
+# Issues
+
+See https://github.com/elelay/gpodder-osx-bundle
+
+# Using gPodder:
+
+See https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
+And the official help guide http://gpodder.org/documentation
