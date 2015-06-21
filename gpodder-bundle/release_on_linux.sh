@@ -94,4 +94,4 @@ mv gpodder.ui.tmp "$resources"/share/gpodder/ui/gtk/gpodder.ui
 cp "$checkout"/tools/mac-osx/icon.icns "$resources"/gPodder.icns
 
 # release the thing
-"$mydir"/release.sh "$app" "${version}_${build}".deps
+"$mydir"/release.sh "$app" "${version}_${build}"
