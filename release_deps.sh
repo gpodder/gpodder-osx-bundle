@@ -1,6 +1,12 @@
-#!/bin/bash -x
+#!/bin/bash
 
 usage="Usage: $0 /path/to/gPodder.app version_buildnumber"
+
+source env.sh
+
+JHBUILD_PREFIX="$HOME/jhbuild_prefix"
+mydir=`pwd`
+
 
 if [ -z "$1" ] ; then
 	echo "$usage"
@@ -21,11 +27,7 @@ else
 	shift
 fi
 
-
 contents="${app%.app}.contents"
-
-me=$(readlink -e "$0")
-mydir=$(dirname "$me")
 
 resources="$app"/Contents/Resources
 
@@ -39,7 +41,7 @@ rm     "$resources"/gPodder.icns
 rm     "$app"/Contents/Info.plist
 
 # list the provenance of every file in the bundle
-"$mydir"/provenance.pl "$app" > "$contents"
+"$mydir"/misc/provenance.pl "$JHBUILD_PREFIX" "$app" > "$contents"
 
 # release the thing
 "$mydir"/release.sh "$app" "$version_buildnumber".deps

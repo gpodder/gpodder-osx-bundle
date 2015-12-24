@@ -1,10 +1,6 @@
 #!/bin/sh
 
-name=`basename "$0"`
-tmp="$0"
-tmp=`dirname "$tmp"`
-tmp=`dirname "$tmp"`
-bundle=`dirname "$tmp"`
+bundle="$(dirname "$(dirname "$(dirname "$0")")")"
 bundle_contents="$bundle"/Contents
 bundle_res="$bundle_contents"/Resources
 bundle_lib="$bundle_res"/lib
@@ -13,6 +9,7 @@ bundle_data="$bundle_res"/share
 bundle_etc="$bundle_res"/etc
 
 export DYLD_LIBRARY_PATH="$bundle_lib"
+
 export XDG_CONFIG_DIRS="$bundle_etc"/xdg
 export XDG_DATA_DIRS="$bundle_data"
 export GTK_DATA_PREFIX="$bundle_res"
@@ -27,18 +24,24 @@ export GDK_PIXBUF_MODULE_FILE="$bundle_etc/gtk-2.0/gdk-pixbuf.loaders"
 export PANGO_SYSCONFDIR="$bundle_etc"
 export PANGO_LIBDIR="$bundle_lib"
 
+# Strip out the argument added by the OS.
+if /bin/expr "x$1" : '^x-psn_' > /dev/null; then
+    shift 1
+fi
+
 #Set $PYTHON to point inside the bundle
 export PYTHON="$bundle_contents/MacOS/python"
-#Add the bundle's python modules
-PYTHONPATH="$bundle_lib/python2.7:$PYTHONPATH"
-PYTHONPATH="$bundle_lib/python2.7/site-packages:$PYTHONPATH"
-#Add our program's modules to $PYTHONPATH. 
-PYTHONPATH="$bundle_lib/python2.7/gtk-2.0:$PYTHONPATH"
-export PYTHONPATH
-echo "PYTHONPATH=$PYTHONPATH"
-PYTHONHOME="$bundle_res"
-export PYTHONHOME
+export PYTHONHOME="$bundle_res"
 
-#Note that we're calling $PYTHON here to override the version in
-#pygtk-demo's shebang.
-$EXEC $PYTHON "$bundle_contents/Resources/bin/gpodder" $*
+# select target based on our basename
+APP=$(basename "$0")
+if [ "$APP" == "run" ]; then
+    "$PYTHON" "$@"
+elif  [ "$APP" == "gst-plugin-scanner" ]; then
+    # Starting with 10.11 OSX will no longer pass DYLD_LIBRARY_PATH
+    # to child processes. To work around use this launcher for the
+    # GStreamer plugin scanner helper
+    "$bundle_res/libexec/gstreamer-1.0/gst-plugin-scanner" "$@"
+else
+    "$PYTHON" "$bundle_contents/Resources/bin/$APP" "$@"
+fi

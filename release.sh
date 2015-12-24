@@ -28,7 +28,7 @@ appname=$(basename "$app")
 zip="${appname%.app}-$version.zip"
 contents="${appname%.app}.contents"
 
-if (which md5 2> /dev/null) ; then
+if (which md5 >& /dev/null) ; then
 	MD5=md5
 else
 	MD5=md5sum
@@ -40,7 +40,7 @@ if [ -f "$zip" ] ; then
 	exit -1
 fi
 echo "Creating $d/$zip..."
-zip -rq "$zip" "$appname" "$contents"
+zip --symlinks -rq "$zip" "$appname" "$contents"
 
 echo "Checksumming..."
 shasum -a256 "$zip" > "$zip.sha256"

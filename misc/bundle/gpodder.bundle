@@ -18,7 +18,7 @@
          app. If you leave out the path, the current directory is
          used. Note the usage of an environment variable here again.
     -->
-    <destination overwrite="yes">${env:HOME}/Desktop</destination>
+    <destination overwrite="yes">${env:QL_OSXBUNDLE_BUNDLE_DEST}</destination>
 
     <!-- Comment this out to keep the install names in binaries.  -->
     <run-install-name-tool/>
@@ -26,7 +26,7 @@
     <!--A launcher script is pretty much mandatory here so that we can
          set $PYTHON to point to the python in the bundle.
     -->
-    <launcher-script>${project}/gpodder.sh</launcher-script >
+    <launcher-script>${project}/launcher.sh</launcher-script >
 
      <!-- Indicate the active gtk version to use. This is needed only
          for gtk+-3.0 projects. -->
@@ -37,7 +37,7 @@
        this bundle file is located. The application name and bundle
        identifier are taken from the plist file.
   -->
-  <plist>${project}/Info-gpodder.plist</plist>
+  <plist>${project}/Info.plist</plist>
 
  <!-- This is mandatory, and the result gets named to the appname from
       Info.plist with bin tacked on the end, in this example,
@@ -45,7 +45,7 @@
       so we use the original and ignore it. If your original will work
       in the bundle, you can use this instead.-->
  <main-binary>
-     ${prefix}/bin/gpodder
+     ${prefix}/bin/python
   </main-binary>
 
   <!-- We need to pack our own Python to avoid compatibility problems. -->
@@ -221,15 +221,6 @@
     ${env:JHBUILD_SOURCE}/gpodder/tools/mac-osx/icon.icns
   </data>
    
-  <!-- Wrapper for gPodder 2 to 3 conversion script -->
-  <data dest="${bundle}/Contents/MacOS/gpodder-migrate2tres">
-    ${project}/gpodder-migrate2tres.sh
-  </data>
-  <!-- Wrapper for gpo command-line interface -->
-  <data>
-    ${prefix}/bin/gpo
-  </data>
-  
   <!-- Copy in the themes data. You may want to trim this to save space
        in your bundle. -->
   <data>

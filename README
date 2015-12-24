@@ -1,57 +1,64 @@
+OS X Bundle Build Scripts
+=========================
+
+
 This is a collection of files required to build gPodder.app :
 gPodder as a native GTK+ Quartz application for Mac OS X 10.6 and 10.7
 
 I used them to build on a 10.6 X86_64 machine.
 
-# Instructions
-
-place into ~/mymodules
-
-copy dot_jhbuildrc-custom to ~/.jhbuildrc-custom or better, merge my modifications to your config file
-
-If you have MacPorts installed, you must ensure to remove it from the path,
-to only build against system libraries.
-It might also be a good idea to move it to some non standard location
-during the build: some configure scripts are a bit too clever and will use it even if it's not in the path.
-
-Follow instructions in http://live.gnome.org/GTK%2B/OSX/Building
- - bootstrap
-   Be sure to skip building libiconv (see https://mail.gnome.org/archives/gtk-osx-users-list/2011-July/msg00001.html)
-   otherwise the resulting application will not run under 10.7.
-edit gtk-osx.modules to comment out gtk-osx-javascript.modules (would give an error as soon as one tries to build meta-gtk-osx-bootstrap) 
- - meta-gtk-osx-bootstrap
- - meta-gtk-osx-freetype (this is the key to getting pangoft2 and also fontconfig for librsvg)
- - meta-gtk-osx-core
- - python
- - meta-gtk-osx-python
-
-chmod u+w ~/gtk/inst/lib/libpython2.7.dylib
-chmod u+w ~/gtk/inst/lib/libreadline.6.2.dylib 
-
-# Installing gPodder
-Latest version of gPodder is used, with a few custom patches (see postproc.sh)
-
-jhbuild build gpodder (error checkout libproxy: missing patch 404, ignore and move on)
-jhbuild build meta-gtk-osx-themes
+**Note:**
+    In case you want just want to run gPodder from source you can ignore
+    all this and use the released bundle as a development environment.
+    Download the official bundle, git clone the gPodder repo and do
+    `./gPodder.app/Contents/MacOS/run gpodder.py`.
 
 
+Uses jhbuild [3] and the stable module set provided by gtk-osx [2] with a
+gPodder specific module set overlay to build all needed dependencies for gPodder.
+Everything will be downloaded/installed into this directory and your
+user directory will not be touched.
 
-# Bundling gPodder
-install gtk-mac-bundler, following http://live.gnome.org/GTK%2B/OSX/Bundling
-cd mymodules/gpodder-bundle
-jhbuild shell
-~/.local/bin/gtk-mac-bundler gpodder.bundle && ./postproc.sh 
+Builds upon the great scripts by Christoph Reiter to automate my previously
+tedious description.
 
-produces gPodder.app in Desktop
-test by double-clicking on gPodder.app
-test by moving ~/gtk/inst away and re-launching
+# Creating a Bundle
+
+Prerequisites: `OS X` 10.6+ and a working `Xcode` [0] and `git` [1]
+
+Verify that Xcode and git is installed and in your `$PATH` by invoking `git
+--version` and `gcc --version`. Also make sure that other package managers
+like homebrew or macports aren't in your `$PATH`. To be extra sure, move
+`/opt/local` away, because some configure scripts are clever enough to look
+for it by themselves.
+
+(Tested on OS X 10.6.8)
+
+1) Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
+2) Call `build.sh` to download and build all the dependencies.
+   I get an error with openssl, but it still installs correctly.
+   Simply choose `[2] ignore error` and move forward.
+3) Call `bundle.sh` to create the finished bundles for gPodder in
+   `_build`.
+
+
+# Development
+
+* After `bootstrap.sh` has finished executing `source env.sh` will put you
+  in the build environment. After that jhbuild can be used directly.
+* `fetch_modules()` downloads the git master of the gtk-osx module set
+  and replaces the modules under "modulessets" and the
+  `misc/gtk-osx-jhbuildrc` file. Doing so so should ideally be followed by a
+  review of the gPodder module to reduce duplication and a rebuilt to verify
+  that everything still works.
+
 
 # Releasing
 
 Releasing on OS X
- 1. see *Bundling gPodder*
- 2. ./release.sh ~/gPodder.app version_buildnumber
- 3. ./release_deps.sh ~/gPodder.app version_buildnumber
+ 1. see *Creating a Bundle*
+ 2. `./release.sh _build/gPodder.app version_buildnumber`
+ 3. `./release_deps.sh _build/gPodder.app version_buildnumber`
  
 Releasing on Linux by patching deps:
  4. ./release_on_linux.sh ~/Downloads/gPodder-3.8.4_0.deps.zip /tmp/gpodder master f699341
@@ -64,3 +71,17 @@ See https://github.com/elelay/gpodder-osx-bundle
 
 See https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
 And the official help guide http://gpodder.org/documentation
+
+
+
+# Content Description
+
+* `modulesets` contains the gtk-osx stable module set and a gpodder module
+  which adds new packages replaces existing ones.
+* `misc`: see each file or directory README for a description.
+
+
+| [0] https://developer.apple.com/xcode/downloads/
+| [1] https://git-scm.com/download/mac
+| [2] https://git.gnome.org/browse/gtk-osx/
+| [3] https://git.gnome.org/browse/jhbuild/

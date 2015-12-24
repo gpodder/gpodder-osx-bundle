@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+    <include href="gtk-osx.modules"/>
+
+  <repository type="git" name="svn.gnome.org"
+      href="git://git.gnome.org/">
+  </repository>
+
+  <repository type="tarball" name="effbot" 
+              href="http://effbot.org/downloads/"/>
+
+  <repository type="git" name="github"
+      href="git://github.com/"/>
+              
+  <!-- for setuptools, for feedparser -->
+  <repository type="tarball" name="pypi"
+              href="http://pypi.python.org/packages/source/"/>
+
+  <repository type="tarball" name="thpinfo"
+              href="http://thp.io/"/>
+  <repository type="tarball" name="dbus"
+    href="http://dbus.freedesktop.org/releases/"/>
+  <repository type='tarball' name='pywebkitgtk'
+              href='http://pywebkitgtk.googlecode.com/files/'/>
+  <repository type="tarball" name="ftp.gnome.org"
+              href="http://ftp.gnome.org/pub/GNOME/sources/"/>
+  <repository type="tarball" name="galago"
+              href="http://www.galago-project.org/files/releases/source/"/>
+  <repository type="tarball" name="mutagen"
+              href="http://mutagen.googlecode.com/files/"/>
+
+  <autotools id="gpodder" skip-autogen="true" skip-configure="true">
+    <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
+	    tag="gpodder-3.8.5">
+    </branch>
+    <dependencies>
+      <dep package="feedparser"/>
+      <dep package="mygpoclient"/>
+      <!-- <dep package="dbus-python"/> -->
+      <dep package="pywebkitgtk"/>
+      <dep package="librsvg"/>
+      <dep package="mutagen"/>
+      <!-- to get nice icons for downloaded files -->
+      <dep package="shared-mime-info" />
+      <dep package="meta-gtk-osx-themes" />
+      <dep package="meta-gtk-osx-python" />
+    </dependencies>
+  </autotools>
+
+<distutils id="setuptools">
+    <branch repo="pypi" checkoutdir="setuptools-0.6c11" module="s/setuptools/setuptools-0.6c11.tar.gz"
+	    version="4.1" md5sum="7df2a529a074f613b509fb44feefe74e"/>
+</distutils>
+
+<distutils id="feedparser">
+    <branch repo="pypi" checkoutdir="feedparser-5.2.0" module="f/feedparser/feedparser-5.2.0.post1.tar.bz2"
+	    version="5.2.0" md5sum="9f54fe1e84412c16cdc5997d5b133a60"/>
+    <dependencies>
+		<dep package="setuptools"/>
+    </dependencies>
+</distutils>
+
+<distutils id="mutagen">
+    <branch repo="mutagen" checkoutdir="mutagen-1.29" module="https://bitbucket.org/lazka/mutagen/downloads/mutagen-1.29.tar.gz"
+	    version="1.29" hash="sha256:dbad61c8db882f849f25183448f21e440f5eceaf614dd8c2c5ae9392f33f599f"/>
+    <dependencies>
+		<dep package="setuptools"/>
+    </dependencies>
+</distutils>
+
+<distutils id="mygpoclient">
+    <branch repo="thpinfo" module="2010/mygpoclient/mygpoclient-1.7.tar.gz"
+	    version="1.7" md5sum="fc4e237c40eba0733a362949d304974c"/>
+</distutils>
+
+  <autotools id="dbus-python">
+    <branch module="dbus-python/dbus-python-0.84.0.tar.gz" version="0.84.0"
+            repo="dbus"
+	    size="563906"/>
+    <dependencies>
+      <dep package="dbus"/>
+    </dependencies>
+    <suggests>
+      <dep package="pygobject"/>
+    </suggests>
+  </autotools>
+
+
+  <autotools id="pywebkitgtk" autogen-sh="configure" autogenargs="">
+    <branch repo="pywebkitgtk" module="pywebkitgtk-1.1.8.tar.bz2"
+            version="1.1.8" hash="sha1:b7005c8bedd215032498dec543d937dd323d35da" />
+    <dependencies>
+    	<dep package="meta-gtk-osx-webkit" />
+		<dep package="pygtk"/>
+    </dependencies>
+  </autotools>
+  
+  <autotools id="libnotify">
+    <branch repo="ftp.gnome.org" module="libnotify/0.5/libnotify-0.5.2.tar.bz2"
+            md5sum="4361058ae4e28a9ffce6764e7d03acd1"  version="0.5.2">
+    	<patch file="http://trac.macports.org/export/87274/trunk/dports/devel/libnotify/files/patch-libnotify-notification-c.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="dbus"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="notify-python">
+    <branch repo="galago" module="notify-python/notify-python-0.1.1.tar.bz2"
+            md5sum="d247cf79b46cef7495deb0a76334f81d"  version="0.1.1">
+    	<patch file="http://trac.macports.org/export/87274/trunk/dports/python/py27-notify-python/files/patch-src-pynotifymodule-c.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="gtk+"/>
+      <dep package="dbus"/>
+      <dep package="dbus-python" />
+    </dependencies>
+  </autotools>
+  
+  <autotools id="Notifications2Growl" autogen-sh="configure">
+    <branch repo="github" module="elelay/Notifications2Growl.git"  checkoutdir="Notifications2Growl"
+    >
+    </branch>
+   <!-- can't have patches with git ? -->
+   <patches>
+   <!-- <patch file="gpodder-gtk-osx-application.diff" strip="1"/> -->
+   </patches>
+    <dependencies>
+      <dep package="dbus-glib"/>
+      <dep package="libnotify"/>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+  
+  <repository type="tarball" name="hadess"
+              href="http://freedesktop.org/~hadess/"/>
+  <autotools id="shared-mime-info"  autogen-sh="configure"
+             supports-non-srcdir-builds="no" >
+    <branch module="shared-mime-info-0.90.tar.bz2" version="0.90"
+            repo="hadess"/>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+
+</moduleset>

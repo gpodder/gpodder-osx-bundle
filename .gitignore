@@ -1,2 +1,6 @@
 *~
 .DS_Store
+/_build
+/_bundler
+/_home
+/_jhbuild

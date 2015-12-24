@@ -2,27 +2,45 @@
 
 use strict;
 
-my $gtk_inst="/Users/elelay/gtk/inst";
-my $jhbuild="/Volumes/MAC2/GtkOSX/inst/_jhbuild";
-my $manifests="$jhbuild/manifests";
-my $packagedbfile="$jhbuild/packagedb.xml";
+require File::Spec;
 
 sub usage
 {
 	my ($exitcode,$msg) = @_;
-	print "Usage: $0 </path/to/gPodder.app>\n";
+	print "Usage: $0 <jhbuild_prefix> </path/to/gPodder.app>\n";
 	print $msg if $msg;
 	exit $exitcode;
 }
 
-usage(-1) unless scalar(@ARGV) == 1;
+usage(-1) unless scalar(@ARGV) == 2;
 usage(0) if $ARGV[0] =~ /--?h(elp)?/;
 
 
-my $gPodderResources="$ARGV[0]/Contents/Resources";
+my $gPodderResources="$ARGV[1]/Contents/Resources";
 
 usage(-1,"$gPodderResources is not a directory\n") unless -d $gPodderResources;
 
+my $gtk_inst=$ARGV[0];
+my $jhbuild="$gtk_inst/_jhbuild";
+my $manifests="$jhbuild/manifests";
+my $packagedbfile="$jhbuild/packagedb.xml";
+
+print STDERR "I: loading manifests...\n";
+
+my %pkg_by_f;
+
+opendir(my $dh, $manifests) || die "can't open $manifests: $!\n";
+my @manifest_files = grep { -f "$manifests/$_" } readdir($dh);
+closedir($dh);
+
+foreach my $pkg (@manifest_files) {
+	my $manifest = "$manifests/$pkg";
+	open(my $MANIFEST, "<", $manifest) || die "can't open $manifest for reading: $!\n";
+	while(my $l = <$MANIFEST>){
+		chomp $l;
+		push(@{$pkg_by_f{$l}}, $pkg);
+	}
+}
 
 my @files= `find "$gPodderResources"`;
 
@@ -35,8 +53,12 @@ foreach my $file (@files) {
 	my $short = $file;
 	$short =~ s/$gPodderResources//;
 	my $inst = "$gtk_inst$short";
-	my @pkgs = `grep -Rl "$inst" "$manifests"`;
-	@pkgs = map { chomp; $_ =~ s,$manifests/,,; $_ } @pkgs;
+	my @pkgs;
+	if($pkg_by_f{$inst}){
+		@pkgs = @{$pkg_by_f{$inst}};
+	} else {
+		@pkgs = ();
+	}
 	if(scalar(@pkgs) eq 0) {
 		print STDERR "W: pkg not found for $short\n";
 	} else {

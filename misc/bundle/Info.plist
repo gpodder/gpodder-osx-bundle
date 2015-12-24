@@ -5,9 +5,9 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>English</string>
     <key>CFBundleExecutable</key>
-    <string>gPodder</string>
+    <string>gpodder</string>
     <key>CFBundleGetInfoString</key>
-    <string>gPodder @VERSION@ Copyright (c) 2005-@YEAR@ Thomas Perl and the gPodder Team</string>
+    <string>gPodder @VERSION@ @COPYRIGHT@</string>
     <key>CFBundleIconFile</key>
     <string>gPodder.icns</string>
     <key>CFBundleIdentifier</key>
@@ -23,7 +23,7 @@
     <key>CFBundleVersion</key>
     <string>@VERSION@</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright (c) 2005-@YEAR@ Thomas Perl and the gPodder Team, GNU General Public License.</string>
+    <string>@COPYRIGHT@</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.6</string>
 </dict>
