@@ -57,7 +57,8 @@ mydir=$(dirname "$me")
 
 app="$workspace"/gPodder.app
 
-resources="$app"/Contents/Resources
+contents="$app"/Contents
+resources="$contents"/Resources
 
 mkdir -p "$workspace"
 rm -Rf "$app"
@@ -71,7 +72,7 @@ fi
 
 cd "$checkout"
 export GPODDER_INSTALL_UIS="cli gtk"
-make install DESTDIR="$resources/" PREFIX=
+make install DESTDIR="$resources/" PREFIX= PYTHON=python2
 
 find "$app" -name '*.pyc' -delete
 find "$app" -name '*.pyo' -delete
@@ -81,14 +82,16 @@ rm -Rf "$resources"/share/dbus-1
 
 # remove the check for DISPLAY variable since it's not used AND it's not
 # available on Mavericks (see bug #1855)
-(cd "$resources" && patch -p0 < "$mydir"/dont_check_display.patch)
+(cd "$resources" && patch -p0 < "$mydir"/modulesets/patches/dont_check_display.patch)
 
 # Command-XX shortcuts in gPodder menus 
-/usr/bin/xsltproc -o gpodder.ui.tmp "$mydir"/adjust-modifiers.xsl "$resources"/share/gpodder/ui/gtk/gpodder.ui
+/usr/bin/xsltproc -o gpodder.ui.tmp "$mydir"/misc/adjust-modifiers.xsl "$resources"/share/gpodder/ui/gtk/gpodder.ui
 mv gpodder.ui.tmp "$resources"/share/gpodder/ui/gtk/gpodder.ui
 
-# Set the version and copyright automatically 
-/usr/bin/xsltproc -o "$app"/Contents/Info.plist --stringparam version "$version"  "$mydir"/info-plist.xsl "$mydir"/Info-gpodder.plist
+# Set the version and copyright automatically
+version=$(perl -ne "/__version__\\s*=\\s*'(.+)'/ && print \$1" "$checkout"/src/gpodder/__init__.py)
+copyright=$(perl -ne "/__copyright__\\s*=\\s*'(.+)'/ && print \$1" "$checkout"/src/gpodder/__init__.py)
+sed "s/@VERSION@/$version/g" "$mydir/misc/bundle/Info.plist" | sed "s/@COPYRIGHT@/$copyright/g" > "$contents"/Info.plist
 
 # Copy the latest icons
 cp "$checkout"/tools/mac-osx/icon.icns "$resources"/gPodder.icns

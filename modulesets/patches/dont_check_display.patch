@@ -1,6 +1,6 @@
---- bin/gpodder.old	2013-12-03 18:38:56.000000000 +0100
-+++ bin/gpodder	2013-12-03 18:39:30.000000000 +0100
-@@ -155,10 +155,6 @@
+--- bin/gpodder.orig	2016-04-26 08:51:22.850002163 +0200
++++ bin/gpodder	2016-04-26 08:53:47.816670409 +0200
+@@ -144,10 +144,6 @@
              except dbus.exceptions.DBusException, dbus_exception:
                  logger.info('Cannot connect to remote object.', exc_info=True)
  
@@ -8,6 +8,6 @@
 -        logger.error('Cannot start gPodder: $DISPLAY is not set.')
 -        sys.exit(1)
 -
-     if gpodder.ui.qml:
-         from gpodder import qmlui
-         gpodder.ui_folders.insert(0, os.path.join(ui_folder, 'qml'))
+     if gpodder.ui.gtk:
+         from gpodder.gtkui import main
+         gpodder.ui_folders.insert(0, os.path.join(ui_folder, 'gtk'))
