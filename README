@@ -36,8 +36,6 @@ for it by themselves.
 
 1) Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
 2) Call `build.sh` to download and build all the dependencies.
-   I get an error with openssl, but it still installs correctly.
-   Simply choose `[2] ignore error` and move forward.
 3) Call `bundle.sh` to create the finished bundles for gPodder in
    `_build`.
 
