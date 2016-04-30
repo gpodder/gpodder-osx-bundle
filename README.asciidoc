@@ -29,10 +29,10 @@ https://developer.apple.com/xcode/downloads/[`Xcode`] and
 https://git-scm.com/download/mac[`git`].
 
 Verify that Xcode and git is installed and in your `$PATH` by invoking `git
---version` and `gcc --version`. Also make sure that other package managers
-like homebrew or macports aren't in your `$PATH`. To be extra sure, move
-`/opt/local` away, because some configure scripts are clever enough to look
-for it by themselves.
+--version` and `gcc --version`. The `env.sh` script resets your `$PATH` to the
+default value (`{,/usr}/{,s}bin`) to make sure non-native programs, installed
+by other package managers like homebrew or macports, are not used (read more
+https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 
 (Tested on OS X 10.11.4)
 
