@@ -1,8 +1,9 @@
 #!/bin/sh
 
+set -e
+
 source env.sh
 
-jhbuild build autoconf --nodeps
 jhbuild bootstrap
 jhbuild build python
 jhbuild build meta-gtk-osx-bootstrap
