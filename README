@@ -5,7 +5,8 @@ OS X Bundle Build Scripts
 This is a collection of files required to build gPodder.app :
 gPodder as a native GTK+ Quartz application for Mac OS X 10.6 and 10.7
 
-I used them to build on a 10.6 X86_64 machine.
+The scripts are verified on an OSX 10.11.4 (15E65) `x86_64` machine with
+Xcode 7.3 (7D175).
 
 **Note:**
     In case you want just want to run gPodder from source you can ignore
@@ -32,7 +33,7 @@ like homebrew or macports aren't in your `$PATH`. To be extra sure, move
 `/opt/local` away, because some configure scripts are clever enough to look
 for it by themselves.
 
-(Tested on OS X 10.6.8)
+(Tested on OS X 10.11.4)
 
 1) Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
 2) Call `build.sh` to download and build all the dependencies.
