@@ -38,7 +38,7 @@ foreach my $pkg (@manifest_files) {
 	open(my $MANIFEST, "<", $manifest) || die "can't open $manifest for reading: $!\n";
 	while(my $l = <$MANIFEST>){
 		chomp $l;
-		push(@{$pkg_by_f{$l}}, $pkg);
+		push(@{$pkg_by_f{"/$l"}}, $pkg);
 	}
 }
 
@@ -52,10 +52,9 @@ foreach my $file (@files) {
 	next if -d $file;
 	my $short = $file;
 	$short =~ s/$gPodderResources//;
-	my $inst = "$gtk_inst$short";
 	my @pkgs;
-	if($pkg_by_f{$inst}){
-		@pkgs = @{$pkg_by_f{$inst}};
+	if($pkg_by_f{$short}){
+		@pkgs = @{$pkg_by_f{$short}};
 	} else {
 		@pkgs = ();
 	}
