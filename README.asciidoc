@@ -1,17 +1,17 @@
 = OS X Bundle Build Scripts
 
+*Don't Panic*
+
 This is a collection of files required to build gPodder.app :
-gPodder as a native GTK+ Quartz application for Mac OS X 10.6 and 10.7
+gPodder as a native GTK+ Quartz application for Mac OS X 10.6+
 
 The scripts are verified on an OSX 10.11.4 (15E65) `x86_64` machine with
 Xcode 7.3 (7D175).
 
-**Note:**
-    In case you want just want to run gPodder from source you can ignore
-    all this and use the released bundle as a development environment.
-    Download the official bundle, git clone the gPodder repo and do
-    `./gPodder.app/Contents/MacOS/run gpodder.py`.
-
+NOTE: In case you want just want to run gPodder from source you can ignore all
+this and use the released bundle as a development environment.  Download the
+official bundle, git clone the gPodder repo and do
+`./gPodder.app/Contents/MacOS/run gpodder.py`.
 
 Uses https://git.gnome.org/browse/jhbuild/[jhbuild] and the stable module
 set provided by https://git.gnome.org/browse/gtk-osx/[gtk-osx] with a
@@ -41,26 +41,24 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 . Call `bundle.sh` to create the finished bundles for gPodder in
    `_build`.
 
-
 == Development
 
 * After `bootstrap.sh` has finished executing `source env.sh` will put you
   in the build environment. After that jhbuild can be used directly.
-* `fetch_modules()` downloads the git master of the gtk-osx module set
+* `fetch_modules.sh` downloads the git master of the gtk-osx module set
   and replaces the modules under "modulessets" and the
   `misc/gtk-osx-jhbuildrc` file. Doing so so should ideally be followed by a
   review of the gPodder module to reduce duplication and a rebuilt to verify
   that everything still works.
 
-
 == Releasing
 
 Releasing on OS X
 
-. see *Creating a Bundle*
+. see *<<Creating a Bundle>>*
 . `./release.sh _build/gPodder.app version_buildnumber`
 . `./release_deps.sh _build/gPodder.app version_buildnumber`
- 
+
 Releasing on Linux by patching deps:
 
 [start=4]
@@ -74,8 +72,6 @@ See https://github.com/elelay/gpodder-osx-bundle
 
 See https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
 And the official help guide http://gpodder.org/documentation
-
-
 
 == Content Description
 
