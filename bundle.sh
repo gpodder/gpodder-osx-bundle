@@ -50,9 +50,14 @@ mv gpodder.ui.tmp "$APP_PREFIX"/share/gpodder/ui/gtk/gpodder.ui
 # localization of Quit and other menu items controlled by gtk-mac-integration
 cp -R "$JHBUILD_PREFIX"/share/strings/*.lproj "$APP_PREFIX"
 
+# fixes this error at startup:
+# gPodder.app/Contents/Resources/lib/python2.7/site-packages/gpodder/gtkui/draw.py:300: GtkWarning: Cannot open pixbuf loader module file 'gPodder.app/Contents/Resources/etc/gtk-2.0/gdk-pixbuf.loaders': No such file or directory
+"$JHBUILD_PREFIX/bin/gdk-pixbuf-query-loaders" > "$APP_PREFIX"/etc/gtk-2.0/gdk-pixbuf.loaders
+
 # check for dynamic linking consistency : nothing should reference gtk/inst
 find "$APP_PREFIX" -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
 
+cat "$JHBUILD_PREFIX/_jhbuild/info/"* > "$JHBUILD_PREFIX/_jhbuild/packagedb.xml"
 # list the provenance of every file in the bundle
 $mydir/misc/provenance.pl "$JHBUILD_PREFIX" "$APP" > "$QL_OSXBUNDLE_BUNDLE_DEST"/gPodder.contents
 
