@@ -23,7 +23,7 @@ usage(-1,"$gPodderResources is not a directory\n") unless -d $gPodderResources;
 my $gtk_inst=$ARGV[0];
 my $jhbuild="$gtk_inst/_jhbuild";
 my $manifests="$jhbuild/manifests";
-my $packagedbfile="$jhbuild/packagedb.xml";
+my $jhbinfodir="$jhbuild/info";
 
 print STDERR "I: loading manifests...\n";
 
@@ -74,14 +74,18 @@ print STDERR "I: packages provenance done\n";
 my %versions;
 
 print STDERR "I: grabbing packages versions...\n";
-open(my $PACKAGEDB, '<', "$packagedbfile") || die "Unable to read $packagedbfile: $!\n";
 
-while(defined(my $entry = <$PACKAGEDB>)){
-	if($entry =~ /.*package="(.+?)" version="(.+?)"/){
-		$versions{$1} = $2;
+die "No jhbuild info directory $jhbinfodir\n" unless -d $jhbinfodir;
+foreach my $info (glob("$jhbinfodir/*")) {
+	open(my $INFO, '<', "$info") || die "Unable to read $info: $!\n";
+
+	while(defined(my $entry = <$INFO>)){
+		if($entry =~ /.*package="(.+?)" version="(.+?)"/){
+			$versions{$1} = $2;
+		}
 	}
+	close($INFO);
 }
-close($PACKAGEDB);
 print STDERR "I: packages versions done...\n";
 
 print STDERR "I: exporting...\n";
