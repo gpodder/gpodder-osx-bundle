@@ -217,6 +217,16 @@
     ${prefix}/share/icons/hicolor/scalable/apps
   </data>
 
+  <data>
+    ${prefix}/share/man/man1/gpo.1
+  </data>
+  <data>
+    ${prefix}/share/man/man1/gpodder.1
+  </data>
+  <data>
+    ${prefix}/share/man/man1/gpodder-migrate2tres.1
+  </data>
+
   <data dest="${bundle}/Contents/Resources/gPodder.icns">
     ${env:JHBUILD_SOURCE}/gpodder/tools/mac-osx/icon.icns
   </data>
@@ -247,6 +257,9 @@
   <!-- must say all to get file-dependent icons (e.g. music note if it's an audio file) -->
   <icon-theme icons="all">
     Tango
+  </icon-theme>
+  <icon-theme icons="all">
+    hicolor
   </icon-theme>
 
   <!-- gPodder icon in the about dialog (gpodder.icon_file initialised in gpodder script) -->
