@@ -134,18 +134,5 @@
       <dep package="gtk+"/>
     </dependencies>
   </autotools>
-  
-  <repository type="tarball" name="hadess"
-              href="http://freedesktop.org/~hadess/"/>
-  <autotools id="shared-mime-info"  autogen-sh="configure"
-             supports-non-srcdir-builds="no" >
-    <branch module="shared-mime-info-0.90.tar.bz2" version="0.90"
-            repo="hadess"/>
-    <dependencies>
-      <dep package="intltool"/>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
-
 
 </moduleset>
