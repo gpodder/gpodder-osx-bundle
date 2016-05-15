@@ -34,7 +34,7 @@ default value (`{,/usr}/{,s}bin`) to make sure non-native programs, installed
 by other package managers like homebrew or macports, are not used (read more
 https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 
-(Tested on OS X 10.11.4)
+(Tested on OS X 10.6.10 and 10.11.4)
 
 . Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
 . Call `build.sh` to download and build all the dependencies.
