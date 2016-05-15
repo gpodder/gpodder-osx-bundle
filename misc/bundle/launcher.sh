@@ -18,7 +18,7 @@ export GTK_PATH="$bundle_res"
 
 export GTK2_RC_FILES="$bundle_etc/gtk-2.0/gtkrc"
 export GTK_IM_MODULE_FILE="$bundle_etc/gtk-2.0/gtk.immodules"
-export GDK_PIXBUF_MODULE_FILE="$bundle_etc/gtk-2.0/gdk-pixbuf.loaders"
+export GDK_PIXBUF_MODULE_FILE="$bundle_lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
 
 # Pango wants these 2 otherwise it displays square boxes instead of letters
 export PANGO_SYSCONFDIR="$bundle_etc"
