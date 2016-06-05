@@ -1,0 +1,67 @@
+From a76f3d009ab6cfc1200de7c53785a19cca0469c3 Mon Sep 17 00:00:00 2001
+From: Eric Le Lay <elelay@macports.org>
+Date: Sun, 15 May 2016 13:39:17 +0200
+Subject: [PATCH 2/2] use cmds.get_output instead of subprocess.check_output
+ for python 2.6
+
+---
+ jhbuild/utils/sysid.py         | 8 +++++---
+ jhbuild/utils/systeminstall.py | 2 +-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/jhbuild/utils/sysid.py b/jhbuild/utils/sysid.py
+index 9146942..088d193 100644
+--- a/jhbuild/utils/sysid.py
++++ b/jhbuild/utils/sysid.py
+@@ -21,6 +21,8 @@ import sys
+ import subprocess
+ import ast
+ 
++import cmds
++
+ sys_id = None
+ sys_name = None
+ default_conditions = None
+@@ -83,7 +85,7 @@ def get_macos_info():
+     global sys_id
+ 
+     try:
+-        ver = subprocess.check_output('sw_vers -productVersion')
++        ver = cmds.get_output('sw_vers -productVersion')
+ 
+         sys_name = 'Mac OS X ' + ver
+         sys_id = 'macos-' + ver
+@@ -98,7 +100,7 @@ def get_freebsd_info():
+     global sys_id
+ 
+     try:
+-        ver = subprocess.check_output('freebsd-version').strip()
++        ver = cmds.get_output('freebsd-version').strip()
+ 
+         sys_name = 'FreeBSD ' + ver
+         return True
+@@ -106,7 +108,7 @@ def get_freebsd_info():
+         pass
+ 
+     try:
+-        ver = subprocess.check_output(['uname', '-r']).strip()
++        ver = cmds.get_output(['uname', '-r']).strip()
+ 
+         sys_name = 'FreeBSD ' + ver
+         return True
+diff --git a/jhbuild/utils/systeminstall.py b/jhbuild/utils/systeminstall.py
+index 10e18d6..df15c54 100644
+--- a/jhbuild/utils/systeminstall.py
++++ b/jhbuild/utils/systeminstall.py
+@@ -43,7 +43,7 @@ def get_installed_pkgconfigs(config):
+ 
+         # see if we can get the versions "the easy way"
+         try:
+-            stdout = subprocess.check_output(['pkg-config', '--modversion'] + pkgs)
++            stdout = cmds.get_output(['pkg-config', '--modversion'] + pkgs)
+             versions = stdout.splitlines()
+             if len(versions) == len(pkgs):
+                 return dict(zip(pkgs, versions))
+-- 
+2.8.1
+
