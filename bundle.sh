@@ -36,8 +36,8 @@ rm -Rf "$APP_PREFIX"/share/gpodder/ui/qml
 rm -Rf "$APP_PREFIX"/lib/python2.7/site-packages/gpodder/{qmlui,webui}
 
 # replace copy with symlink
-rm "$APP_PREFIX"/lib/libicudata.55.dylib
-ln -s libicudata.55.1.dylib "$APP_PREFIX"/lib/libicudata.55.dylib
+# rm "$APP_PREFIX"/lib/libicudata.55.dylib
+# ln -s libicudata.55.1.dylib "$APP_PREFIX"/lib/libicudata.55.dylib
 
 # remove the check for DISPLAY variable since it's not used AND it's not
 # available on Mavericks (see bug #1855)

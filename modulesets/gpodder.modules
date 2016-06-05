@@ -55,16 +55,16 @@
 </distutils>
 
 <distutils id="feedparser">
-    <branch repo="pypi" checkoutdir="feedparser-5.2.0" module="f/feedparser/feedparser-5.2.0.post1.tar.bz2"
-	    version="5.2.0" md5sum="9f54fe1e84412c16cdc5997d5b133a60"/>
+    <branch repo="pypi" checkoutdir="feedparser-5.2.1" module="f/feedparser/feedparser-5.2.1.tar.bz2"
+	    version="5.2.1" md5sum="ee8bd99535a4261b8e26976984dd6b26"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="mutagen" checkoutdir="mutagen-1.29" module="https://bitbucket.org/lazka/mutagen/downloads/mutagen-1.29.tar.gz"
-	    version="1.29" hash="sha256:dbad61c8db882f849f25183448f21e440f5eceaf614dd8c2c5ae9392f33f599f"/>
+    <branch repo="mutagen" checkoutdir="mutagen-1.32" module="https://bitbucket.org/lazka/mutagen/downloads/mutagen-1.32.tar.gz"
+	    version="1.32" hash="sha256:7721ded04caf36fc30661165ae311fed342f7503b048e9db3d52764108ed3ab5"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>

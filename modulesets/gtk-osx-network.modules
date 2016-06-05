@@ -45,7 +45,7 @@
   <autotools id="openssl" autogen-sh="Configure" autogenargs="shared"
              autogen-template="%(srcdir)s/%(autogen-sh)s --prefix=%(prefix)s --openssldir=%(prefix)s/etc/ssl %(autogenargs)s"
              makeinstallargs="install_sw" supports-non-srcdir-builds="no" supports-parallel-builds="no">
-    <branch module="openssl-0.9.8zg.tar.gz" version="0.9.8zg" repo="openssl">
+    <branch module="openssl-1.0.2h.tar.gz" version="1.0.2h" repo="openssl">
       <patch file="patches/openssl-respect-destdir.patch" />
     </branch>
   </autotools>
