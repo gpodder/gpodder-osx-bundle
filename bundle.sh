@@ -53,6 +53,11 @@ cp -R "$JHBUILD_PREFIX"/share/strings/*.lproj "$APP_PREFIX"
 # check for dynamic linking consistency : nothing should reference gtk/inst
 find "$APP_PREFIX" -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
 
+# copy macports certs.pem (only temporary fix)
+mkdir -p "$APP_PREFIX/etc/openssl/"
+cp /opt/local/etc/openssl/cert.pem "$APP_PREFIX/etc/openssl/"
+
+
 # list the provenance of every file in the bundle
 $mydir/misc/provenance.pl "$JHBUILD_PREFIX" "$APP" > "$QL_OSXBUNDLE_BUNDLE_DEST"/gPodder.contents
 

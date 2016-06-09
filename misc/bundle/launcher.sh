@@ -33,6 +33,10 @@ fi
 export PYTHON="$bundle_contents/MacOS/python"
 export PYTHONHOME="$bundle_res"
 
+
+#Set path to CA files
+export SSL_CERT_FILE="$bundle_etc/openssl/cert.pem"
+
 # select target based on our basename
 APP=$(basename "$0")
 if [ "$APP" == "run" ]; then
