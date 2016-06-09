@@ -18,4 +18,4 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/jhbuild_prefix/bin"
 export QL_OSXBUNDLE_MODULESETS_DIR="$DIR/modulesets"
 export QL_OSXBUNDLE_BUNDLE_DEST="$DIR/_build"
 
-alias jhbuild="$(which python2.7 || which python2.6) $(which jhbuild)"
+alias jhbuild="$(which python2.7 || which python2.6) $HOME/.local/bin/jhbuild"
