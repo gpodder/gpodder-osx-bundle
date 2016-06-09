@@ -74,11 +74,13 @@
 	    module="2.7.11/Python-2.7.11.tar.xz" version="2.7.11">
       <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/python2-test_grammar.py-typo.patch" strip="1"/>
       <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/python2-xcode-stubs.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/python2-linkflags.patch" strip="1"/>"/>
+      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/python2-linkflags.patch" strip="1"/>
+      <patch file="patches/python-our-openssl.patch" strip="0"/>
     </branch>
     <dependencies>
       <dep package="gettext-runtime"/>
       <dep package='readline'/>
+      <dep package='openssl'/>
     </dependencies>
     <after>
       <dep package="berkeleydb"/>
