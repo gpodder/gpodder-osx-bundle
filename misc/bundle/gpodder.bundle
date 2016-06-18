@@ -267,4 +267,14 @@
   	${prefix}/share/mime
   </data>
 
+  <!-- install script to generate cert.pem -->
+  <data dest="${bundle}/Contents/Resources/bin/make_cert_pem.py">
+    ${project}/make_cert_pem.py
+  </data>
+
+  <!-- make_cert_pem.py needs openssl to run -->
+  <binary>
+    ${prefix}/bin/openssl
+  </binary>
+
 </app-bundle>

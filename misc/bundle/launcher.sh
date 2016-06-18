@@ -34,9 +34,6 @@ export PYTHON="$bundle_contents/MacOS/python"
 export PYTHONHOME="$bundle_res"
 
 
-#Set path to CA files
-export SSL_CERT_FILE="$bundle_etc/openssl/cert.pem"
-
 # select target based on our basename
 APP=$(basename "$0")
 if [ "$APP" == "run" ]; then
@@ -47,5 +44,19 @@ elif  [ "$APP" == "gst-plugin-scanner" ]; then
     # GStreamer plugin scanner helper
     "$bundle_res/libexec/gstreamer-1.0/gst-plugin-scanner" "$@"
 else
+
+	# Gen cert.pem
+	cert_pem=$bundle_etc/openssl/cert.pem
+	if test ! -f "$cert_pem" || /usr/bin/find "$cert_pem" -ctime +7 ; then
+		echo "(Re)generating" "$cert_pem"
+		openssl=$bundle_bin/openssl
+		make_cert_pem=$bundle_bin/make_cert_pem.py
+		"$PYTHON" "$make_cert_pem" "$openssl" "$cert_pem"
+	else
+		echo "No regenerating $cert_pem: it's fresh enough"
+	fi
+	#Set path to CA files
+	export SSL_CERT_FILE=$cert_pem
+
     "$PYTHON" "$bundle_contents/Resources/bin/$APP" "$@"
 fi
