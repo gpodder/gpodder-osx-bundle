@@ -46,14 +46,33 @@ elif  [ "$APP" == "gst-plugin-scanner" ]; then
 else
 
 	# Gen cert.pem
-	cert_pem=$bundle_etc/openssl/cert.pem
-	if test ! -f "$cert_pem" || /usr/bin/find "$cert_pem" -ctime +7 ; then
+	# don't inadvertently create the new gPodder home,
+	# it would be prefered to the old one
+	if [ -e "$GPODDER_HOME" ] ; then
+		gphome=$GPODDER_HOME
+	elif [ -e ~/Library/Application\ Support/gPodder ] ; then
+		gphome=~/Library/Application\ Support/gPodder
+	elif [ -e ~/gPodder ] ; then
+		gphome=~/gPodder
+	else
+		gphome=~/Library/Application\ Support/gPodder
+	fi
+	mkdir -p "$gphome/openssl"
+	# generate cert.extracted.pem
+	cert_gen=$gphome/openssl/cert.extracted.pem
+	cert_pem=$gphome/openssl/cert.pem
+	if test ! -f "$cert_gen" || /usr/bin/find "$cert_gen" -ctime +7 ; then
 		echo "(Re)generating" "$cert_pem"
 		openssl=$bundle_bin/openssl
 		make_cert_pem=$bundle_bin/make_cert_pem.py
-		"$PYTHON" "$make_cert_pem" "$openssl" "$cert_pem"
+		"$PYTHON" "$make_cert_pem" "$openssl" "$cert_gen"
 	else
-		echo "No regenerating $cert_pem: it's fresh enough"
+		echo "No regenerating $cert_gen: it's fresh enough"
+	fi
+	# and link to it by default. Users may want to point cert.pem to MacPorts
+	# /opt/local/etc/openssl/cert.pem, for instance.
+	if test ! -e "$cert_pem" ; then
+		ln -s "$cert_gen" "$cert_pem"
 	fi
 	#Set path to CA files
 	export SSL_CERT_FILE=$cert_pem
