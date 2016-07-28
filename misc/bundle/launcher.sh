@@ -72,7 +72,7 @@ else
 	# and link to it by default. Users may want to point cert.pem to MacPorts
 	# /opt/local/etc/openssl/cert.pem, for instance.
 	if test ! -e "$cert_pem" ; then
-		ln -s $(basename "$cert_gen") "$cert_pem"
+		ln -s "$(basename "$cert_gen")" "$cert_pem"
 	fi
 	#Set path to CA files
 	export SSL_CERT_FILE=$cert_pem
