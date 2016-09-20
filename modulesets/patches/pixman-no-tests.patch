@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2016-09-19 16:28:31.000000000 +0200
++++ Makefile.in	2016-09-19 16:28:38.000000000 +0200
+@@ -380,7 +380,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = pixman demos test
++SUBDIRS = pixman demos
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = pixman-1.pc
+ GPGKEY = 3892336E

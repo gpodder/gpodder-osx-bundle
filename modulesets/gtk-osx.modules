@@ -232,7 +232,9 @@
              autogen-sh="configure">
     <branch version="0.34.0" module="pixman-0.34.0.tar.gz"
             repo="cairographics"
-            hash="sha1:a1b1683c1a55acce9d928fea1ab6ceb79142ddc7"/>
+            hash="sha1:a1b1683c1a55acce9d928fea1ab6ceb79142ddc7">
+      <patch file="patches/pixman-no-tests.patch" strip="0"/>
+    </branch>
     <after>
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>

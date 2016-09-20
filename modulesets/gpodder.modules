@@ -40,18 +40,19 @@
       <dep package="mygpoclient"/>
       <!-- <dep package="dbus-python"/> -->
       <!-- <dep package="pywebkitgtk"/> -->
+      <dep package="meta-gtk-osx-python" />
       <dep package="librsvg"/>
       <dep package="mutagen"/>
+      <dep package="html5lib"/>
       <!-- to get nice icons for downloaded files -->
       <dep package="shared-mime-info" />
       <dep package="meta-gtk-osx-themes" />
-      <dep package="meta-gtk-osx-python" />
     </dependencies>
   </autotools>
 
 <distutils id="setuptools">
-    <branch repo="pypi" checkoutdir="setuptools-0.6c11" module="s/setuptools/setuptools-0.6c11.tar.gz"
-	    version="4.1" md5sum="7df2a529a074f613b509fb44feefe74e"/>
+    <branch repo="pypi" checkoutdir="setuptools-27.2.0" module="https://pypi.python.org/packages/87/ba/54197971d107bc06f5f3fbdc0d728a7ae0b10cafca46acfddba65a0899d8/setuptools-27.2.0.tar.gz"
+	    version="27.2.0" md5sum="b39715612fdc0372dbfd7b3fcf5d4fe5"/>
 </distutils>
 
 <distutils id="feedparser">
@@ -73,6 +74,32 @@
 <distutils id="mygpoclient">
     <branch repo="thpinfo" module="2010/mygpoclient/mygpoclient-1.7.tar.gz"
 	    version="1.7" md5sum="fc4e237c40eba0733a362949d304974c"/>
+</distutils>
+
+<distutils id="html5lib">
+	<branch repo="pypi" checkoutdir="html5lib" module="https://pypi.python.org/packages/17/ee/99e69cdcefc354e0c18ff2cc60aeeb5bfcc2e33f051bf0cc5526d790c445/html5lib-0.999999999.tar.gz"
+		version="0.999999999" hash="sha256:ee747c0ffd3028d2722061936b5c65ee4fe13c8e4613519b4447123fc4546298"/>
+	<dependencies>
+		<dep package="setuptools"/>
+		<dep package="six"/>
+		<dep package="webencodings"/>
+	</dependencies>
+</distutils>
+
+<distutils id="six">
+	<branch repo="pypi" checkoutdir="six" module="https://pypi.python.org/packages/b3/b2/238e2590826bfdd113244a40d9d3eb26918bd798fc187e2360a8367068db/six-1.10.0.tar.gz"
+		version="1.10.0" md5sum="34eed507548117b2ab523ab14b2f8b55"/>
+	<dependencies>
+		<dep package="setuptools"/>
+	</dependencies>
+</distutils>
+
+<distutils id="webencodings">
+	<branch repo="pypi" checkoutdir="webencodings" module="https://pypi.python.org/packages/c3/e5/74d05eed73b09752ac3dc4a8a69ae92ffa1ce92fcb03eaa624d1fcd17e33/webencodings-0.5.tar.gz"
+		version="0.5" md5sum="878714d45241f7970dffd8991d61fff9"/>
+	<dependencies>
+		<dep package="setuptools"/>
+	</dependencies>
 </distutils>
 
   <autotools id="dbus-python">

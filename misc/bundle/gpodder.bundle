@@ -144,7 +144,9 @@
   <data>${prefix}/lib/python2.7/site-packages/gtkosx_application</data>
   <data>${prefix}/lib/python2.7/site-packages/mutagen</data>
   <data>${prefix}/lib/python2.7/site-packages/mygpoclient</data>
-  <data>${prefix}/lib/python2.7/site-packages/webkit</data>
+  <data>${prefix}/lib/python2.7/site-packages/html5lib</data>
+  <data>${prefix}/lib/python2.7/site-packages/six.py</data>
+  <data>${prefix}/lib/python2.7/site-packages/webencodings</data>
 	
 
   <!-- Fake dbus module.
@@ -183,9 +185,6 @@
   </binary>
   <binary>
     ${prefix}/lib/python2.7/site-packages/gtkosx_application/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/webkit/*.so
   </binary>
 
   
