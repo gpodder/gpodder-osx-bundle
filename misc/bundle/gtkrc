@@ -1,3 +1,0 @@
-gtk-icon-theme-name = "Tango"
-gtk-enable-mnemonics = 0
-include "../../share/themes/Clearlooks/gtk-2.0/gtkrc"
