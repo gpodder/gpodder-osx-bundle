@@ -133,7 +133,7 @@
   <data>${prefix}/lib/python2.7/wsgiref</data>
   <data>${prefix}/lib/python2.7/xml</data>
   <!-- only required extra modules (no dbus, for instance) -->
-  <data>${prefix}/lib/python2.7/site-packages/feedparser.py</data>
+  <data>${prefix}/lib/python2.7/site-packages/podcastparser.py</data>
   <data>${prefix}/lib/python2.7/site-packages/pygtk.py</data>
   <data>${prefix}/lib/python2.7/site-packages/pygtk.pth</data>
   <data>${prefix}/lib/python2.7/site-packages/cairo</data>

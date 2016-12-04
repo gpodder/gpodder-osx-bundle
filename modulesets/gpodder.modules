@@ -33,10 +33,10 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.9.1">
+	    tag="gpodder-3.9.2">
     </branch>
     <dependencies>
-      <dep package="feedparser"/>
+      <dep package="podcastparser"/>
       <dep package="mygpoclient"/>
       <!-- <dep package="dbus-python"/> -->
       <!-- <dep package="pywebkitgtk"/> -->
@@ -55,9 +55,9 @@
 	    version="27.2.0" md5sum="b39715612fdc0372dbfd7b3fcf5d4fe5"/>
 </distutils>
 
-<distutils id="feedparser">
-    <branch repo="pypi" checkoutdir="feedparser-5.2.1" module="f/feedparser/feedparser-5.2.1.tar.bz2"
-	    version="5.2.1" md5sum="ee8bd99535a4261b8e26976984dd6b26"/>
+<distutils id="podcastparser">
+    <branch repo="pypi" checkoutdir="podcastparser-0.6.0" module="https://pypi.python.org/packages/59/37/e0da98e232bae0cb22a22ec15d673eb3650724dff613089078912be38fe6/podcastparser-0.6.0.tar.gz"
+	    version="0.6.0" md5sum="e87929773a1b4b0da40ef74c7a558eaa"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>
