@@ -33,7 +33,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.9.2">
+	    tag="gpodder-3.9.3">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
