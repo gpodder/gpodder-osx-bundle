@@ -19,6 +19,7 @@ mv "$QL_OSXBUNDLE_BUNDLE_DEST/app.app" "$APP"
 mv "$APP"/Contents/MacOS/{gPodder,_launcher}
 (cd "$APP"/Contents/MacOS/ && ln -s _launcher gpodder)
 (cd "$APP"/Contents/MacOS/ && ln -s _launcher gpodder-migrate2tres)
+(cd "$APP"/Contents/MacOS/ && ln -s _launcher gpo)
 (cd "$APP"/Contents/MacOS/ && ln -s _launcher run)
 
 # Set the version and copyright automatically (before removing *.pyc)
