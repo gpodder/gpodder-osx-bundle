@@ -71,7 +71,7 @@ See https://github.com/elelay/gpodder-osx-bundle
 == Using gPodder:
 
 See https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
-And the official help guide http://gpodder.org/documentation
+And the official help guide http://gpodder.github.io/docs/
 
 == Content Description
 
