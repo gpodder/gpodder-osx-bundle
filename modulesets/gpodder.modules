@@ -64,16 +64,16 @@
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="mutagen" checkoutdir="mutagen-1.34.1" module="https://bitbucket.org/lazka/mutagen/downloads/mutagen-1.34.1.tar.gz"
-	    version="1.34.1" hash="sha256:aacd667ef1f4fa7b7c201f36b2a6eda1ead3c92331017601d8082af62a7ee461"/>
+    <branch repo="github" checkoutdir="mutagen-1.38" module="quodlibet/mutagen.git"
+	    version="1.38" tag="release-1.38"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>
 </distutils>
 
 <distutils id="mygpoclient">
-    <branch repo="thpinfo" module="2010/mygpoclient/mygpoclient-1.7.tar.gz"
-	    version="1.7" md5sum="fc4e237c40eba0733a362949d304974c"/>
+    <branch repo="github" module="gpodder/mygpoclient.git" checkoutdir="mygpoclient"
+	    tag="1.7"/>
 </distutils>
 
 <distutils id="html5lib">
