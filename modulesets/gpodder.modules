@@ -16,7 +16,7 @@
               
   <!-- for setuptools, for feedparser -->
   <repository type="tarball" name="pypi"
-              href="http://pypi.python.org/packages/source/"/>
+              href="https://pypi.python.org/packages/"/>
 
   <repository type="tarball" name="thpinfo"
               href="http://thp.io/"/>
@@ -33,7 +33,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.9.3">
+	    tag="3.9.6">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
@@ -56,16 +56,16 @@
 </distutils>
 
 <distutils id="podcastparser">
-    <branch repo="pypi" checkoutdir="podcastparser-0.6.0" module="https://pypi.python.org/packages/59/37/e0da98e232bae0cb22a22ec15d673eb3650724dff613089078912be38fe6/podcastparser-0.6.0.tar.gz"
-	    version="0.6.0" md5sum="e87929773a1b4b0da40ef74c7a558eaa"/>
+    <branch repo="pypi" checkoutdir="podcastparser-0.6.2" module="e1/25/f83e02b093867f07bd39689c105ece535c5e5a19e5051551e7983d487146/podcastparser-0.6.2.tar.gz"
+	    version="0.6.2" md5sum="662d66916c5428d51f73c482e2401695"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="github" checkoutdir="mutagen-1.38" module="quodlibet/mutagen.git"
-	    version="1.38" tag="release-1.38"/>
+    <branch repo="github" checkoutdir="mutagen-1.39" module="quodlibet/mutagen.git"
+	    version="1.39" tag="release-1.39"/>
     <dependencies>
 		<dep package="setuptools"/>
     </dependencies>
@@ -73,12 +73,12 @@
 
 <distutils id="mygpoclient">
     <branch repo="github" module="gpodder/mygpoclient.git" checkoutdir="mygpoclient"
-	    tag="1.7"/>
+	    tag="1.8"/>
 </distutils>
 
 <distutils id="html5lib">
-	<branch repo="pypi" checkoutdir="html5lib" module="https://pypi.python.org/packages/17/ee/99e69cdcefc354e0c18ff2cc60aeeb5bfcc2e33f051bf0cc5526d790c445/html5lib-0.999999999.tar.gz"
-		version="0.999999999" hash="sha256:ee747c0ffd3028d2722061936b5c65ee4fe13c8e4613519b4447123fc4546298"/>
+	<branch repo="pypi" checkoutdir="html5lib" module="85/3e/cf449cf1b5004e87510b9368e7a5f1acd8831c2d6691edd3c62a0823f98f/html5lib-1.0.1.tar.gz"
+		version="1.0.1" md5sum="942a0688d6bdf20d087c9805c40182ad"/>
 	<dependencies>
 		<dep package="setuptools"/>
 		<dep package="six"/>
@@ -87,16 +87,16 @@
 </distutils>
 
 <distutils id="six">
-	<branch repo="pypi" checkoutdir="six" module="https://pypi.python.org/packages/b3/b2/238e2590826bfdd113244a40d9d3eb26918bd798fc187e2360a8367068db/six-1.10.0.tar.gz"
-		version="1.10.0" md5sum="34eed507548117b2ab523ab14b2f8b55"/>
+	<branch repo="pypi" checkoutdir="six" module="16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"
+		version="1.11.0" md5sum="d12789f9baf7e9fb2524c0c64f1773f8"/>
 	<dependencies>
 		<dep package="setuptools"/>
 	</dependencies>
 </distutils>
 
 <distutils id="webencodings">
-	<branch repo="pypi" checkoutdir="webencodings" module="https://pypi.python.org/packages/c3/e5/74d05eed73b09752ac3dc4a8a69ae92ffa1ce92fcb03eaa624d1fcd17e33/webencodings-0.5.tar.gz"
-		version="0.5" md5sum="878714d45241f7970dffd8991d61fff9"/>
+	<branch repo="pypi" checkoutdir="webencodings" module="0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
+		version="0.5.1" md5sum="32f6e261d52e57bf7e1c4d41546d15b8"/>
 	<dependencies>
 		<dep package="setuptools"/>
 	</dependencies>
