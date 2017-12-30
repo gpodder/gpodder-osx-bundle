@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bundle="$(dirname "$(dirname "$(dirname "$0")")")"
+bundle=$(cd "$(dirname "$(dirname "$(dirname "$0")")")"; pwd)
 bundle_contents="$bundle"/Contents
 bundle_res="$bundle_contents"/Resources
 bundle_lib="$bundle_res"/lib
@@ -10,15 +10,20 @@ bundle_etc="$bundle_res"/etc
 
 export DYLD_LIBRARY_PATH="$bundle_lib"
 
-export XDG_CONFIG_DIRS="$bundle_etc"/xdg
+export XDG_CONFIG_DIRS="$bundle_etc"
 export XDG_DATA_DIRS="$bundle_data"
+
+export CHARSETALIASDIR="$bundle_lib"
+
 export GTK_DATA_PREFIX="$bundle_res"
 export GTK_EXE_PREFIX="$bundle_res"
 export GTK_PATH="$bundle_res"
 
-export GTK2_RC_FILES="$bundle_etc/gtk-2.0/gtkrc"
-export GTK_IM_MODULE_FILE="$bundle_etc/gtk-2.0/gtk.immodules"
+export GTK_IM_MODULE_FILE="$bundle_etc/gtk-3.0/gtk.immodules"
 export GDK_PIXBUF_MODULE_FILE="$bundle_lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+
+# gobject-introspection
+export GI_TYPELIB_PATH="$bundle_lib/girepository-1.0"
 
 # Pango wants these 2 otherwise it displays square boxes instead of letters
 export PANGO_SYSCONFDIR="$bundle_etc"

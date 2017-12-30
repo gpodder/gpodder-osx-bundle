@@ -30,7 +30,7 @@
 
      <!-- Indicate the active gtk version to use. This is needed only
          for gtk+-3.0 projects. -->
-    <!--gtk>gtk+-2.0</gtk-->
+    <gtk>gtk+-3.0</gtk>
  </meta>
 
   <!-- The special macro "${project}" refers to the directory where
@@ -53,17 +53,13 @@
     ${prefix}/bin/python
   </binary>
 
-  <!-- Copy in libpyglib, which will pull in other dependencies we need -->
-  <binary>
-    ${prefix}/lib/libpyglib-2.0-python.0.dylib
-  </binary>
   <!-- Gtk+ is required by python modules which aren't searched for
        dependencies, so we have to pull it in explicitly. It will
        bring Pango and Cairo with it. Note the use of ${gtkversion},
        which expands to either 2.0 or 3.0, depending on which value of
        gtk is specified.-->
   <binary>
-    ${prefix}/lib/libgtk-quartz-${gtkversion}.0.dylib
+    ${prefix}/lib/libgtk-${gtkversion}.dylib
   </binary>
 
   <!-- Copy in GTK+ modules. Note the ${gtkdir} macro, which expands
@@ -71,27 +67,20 @@
        version.
   -->
   <binary>
-     ${prefix}/lib/${gtkdir}/modules/*.so
+     ${prefix}/lib/${gtkdir}/3.0.0/immodules/*.so
   </binary>
 
-  <!-- Copy in GTK+ theme engines and print backends. Note the use of the
+  <!-- Copy in GTK+ print backends. Note the use of the
        "${pkg:module:variable}" macro, which evaluates to a pkg-config
        variable in the specified module. Note that any libraries that
        binaries link to are also copied in automatically.  Note also
        the included ${gtk} macro, which gets the correct package name
        to get. -->
   <binary>
-    ${prefix}/lib/${gtkdir}/${pkg:${gtk}:gtk_binary_version}/engines/libclearlooks.so
-  </binary>
-  <binary>
     ${prefix}/lib/${gtkdir}/${pkg:${gtk}:gtk_binary_version}/printbackends/*.so
   </binary>
 
-<!-- Starting with 2.24, gdk-pixbuf installs into its own directory. -->
-  <binary>
-    ${prefix}/lib/gdk-pixbuf-2.0/${pkg:${gtk}:gtk_binary_version}/*.so
-  </binary>
-<!-- Starting with 2.24, gdk-pixbuf installs into its own directory. -->
+  <!-- Starting with 2.24, gdk-pixbuf installs into its own directory. -->
   <binary>
     ${prefix}/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.so
   </binary>
@@ -100,7 +89,7 @@
        want to copy in to the bundle. The "dest" attribute is
        optional, as usual. Bundler will find all translations of that
        library/program under the indicated directory and copy them.-->
-  <translations name="gtk20">
+  <translations name="gtk30">
     ${prefix}/share/locale
   </translations>
   <translations name="gpodder">
@@ -134,14 +123,9 @@
   <data>${prefix}/lib/python2.7/xml</data>
   <!-- only required extra modules (no dbus, for instance) -->
   <data>${prefix}/lib/python2.7/site-packages/podcastparser.py</data>
-  <data>${prefix}/lib/python2.7/site-packages/pygtk.py</data>
-  <data>${prefix}/lib/python2.7/site-packages/pygtk.pth</data>
+  <data>${prefix}/lib/python2.7/site-packages/gi</data>
   <data>${prefix}/lib/python2.7/site-packages/cairo</data>
-  <data>${prefix}/lib/python2.7/site-packages/glib</data>
-  <data>${prefix}/lib/python2.7/site-packages/gobject</data>
   <data>${prefix}/lib/python2.7/site-packages/gpodder</data>
-  <data>${prefix}/lib/python2.7/site-packages/gtk-2.0</data>
-  <data>${prefix}/lib/python2.7/site-packages/gtkosx_application</data>
   <data>${prefix}/lib/python2.7/site-packages/mutagen</data>
   <data>${prefix}/lib/python2.7/site-packages/mygpoclient</data>
   <data>${prefix}/lib/python2.7/site-packages/html5lib</data>
@@ -169,27 +153,16 @@
     ${prefix}/lib/python2.7/site-packages/cairo/*.so
   </binary>
   <binary>
-    ${prefix}/lib/python2.7/site-packages/glib/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/gobject/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/gtk-2.0/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/gtk-2.0/gio/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/gtk-2.0/gtk/*.so
-  </binary>
-  <binary>
-    ${prefix}/lib/python2.7/site-packages/gtkosx_application/*.so
+    ${prefix}/lib/python2.7/site-packages/gi/*.so
   </binary>
 
   
   <data>
     ${prefix}/include/python2.7
+  </data>
+
+  <data>
+    ${prefix}/lib/girepository-1.0
   </data>
 
   <data>
@@ -227,16 +200,13 @@
    
   <!-- Copy in the themes data. You may want to trim this to save space
        in your bundle. -->
-  <data>
-    ${prefix}/share/themes/ClearLooks
-  </data>
 
   <!-- This is where theme commands go. You can copy them in from your
        theme of choice if they provide and example, or you can just
        change the source path. -->
 
-  <data dest="${bundle}/Contents/Resources/etc/${gtkdir}/gtkrc">
-    ${project}/gtkrc
+  <data dest="${bundle}/Contents/Resources/etc/${gtkdir}/settings.ini">
+    ${project}/settings.ini
   </data>
 
   <!-- Icon themes to copy. The "icons" property can be either of
@@ -251,6 +221,9 @@
   <!-- must say all to get file-dependent icons (e.g. music note if it's an audio file) -->
   <icon-theme icons="all">
     Tango
+  </icon-theme>
+  <icon-theme icons="all">
+    Adwaita
   </icon-theme>
   <icon-theme icons="all">
     hicolor

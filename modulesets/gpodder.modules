@@ -33,20 +33,17 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="gpodder-3.9.3">
+	    tag="gpodder-3.10.0">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
       <dep package="mygpoclient"/>
-      <!-- <dep package="dbus-python"/> -->
-      <!-- <dep package="pywebkitgtk"/> -->
-      <dep package="meta-gtk-osx-python" />
-      <dep package="librsvg"/>
+      <dep package="meta-gtk-osx-python-gtk3" />
+      <dep package="tango-icon-theme"/>
       <dep package="mutagen"/>
       <dep package="html5lib"/>
       <!-- to get nice icons for downloaded files -->
       <dep package="shared-mime-info" />
-      <dep package="meta-gtk-osx-themes" />
     </dependencies>
   </autotools>
 
