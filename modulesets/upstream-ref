@@ -1,7 +1,7 @@
-commit 3b8389d9ae6486ed7fe03615598aa1f23328058c
+commit a812ac2dc090f63b8b8cbd0921db4c596c3354d9
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Tue Oct 10 17:17:15 2017 -0700
+Date:   Fri Dec 8 12:40:12 2017 -0800
 
-    Update CMake to the latest-and-greatest.
+    Update CMake to 3.10.0.
     
-    To answer plea in bug 788789.
+    To fix https://gitlab.kitware.com/cmake/cmake/issues/17101.
