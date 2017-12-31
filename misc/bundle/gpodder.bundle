@@ -45,12 +45,12 @@
       so we use the original and ignore it. If your original will work
       in the bundle, you can use this instead.-->
  <main-binary>
-     ${prefix}/bin/python
+     ${prefix}/bin/python3
   </main-binary>
 
   <!-- We need to pack our own Python to avoid compatibility problems. -->
   <binary dest="${bundle}/Contents/MacOS">
-    ${prefix}/bin/python
+    ${prefix}/bin/python3
   </binary>
 
   <!-- Gtk+ is required by python modules which aren't searched for
@@ -101,36 +101,50 @@
   
   <!-- standard install minus unused -->
   <data>
-  ${prefix}/lib/python2.7/*.py
+  ${prefix}/lib/python3.6/*.py
   </data>
-  <data>${prefix}/lib/python2.7/bsddb</data>
-  <data>${prefix}/lib/python2.7/compiler</data>
-  <data>${prefix}/lib/python2.7/config</data>
-  <data>${prefix}/lib/python2.7/ctypes</data>
-  <data>${prefix}/lib/python2.7/curses</data>
-  <data>${prefix}/lib/python2.7/email</data>
-  <data>${prefix}/lib/python2.7/encodings</data>
-  <data>${prefix}/lib/python2.7/hotshot</data>
-  <data>${prefix}/lib/python2.7/importlib</data>
-  <data>${prefix}/lib/python2.7/json</data>
-  <data>${prefix}/lib/python2.7/lib-dynload</data>
-  <data>${prefix}/lib/python2.7/logging</data>
-  <data>${prefix}/lib/python2.7/multiprocessing</data>
-  <data>${prefix}/lib/python2.7/plat-darwin</data>
-  <data>${prefix}/lib/python2.7/plat-mac</data>
-  <data>${prefix}/lib/python2.7/sqlite3</data>
-  <data>${prefix}/lib/python2.7/wsgiref</data>
-  <data>${prefix}/lib/python2.7/xml</data>
+  <data>${prefix}/lib/python3.6/asyncio</data>
+  <data>${prefix}/lib/python3.6/collections</data>
+  <data>${prefix}/lib/python3.6/concurrent</data>
+  <data>${prefix}/lib/python3.6/config-3.6m-darwin</data>
+  <data>${prefix}/lib/python3.6/ctypes</data>
+  <data>${prefix}/lib/python3.6/curses</data>
+  <!--<data>${prefix}/lib/python3.6/dbm</data>-->
+  <!--<data>${prefix}/lib/python3.6/distutils</data>-->
+  <data>${prefix}/lib/python3.6/email</data>
+  <data>${prefix}/lib/python3.6/encodings</data>
+  <!--<data>${prefix}/lib/python3.6/ensurepip</data>-->
+  <data>${prefix}/lib/python3.6/html</data>
+  <data>${prefix}/lib/python3.6/http</data>
+  <!--<data>${prefix}/lib/python3.6/idlelib</data>-->
+  <data>${prefix}/lib/python3.6/importlib</data>
+  <data>${prefix}/lib/python3.6/json</data>
+  <data>${prefix}/lib/python3.6/lib-dynload</data>
+  <!--<data>${prefix}/lib/python3.6/lib2to3</data>-->
+  <data>${prefix}/lib/python3.6/logging</data>
+  <data>${prefix}/lib/python3.6/multiprocessing</data>
+  <!--<data>${prefix}/lib/python3.6/pydoc_data</data>-->
+  <data>${prefix}/lib/python3.6/sqlite3</data>
+  <!--<data>${prefix}/lib/python3.6/test</data>-->
+  <!--<data>${prefix}/lib/python3.6/tkinter</data>-->
+  <!--<data>${prefix}/lib/python3.6/turtledemo</data>-->
+  <!--<data>${prefix}/lib/python3.6/unittest</data>-->
+  <data>${prefix}/lib/python3.6/urllib</data>
+  <!--<data>${prefix}/lib/python3.6/venv</data>-->
+  <data>${prefix}/lib/python3.6/wsgiref</data>
+  <data>${prefix}/lib/python3.6/xml</data>
+  <!--<data>${prefix}/lib/python3.6/xmlrpc</data>-->
+
   <!-- only required extra modules (no dbus, for instance) -->
-  <data>${prefix}/lib/python2.7/site-packages/podcastparser.py</data>
-  <data>${prefix}/lib/python2.7/site-packages/gi</data>
-  <data>${prefix}/lib/python2.7/site-packages/cairo</data>
-  <data>${prefix}/lib/python2.7/site-packages/gpodder</data>
-  <data>${prefix}/lib/python2.7/site-packages/mutagen</data>
-  <data>${prefix}/lib/python2.7/site-packages/mygpoclient</data>
-  <data>${prefix}/lib/python2.7/site-packages/html5lib</data>
-  <data>${prefix}/lib/python2.7/site-packages/six.py</data>
-  <data>${prefix}/lib/python2.7/site-packages/webencodings</data>
+  <data>${prefix}/lib/python3.6/site-packages/podcastparser.py</data>
+  <data>${prefix}/lib/python3.6/site-packages/gi</data>
+  <data>${prefix}/lib/python3.6/site-packages/cairo</data>
+  <data>${prefix}/lib/python3.6/site-packages/gpodder</data>
+  <data>${prefix}/lib/python3.6/site-packages/mutagen</data>
+  <data>${prefix}/lib/python3.6/site-packages/mygpoclient</data>
+  <data>${prefix}/lib/python3.6/site-packages/html5lib</data>
+  <data>${prefix}/lib/python3.6/site-packages/six.py</data>
+  <data>${prefix}/lib/python3.6/site-packages/webencodings</data>
 	
 
   <!-- Fake dbus module.
@@ -138,27 +152,27 @@
        so it's not bundled to reduce the App size.
        If somebody requires it, it will be added.
     -->
-  <data dest="${bundle}/Contents/Resources/lib/python2.7/site-packages/dbus">
+  <data dest="${bundle}/Contents/Resources/lib/python3.6/site-packages/dbus">
     ${env:JHBUILD_SOURCE}/gpodder/tools/fake-dbus-module/dbus
   </data>
 
   <binary>
-    ${prefix}/lib/python2.7/lib-dynload/*.so
+    ${prefix}/lib/python3.6/lib-dynload/*.so
   </binary>
   
   <!-- every bundled .so must have its dynamic links rewritten to point to the bundle.
        Can't specify site-packages/*/*.so, so list them based on the output of postproc.sh.
     -->
   <binary>
-    ${prefix}/lib/python2.7/site-packages/cairo/*.so
+    ${prefix}/lib/python3.6/site-packages/cairo/*.so
   </binary>
   <binary>
-    ${prefix}/lib/python2.7/site-packages/gi/*.so
+    ${prefix}/lib/python3.6/site-packages/gi/*.so
   </binary>
 
   
   <data>
-    ${prefix}/include/python2.7
+    ${prefix}/include/python3.6m
   </data>
 
   <data>

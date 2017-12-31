@@ -26,15 +26,15 @@ mv "$APP"/Contents/MacOS/{gPodder,_launcher}
 "$APP"/Contents/MacOS/run "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
 
 # kill some useless files
-rm -Rf "$APP_PREFIX"/lib/python2.7/test
-rm -Rf "$APP_PREFIX"/lib/python2.7/unittest
-rm -Rvf "$APP_PREFIX"/lib/python2.7/*/test
-rm -f "$APP_PREFIX"/lib/python2.7/config/libpython2.7.a
-find "$APP_PREFIX"/lib/python2.7 -name '*.pyc' -delete
-find "$APP_PREFIX"/lib/python2.7 -name '*.pyo' -delete
+rm -Rf "$APP_PREFIX"/lib/python3.6/test
+rm -Rf "$APP_PREFIX"/lib/python3.6/unittest
+rm -Rvf "$APP_PREFIX"/lib/python3.6/*/test
+rm -f "$APP_PREFIX"/lib/python3.6/config/libpython3.6.a
+find "$APP_PREFIX"/lib/python3.6 -name '*.pyc' -delete
+find "$APP_PREFIX"/lib/python3.6 -name '*.pyo' -delete
 rm -f "$APP"/Contents/MacOS/gPodder-bin
 rm -Rf "$APP_PREFIX"/share/gpodder/ui/qml
-rm -Rf "$APP_PREFIX"/lib/python2.7/site-packages/gpodder/{qmlui,webui}
+rm -Rf "$APP_PREFIX"/lib/python3.6/site-packages/gpodder/{qmlui,webui}
 
 # replace copy with symlink
 # rm "$APP_PREFIX"/lib/libicudata.55.dylib

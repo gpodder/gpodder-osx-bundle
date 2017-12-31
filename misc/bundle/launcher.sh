@@ -35,7 +35,7 @@ if /bin/expr "x$1" : '^x-psn_' > /dev/null; then
 fi
 
 #Set $PYTHON to point inside the bundle
-export PYTHON="$bundle_contents/MacOS/python"
+export PYTHON="$bundle_contents/MacOS/python3"
 export PYTHONHOME="$bundle_res"
 
 

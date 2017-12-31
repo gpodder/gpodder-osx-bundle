@@ -12,8 +12,8 @@ def main(argv):
     with open(argv[1], "rb") as h:
         data = h.read()
 
-    data = data.replace("@VERSION@", gpodder.__version__)
-    data = data.replace("@COPYRIGHT@", gpodder.__copyright__)
+    data = data.replace(b"@VERSION@", gpodder.__version__.encode('utf8'))
+    data = data.replace(b"@COPYRIGHT@", gpodder.__copyright__.encode('utf8'))
 
     with open(argv[1], "wb") as h:
         h.write(data)
