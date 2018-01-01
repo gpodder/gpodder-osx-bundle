@@ -1,0 +1,13 @@
+os: osx
+install:
+    - ./bootstrap.sh
+    - ./build.sh
+    - ./bundle.sh
+    - ./release.sh _build/gPodder.app 3.9.10_0
+    - ./release_deps.sh _build/gPodder.app 3.9.10_0
+build: true
+
+# only build on push of the travis branch for now
+branches:
+  only:
+    - travis
