@@ -58,11 +58,9 @@
   </autotools>
 
   <!-- cmakes ./configure is picky about invalid flags so we manually set it -->
-  <!-- 3.9.4 is the last cmake version not requiring a C++11 compiler
-       which is not available under 10.11 el Capitan / 10.6 target -->
   <autotools id="cmake" autogen-sh="bootstrap"
              autogen-template="%(srcdir)s/%(autogen-sh)s --prefix=%(prefix)s">
-    <branch repo="cmake" module="v3.9/cmake-3.9.4.tar.gz" version="3.9.4">
+    <branch repo="cmake" module="v3.10/cmake-3.10.0.tar.gz" version="3.10.0">
     </branch>
   </autotools>
 

@@ -18,7 +18,9 @@
     <dependencies>
       <dep package="podcastparser"/>
       <dep package="mygpoclient"/>
-      <dep package="meta-gtk-osx-python3-gtk3" />
+      <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="pycairo"/>
+      <dep package="pygobject3"/>
       <dep package="tango-icon-theme"/>
       <dep package="mutagen"/>
       <dep package="html5lib"/>
@@ -27,25 +29,14 @@
     </dependencies>
   </autotools>
 
-<distutils id="setuptools">
-    <branch repo="pypi" checkoutdir="setuptools-38.2.5" module="e9/c3/5986db56819bd88e1a250cad2a97249211686b1b7b5d95f9ab64d403a2cb/setuptools-38.2.5.zip"
-	    version="38.2.5" md5sum="abfd02fba07b381c3a9682a32d765cc6"/>
-</distutils>
-
 <distutils id="podcastparser">
     <branch repo="pypi" checkoutdir="podcastparser-0.6.2" module="e1/25/f83e02b093867f07bd39689c105ece535c5e5a19e5051551e7983d487146/podcastparser-0.6.2.tar.gz"
 	    version="0.6.2" md5sum="662d66916c5428d51f73c482e2401695"/>
-    <dependencies>
-		<dep package="setuptools"/>
-    </dependencies>
 </distutils>
 
 <distutils id="mutagen">
     <branch repo="github" checkoutdir="mutagen-1.39" module="quodlibet/mutagen.git"
 	    version="1.39" tag="release-1.39"/>
-    <dependencies>
-		<dep package="setuptools"/>
-    </dependencies>
 </distutils>
 
 <distutils id="mygpoclient">
@@ -57,7 +48,6 @@
 	<branch repo="pypi" checkoutdir="html5lib" module="85/3e/cf449cf1b5004e87510b9368e7a5f1acd8831c2d6691edd3c62a0823f98f/html5lib-1.0.1.tar.gz"
 		version="1.0.1" md5sum="942a0688d6bdf20d087c9805c40182ad"/>
 	<dependencies>
-		<dep package="setuptools"/>
 		<dep package="six"/>
 		<dep package="webencodings"/>
 	</dependencies>
@@ -66,17 +56,11 @@
 <distutils id="six">
 	<branch repo="pypi" checkoutdir="six" module="16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"
 		version="1.11.0" md5sum="d12789f9baf7e9fb2524c0c64f1773f8"/>
-	<dependencies>
-		<dep package="setuptools"/>
-	</dependencies>
 </distutils>
 
 <distutils id="webencodings">
 	<branch repo="pypi" checkoutdir="webencodings" module="0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
 		version="0.5.1" md5sum="32f6e261d52e57bf7e1c4d41546d15b8"/>
-	<dependencies>
-		<dep package="setuptools"/>
-	</dependencies>
 </distutils>
 
 </moduleset>

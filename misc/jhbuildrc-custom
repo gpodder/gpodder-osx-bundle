@@ -13,4 +13,4 @@ disable_Werror = False
 skip.append("libiconv")
 
 os.environ["PYTHON"] = "python3"
-setup_sdk(target="10.11", sdk_version="native", architectures=[_default_arch])
+setup_sdk(target="10.9", sdk_version="native", architectures=[_default_arch])
