@@ -55,6 +55,12 @@ if [ "$with_python3" == 1 ]; then
 	export PYTHON=$HOME/jhbuild_prefix/bin/python3
 fi
 
+echo "HOME is $HOME!"
+ls -al "$HOME"
+echo "PATH is $PATH"
+echo "PYTHON is $PYTHON, python is" $(which python) ", python2 is" $(which python2)
+ls -al "$HOME/.local/bin/"
+
 while [ -n "$1" ]; do
 	if [ "$1" == "bootstrap" ]; then
 		echo "boostraping..."
