@@ -3,9 +3,9 @@
 # perform bootstrap
 ./bootstrap.sh
 
-# try bootstrap here
+# try ./build.sh here
 echo "bootstraping..."
-/bin/sh -c "source env.sh; jhbuild bootstrap"
+./build.sh
 
 OLD_HOME=$HOME
 . env.sh
