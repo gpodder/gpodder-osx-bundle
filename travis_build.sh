@@ -46,7 +46,7 @@ echo "$KNOWN_HOST" >> "_home/.ssh/known_hosts"
 cat "_home/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
 chmod go-wrx ../gpodderbuild
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arvz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "_home/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arvz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "./"
 
 
 . env.sh
