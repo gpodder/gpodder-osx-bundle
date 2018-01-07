@@ -47,7 +47,7 @@ OLD_HOME=$HOME
 
 # download data
 rsync -ar "$OLD_HOME/.ssh" "$HOME/"
-echo "[gpodder-build.elelay.fr:$RSYNC_PORT]  $RSYNC_HOST_KEY" >> "$HOME/.ssh/known_hosts"
+echo "$KNOWN_HOST" >> "$HOME/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
 rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix" "$HOME/"
 
