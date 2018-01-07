@@ -10,9 +10,7 @@ else
 	with_python3=0
 fi
 if [ -z "$1" ]; then
-	echo "Usage: $0 [--python3] <PKG>"
-else
-	pkg=$1
+	echo "Usage: $0 [--python3] <PKG> [PKG ...]"
 fi
 
 export PING_SLEEP=30s
@@ -42,13 +40,25 @@ PING_LOOP_PID=$!
 (tail -f "$BUILD_OUTPUT" | grep -E '\[[0-9]+/[0-9]+\]') &
 TAIL=$!
 
+./bootstrap.sh
+
 . env.sh
+
+# download data
+openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
+rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz --ignore-missing-args $RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix "$HOME/"
+
+
 
 if [ "$with_python3" == 1 ]; then
 	export PYTHON=$HOME/jhbuild_prefix/bin/python3
 fi
 
-jhbuild build "$pkg" >> "$BUILD_OUTPUT" 2>&1
+while [ -n "$1" ]; do
+	echo "building $1..."
+	jhbuild build "$1" >> "$BUILD_OUTPUT" 2>&1
+	shift
+done
 
 # The build finished without returning an error so dump a tail of the output
 dump_output
@@ -56,3 +66,6 @@ dump_output
 # nicely terminate the ping output loop
 kill "$PING_LOOP_PID"
 kill "$TAIL"
+
+# upload data
+rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" $RSYNC_HOME/$TRAVIS_BUILD/

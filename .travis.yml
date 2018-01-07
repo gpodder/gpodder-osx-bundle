@@ -1,36 +1,28 @@
 os: osx
+env:
+  global:
+    secure: "xdcy6AnCg7w35YRv8UkXi+8IdJ1IByEv2k0s3tr25QsdYYk7GYsVMYEjnG5uk640Vw9WUPIbyaIit2xeiuECMvktpVSg2pPU8hHxLAhrYD422YsmlOu5t/EeiLEWzVWnFGwyiR2vArRfUHMXgijuj5/RKZReUBxwGVpERNyR8wqBF6FBWu2giiAoQ+ouS6zciwJ6wb9DQd8WtUKRN+uZ28QTXf4Gbsf0nCEFM9BZmEs6+2ZqsBGJbUPhc8NOyEB476hW2n+n+NEj3+aQmaWfani7RlIhcntHo2BMd9NocTONicdjFbYcLT/FSwNv6OoaJ3eTUMyDHJrGFvgnykFvt/SM2c61IPMY3suQ9ozjID/j7ybGn+2XJnxhIivFS4oODwu6E0M3AxpfZDOuYJni5wOqQ03KBviUetK0ITFRZjd3TzGDvorx6xbO9WAviK/kG956eFo08zYOBWwA+UixJPBftaCt/juhYfQPa31Te5gVzygtk5vzpVNct9RLvd29gcVfU0hl99KccVTSM3mMcXRPTkI0BPnQ+SpexyKORpoXLNuNabD2I9nGfLA5Tr5LqkHJRB07p8yvMevjlN3FPngKld5EjeDq/x74Bq/tkhGdNMYI6iS+W3O4YgbWvBWkU+QsXwGCGm6XVKV3HrwWIFEqcMMD0bfUDxeIgfV3c/0="
+    secure: "bseRmDAvwKuta92eXKt8YRbm4SsdimCuhJ7sHUVZhjGCgjbLW8/RldpQEvhhtzg2G5ZpnJgj4go96hKVPB9Z9p+hTWZLvwQ9c6jpqOxtdXhb8GveMutUeadgml0ksq/sM3nTjSIamlKMgqSyqBJtd4WICqg3Gb4EhoybgH2M7VNChFL3IlYh9EdGFW23Oj41fBFXVUsN+wqcWJUCVvCn59RGZ/d1tEyiH94n5w35BnlGRtCinANTNVs/zBabftpvoKZvOF2Leaeed3EbxO8BTjJ6ybJEkAtrsmYhd0vjEeckNUTPbKbAryCcZxeEzX6DeI09WNww9NNlp9Zq9uemDdwekRg0ed6G3B0zllWxlyBEKJBiF3eAHNxqkt2A6YasTmxb30F21axfo7/QibiVScCqB2JIbDQhhbuuIEu4No+XmpCyKb88mqq96Vyj8DiIcsDArWBVIS8F70Gplx6mh+LiZJqSO8Q8+2owsAanNPoCkRfivFRpCBnYYZSKHdnzs9cv4AbdI6/huD2BwFlqFL7ApoRpE4EQ2fIWvPQLofuDVXEfFZSpO968S4jrVcWjaYVi9C+/ezquyiqOhIMSCnl5BeWViZHAJ6zlBYtw5KQJk3KH5OVu6suWuVyFkSkmDQ0ma7lSGPj6tr1AgmjtRS+MSh+rfbJXdimVEwGf7D4="
 jobs:
   include:
-    - stage: bootstrap
-      script: ./bootstrap.sh
-    - stage: "jbuild bootstrap"
-      script: ./travis_build.sh bootstrap
-    - stage: "jbuild openssl"
-      script: ./travis_build.sh openssl
-    - stage: "jbuild python3"
-      script: ./travis_build.sh python3
-    - stage: "jbuild itstool"
-      script: ./travis_build.sh itstool
+    - stage: "jbuild bootstrap .. itstool"
+      script: ./travis_build.sh bootstrap openssl python3 itstool
     - stage: "jbuild meta-gtk-osx-bootstrap"
       script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
     - stage: "jbuild meta-gtk-osx-gtk3"
       script: ./travis_build.sh --python3 meta-gtk-osx-gtk3
-    - stage: "jbuild pycairo"
-      script: ./travis_build.sh --python3 pycairo
-    - stage: "jbuild pygobject3"
-      script: ./travis_build.sh --python3 pygobject3
-    - stage: "jbuild tango-icon-theme"
-      script: ./travis_build.sh --python3 tango-icon-theme
-    - stage: "jbuild shared-mime-info"
-      script: ./travis_build.sh --python3 shared-mime-info
+    - stage: "jbuild pycairo pygobject3"
+      script: ./travis_build.sh --python3 pycairo pygpobject3
+    - stage: "jbuild icons"
+      script: ./travis_build.sh --python3 tango-icon-theme shared-mime-info
     - stage: "jbuild gpodder + python deps"
       script: ./travis_build.sh --python3 gpodder
-    - stage: bundle
-      script: ./bundle.sh
-    - stage: release
-      script: ./release.sh _build/gPodder.app 3.9.10_0
-    - stage: release deps
-      script: ./release_deps.sh _build/gPodder.app 3.9.10_0
+#    - stage: bundle
+#      script: ./bundle.sh
+#    - stage: release
+#      script: ./release.sh _build/gPodder.app 3.9.10_0
+#    - stage: release deps
+#      script: ./release_deps.sh _build/gPodder.app 3.9.10_0
 build: true
 
 # only build on push of the travis branch for now
