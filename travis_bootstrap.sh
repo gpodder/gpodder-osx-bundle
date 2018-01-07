@@ -3,6 +3,10 @@
 # perform bootstrap
 ./bootstrap.sh
 
+# try bootstrap here
+echo "bootstraping..."
+/bin/sh -c "source env.sh; jhbuild bootstrap"
+
 OLD_HOME=$HOME
 . env.sh
 
