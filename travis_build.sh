@@ -42,11 +42,14 @@ TAIL=$!
 
 ./bootstrap.sh
 
+OLD_HOME=$HOME
 . env.sh
 
 # download data
+rsync -ar "$OLD_HOME/.ssh" "$HOME/"
+echo "[gpodder-build.elelay.fr:$RSYNC_PORT]  $RSYNC_HOST_KEY" >> "$HOME/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
-rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz $RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix "$HOME/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix" "$HOME/"
 
 
 
@@ -68,4 +71,4 @@ kill "$PING_LOOP_PID"
 kill "$TAIL"
 
 # upload data
-rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" $RSYNC_HOME/$TRAVIS_BUILD/
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD/"
