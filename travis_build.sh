@@ -49,7 +49,7 @@ OLD_HOME=$HOME
 rsync -ar "$OLD_HOME/.ssh" "$HOME/"
 echo "$KNOWN_HOST" >> "$HOME/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix" "$HOME/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz "$RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix" "$HOME/"
 
 
 
