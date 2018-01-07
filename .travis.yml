@@ -1,7 +1,7 @@
 os: osx
 install:
     - ./bootstrap.sh
-    - ./build.sh
+    - ./travis_build.sh
     - ./bundle.sh
     - ./release.sh _build/gPodder.app 3.9.10_0
     - ./release_deps.sh _build/gPodder.app 3.9.10_0
