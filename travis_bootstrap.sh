@@ -5,7 +5,7 @@
 
 # try ./build.sh here
 echo "bootstraping..."
-./build.sh
+./build.sh bootstrap
 
 OLD_HOME=$HOME
 . env.sh

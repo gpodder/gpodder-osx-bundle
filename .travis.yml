@@ -11,8 +11,8 @@ jobs:
   include:
     - stage: bootstrap
       script: ./travis_bootstrap.sh
-    - stage: "jbuild bootstrap .. itstool"
-      script: ./travis_build.sh bootstrap openssl python3 itstool
+    - stage: "jbuild openssl .. itstool"
+      script: ./travis_build.sh openssl python3 itstool
     - stage: "jbuild meta-gtk-osx-bootstrap"
       script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
     - stage: "jbuild meta-gtk-osx-gtk3"

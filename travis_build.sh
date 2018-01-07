@@ -49,26 +49,9 @@ chmod go-wrx ../gpodderbuild
 rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arvz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "./"
 
 
-. env.sh
-
-if [ "$with_python3" == 1 ]; then
-	export PYTHON=$HOME/jhbuild_prefix/bin/python3
-fi
-
-echo "HOME is $HOME!"
-ls -al "$HOME"
-echo "PATH is $PATH"
-echo "PYTHON is $PYTHON, python is" $(which python) ", python2 is" $(which python2)
-ls -al "$HOME/.local/bin/"
-
 while [ -n "$1" ]; do
-	if [ "$1" == "bootstrap" ]; then
-		echo "boostraping..."
-		jhbuild bootstrap #>> "$BUILD_OUTPUT" 2>&1
-	else
-		echo "building $1..."
-		jhbuild build "$1" #>> "$BUILD_OUTPUT" 2>&1
-	fi
+	echo "building $1..."
+	./build.sh build $1 #>> "$BUILD_OUTPUT" 2>&1
 	shift
 done
 
@@ -80,4 +63,4 @@ kill "$PING_LOOP_PID"
 kill "$TAIL"
 
 # upload data
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -avrz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
