@@ -17,5 +17,5 @@ echo "HOME is $HOME!"
 rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -avrz --exclude "$HOME/jhbuild_checkoutroot" \
 	_jhbuild \
 	_bundler \
-	"$HOME/" \
+	"$HOME" \
 	"$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
