@@ -46,7 +46,7 @@ TAIL=$!
 
 # download data
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
-rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz --ignore-missing-args $RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix "$HOME/"
+rsync -e "$RSYNC_CMD -i ../gpodderbuild" -arz $RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix "$HOME/"
 
 
 
