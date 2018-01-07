@@ -50,7 +50,7 @@ rsync -ar "$OLD_HOME/.ssh" "$HOME/"
 echo "$KNOWN_HOST" >> "$HOME/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
 chmod go-wrx ../gpodderbuild
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz "$RSYNC_HOME/$TRAVIS_BUILD/jhbuild_prefix" "$HOME/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/jhbuild_prefix" "$HOME/"
 
 
 
@@ -72,4 +72,4 @@ kill "$PING_LOOP_PID"
 kill "$TAIL"
 
 # upload data
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
