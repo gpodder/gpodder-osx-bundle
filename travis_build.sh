@@ -59,8 +59,13 @@ if [ "$with_python3" == 1 ]; then
 fi
 
 while [ -n "$1" ]; do
-	echo "building $1..."
-	jhbuild build "$1" >> "$BUILD_OUTPUT" 2>&1
+	if [ "$1" == "bootstrap" ]; then
+		echo "boostraping..."
+		jhbuild bootstrap >> "$BUILD_OUTPUT" 2>&1
+	else
+		echo "building $1..."
+		jhbuild build "$1" >> "$BUILD_OUTPUT" 2>&1
+	fi
 	shift
 done
 
