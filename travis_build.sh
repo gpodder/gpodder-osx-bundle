@@ -3,18 +3,30 @@
 # Abort on Error
 set -e
 
+if [ "$1" == "--python3" ]; then
+	with_python3=1
+	shift
+else
+	with_python3=0
+fi
+if [ -z "$1" ]; then
+	echo "Usage: $0 [--python3] <PKG>"
+else
+	pkg=$1
+fi
+
 export PING_SLEEP=30s
 export WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BUILD_OUTPUT=$WORKDIR/build.out
 
-touch $BUILD_OUTPUT
+touch "$BUILD_OUTPUT"
 
 dump_output() {
-   echo Tailing the last 500 lines of output:
-   tail -500 $BUILD_OUTPUT  
+   echo "Tailing the last 500 lines of output:"
+   tail -500 "$BUILD_OUTPUT"
 }
 error_handler() {
-  echo ERROR: An error was encountered with the build.
+  echo "ERROR: An error was encountered with the build."
   dump_output
   exit 1
 }
@@ -27,14 +39,20 @@ bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
 
 # Show build steps
-tail -f $BUILD_OUTPUT | grep '\[[0-9]\+/[0-9]\+\]'
+(tail -f "$BUILD_OUTPUT" | grep -E '\[[0-9]+/[0-9]+\]') &
 TAIL=$!
 
-./build.sh >> $BUILD_OUTPUT 2>&1
+. env.sh
+
+if [ "$with_python3" == 1 ]; then
+	export PYTHON=$HOME/jhbuild_prefix/bin/python3
+fi
+
+jhbuild build "$pkg" >> "$BUILD_OUTPUT" 2>&1
 
 # The build finished without returning an error so dump a tail of the output
 dump_output
 
 # nicely terminate the ping output loop
-kill $PING_LOOP_PID
-kill $TAIL
+kill "$PING_LOOP_PID"
+kill "$TAIL"

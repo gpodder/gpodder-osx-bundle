@@ -1,10 +1,36 @@
 os: osx
-install:
-    - ./bootstrap.sh
-    - ./travis_build.sh
-    - ./bundle.sh
-    - ./release.sh _build/gPodder.app 3.9.10_0
-    - ./release_deps.sh _build/gPodder.app 3.9.10_0
+jobs:
+  include:
+    - stage: bootstrap
+      script: ./bootstrap.sh
+    - stage: "jbuild bootstrap"
+      script: ./travis_build.sh bootstrap
+    - stage: "jbuild openssl"
+      script: ./travis_build.sh openssl
+    - stage: "jbuild python3"
+      script: ./travis_build.sh python3
+    - stage: "jbuild itstool"
+      script: ./travis_build.sh itstool
+    - stage: "jbuild meta-gtk-osx-bootstrap"
+      script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
+    - stage: "jbuild meta-gtk-osx-gtk3"
+      script: ./travis_build.sh --python3 meta-gtk-osx-gtk3
+    - stage: "jbuild pycairo"
+      script: ./travis_build.sh --python3 pycairo
+    - stage: "jbuild pygobject3"
+      script: ./travis_build.sh --python3 pygobject3
+    - stage: "jbuild tango-icon-theme"
+      script: ./travis_build.sh --python3 tango-icon-theme
+    - stage: "jbuild shared-mime-info"
+      script: ./travis_build.sh --python3 shared-mime-info
+    - stage: "jbuild gpodder + python deps"
+      script: ./travis_build.sh --python3 gpodder
+    - stage: bundle
+      script: ./bundle.sh
+    - stage: release
+      script: ./release.sh _build/gPodder.app 3.9.10_0
+    - stage: release deps
+      script: ./release_deps.sh _build/gPodder.app 3.9.10_0
 build: true
 
 # only build on push of the travis branch for now
