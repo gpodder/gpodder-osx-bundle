@@ -74,4 +74,4 @@ kill "$PING_LOOP_PID"
 kill "$TAIL"
 
 # upload data
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild" -arz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -avrz "$HOME/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
