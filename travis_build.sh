@@ -40,19 +40,16 @@ PING_LOOP_PID=$!
 (tail -f "$BUILD_OUTPUT" | grep -E '\[[0-9]+/[0-9]+\]') &
 TAIL=$!
 
-./bootstrap.sh
-
-OLD_HOME=$HOME
-. env.sh
-
 # download data
-rsync -ar "$OLD_HOME/.ssh" "$HOME/"
-echo "$KNOWN_HOST" >> "$HOME/.ssh/known_hosts"
+rsync -ar "$HOME/.ssh" _home/
+echo "$KNOWN_HOST" >> "_home/.ssh/known_hosts"
+cat "_home/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
 chmod go-wrx ../gpodderbuild
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/jhbuild_prefix" "$HOME/"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arvz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "_home/"
 
 
+. env.sh
 
 if [ "$with_python3" == 1 ]; then
 	export PYTHON=$HOME/jhbuild_prefix/bin/python3
@@ -61,16 +58,16 @@ fi
 while [ -n "$1" ]; do
 	if [ "$1" == "bootstrap" ]; then
 		echo "boostraping..."
-		jhbuild bootstrap >> "$BUILD_OUTPUT" 2>&1
+		jhbuild bootstrap #>> "$BUILD_OUTPUT" 2>&1
 	else
 		echo "building $1..."
-		jhbuild build "$1" >> "$BUILD_OUTPUT" 2>&1
+		jhbuild build "$1" #>> "$BUILD_OUTPUT" 2>&1
 	fi
 	shift
 done
 
 # The build finished without returning an error so dump a tail of the output
-dump_output
+# dump_output
 
 # nicely terminate the ping output loop
 kill "$PING_LOOP_PID"

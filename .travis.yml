@@ -9,8 +9,10 @@ env:
     - secure: "iav/0V+X1hfvKO2G4FsYb5VggMg0ILS2BmywtY8DB3Aq/r3NKX7ONSlJrUo+/tYOrInme2Zs5geMBmdRnpJx6c4CrSKJSZdFbt4GImDwkb5ylRP5+8iaLfUKlc2FvHI6Jxzg5n94pbafzH7qAcSp1RVqYnH9VUPLD1Oo3zalskNyxx64asgRrUELB9e0bMcck81om+vEnUd8BBb5UV3O7/sV8gYqNXRIyilAVbgUTFqzPwxhqse8x3yzXYnWhcKZZu/Zpu/so2evb20FhSyPE9N+6HW7F73sW5pkR50z749mn2NNF9EDo3fAVuQsUI9CZZs7FVz79C222QRZS1SdZ4AtKpYq1ftDZdtHdKOXO8YsHzW2JZZml+OzybFUVmscg2MyeV4seyx0Ce4HPeDTkIFmD7tzSUtiV+j6/GF+WJ07fZ+hOjuJtEOHaO05eF8Thp33zwsWfS5eNrp178B0mG6SmFkgqvZZOCcYHYJoLMPQz3MjBcPfqzznMNjGu0X5oTQ97DzvKKclSUz8eiLjWka+5ZeH7xKql9J8LcsM2uUR4vrhkGT2b2N42vsQuKPsh4SnNmYfQq52vKRkB6RsQd6jQwz9F3Zr9wky16nIj3+IsZp9f4y2+zKCAeB3f9ULhNptgsdTHHaVej1LwZFxJNHioi9cOZgfrTmbiS508uc="
 jobs:
   include:
-    - stage: "jbuild bootstrap .. itstool"
-      script: ./travis_build.sh bootstrap openssl python3 itstool
+    - stage: bootstrap
+      script: ./travis_bootstrap.sh
+    - stage: "jbuild openssl .. itstool"
+      script: ./travis_build.sh openssl python3 itstool
     - stage: "jbuild meta-gtk-osx-bootstrap"
       script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
     - stage: "jbuild meta-gtk-osx-gtk3"
