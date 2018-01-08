@@ -46,17 +46,17 @@ echo "$KNOWN_HOST" >> "_home/.ssh/known_hosts"
 cat "_home/.ssh/known_hosts"
 openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_iv -in misc/travis/gpodderbuild.enc -out ../gpodderbuild -d
 chmod go-wrx ../gpodderbuild
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arvz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "./"
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/" "./"
 
 
 while [ -n "$1" ]; do
 	echo "building $1..."
-	./build.sh build $1 #>> "$BUILD_OUTPUT" 2>&1
+	./build.sh build $1 >> "$BUILD_OUTPUT" 2>&1
 	shift
 done
 
 # The build finished without returning an error so dump a tail of the output
-# dump_output
+dump_output
 
 # nicely terminate the ping output loop
 kill "$PING_LOOP_PID"

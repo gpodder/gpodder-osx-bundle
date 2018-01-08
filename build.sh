@@ -18,6 +18,6 @@ if [ -z "$1" ]; then
 	jhbuild build meta-gtk-osx-bootstrap
 	jhbuild build gpodder
 else
-	echo jhbuild "$@"
+	echo "jhbuild $@"
 	jhbuild "$@"
 fi
