@@ -55,7 +55,7 @@ while [ -n "$1" ]; do
 		./build.sh bootstrap >> "$BUILD_OUTPUT" 2>&1
 	else
 	    echo "building $1..."
-	    ./build.sh "$1" >> "$BUILD_OUTPUT" 2>&1
+	    ./build.sh build "$1" >> "$BUILD_OUTPUT" 2>&1
 	fi
 	shift
 done
