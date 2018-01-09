@@ -50,8 +50,13 @@ rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz
 
 
 while [ -n "$1" ]; do
-	echo "building $1..."
-	./build.sh build $1 >> "$BUILD_OUTPUT" 2>&1
+	if [ "$1" == "bootstrap" ]; then
+		echo "boostraping..."
+		./build.sh bootstrap >> "$BUILD_OUTPUT" 2>&1
+	else
+	    echo "building $1..."
+	    ./build.sh "$1" >> "$BUILD_OUTPUT" 2>&1
+	fi
 	shift
 done
 
