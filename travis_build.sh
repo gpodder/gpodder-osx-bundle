@@ -37,7 +37,7 @@ bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
 
 # Show build steps
-(tail -f "$BUILD_OUTPUT" | grep -E '\[[0-9]+/[0-9]+\]') &
+bash -c "tail -f \"$BUILD_OUTPUT\" | grep -E '\[[0-9]+/[0-9]+\]'" &
 TAIL=$!
 
 # download data

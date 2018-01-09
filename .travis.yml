@@ -15,8 +15,28 @@ jobs:
       script: ./travis_build.sh bootstrap
     - stage: "jbuild openssl .. itstool"
       script: ./travis_build.sh openssl python3 itstool
-    - stage: "jbuild meta-gtk-osx-bootstrap"
+    - stage: "jbuild meta-gtk-osx-bootstrap 1"
+      script: ./travis_build.sh --python3 libpng libjpeg libtiff
+    - stage: "jbuild meta-gtk-osx-bootstrap 2"
+      script: ./travis_build.sh --python3 gettext-runtime
+    - stage: "jbuild meta-gtk-osx-bootstrap 3"
+      script: ./travis_build.sh --python3 hicolor-icon-theme
+    - stage: "jbuild meta-gtk-osx-bootstrap 4"
       script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
+    - stage: "jbuild meta-gtk-osx-gtk3 1"
+      script: ./travis_build.sh --python3 libffi glib
+    - stage: "jbuild meta-gtk-osx-gtk3 2"
+      script: ./travis_build.sh --python3 gobject-introspection
+    - stage: "jbuild meta-gtk-osx-gtk3 3"
+      script: ./travis_build.sh --python3 cairo
+    - stage: "jbuild meta-gtk-osx-gtk3 4"
+      script: ./travis_build.sh --python3 pango
+    - stage: "jbuild meta-gtk-osx-gtk3 5"
+      script: ./travis_build.sh --python3 atk
+    - stage: "jbuild meta-gtk-osx-gtk3 6"
+      script: ./travis_build.sh --python3 gdk-pixbuf
+    - stage: "jbuild meta-gtk-osx-gtk3"
+      script: ./travis_build.sh --python3 libepoxy
     - stage: "jbuild meta-gtk-osx-gtk3"
       script: ./travis_build.sh --python3 meta-gtk-osx-gtk3
     - stage: "jbuild pycairo pygobject3"
