@@ -37,7 +37,7 @@ bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
 
 # Show build steps
-bash -c "tail -f \"$BUILD_OUTPUT\" | grep -E '\[[0-9]+/[0-9]+\]'" &
+bash -c "tail -f \"$BUILD_OUTPUT\" | grep -E '\['" &
 TAIL=$!
 
 # download data
@@ -68,4 +68,5 @@ kill "$PING_LOOP_PID"
 kill "$TAIL"
 
 # upload data
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -vz "$BUILD_OUTPUT" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/$TRAVIS_JOB_NUMBER.log"
 rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home/jhbuild_prefix" "$RSYNC_HOME/$TRAVIS_BUILD_NUMBER/"
