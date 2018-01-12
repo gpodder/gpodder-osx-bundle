@@ -35,7 +35,7 @@ jobs:
       script: ./travis_build.sh --python3 atk
     - stage: "jbuild meta-gtk-osx-gtk3 6"
       script: ./travis_build.sh --python3 gdk-pixbuf
-    - stage: "jbuild meta-gtk-osx-gtk3"
+    - stage: "jbuild meta-gtk-osx-gtk3 7"
       script: ./travis_build.sh --python3 libepoxy
     - stage: "jbuild meta-gtk-osx-gtk3"
       script: ./travis_build.sh --python3 meta-gtk-osx-gtk3
@@ -51,6 +51,27 @@ jobs:
 #      script: ./release.sh _build/gPodder.app 3.9.10_0
 #    - stage: release deps
 #      script: ./release_deps.sh _build/gPodder.app 3.9.10_0
+
+stages:
+  - bootstrap
+  - jbuild bootsrap
+  - jbuild openssl .. itstool
+  - jbuild meta-gtk-osx-bootstrap 1
+  - jbuild meta-gtk-osx-bootstrap 2
+  - jbuild meta-gtk-osx-bootstrap 3
+  - jbuild meta-gtk-osx-bootstrap 4
+  - jbuild meta-gtk-osx-gtk3 1
+  - jbuild meta-gtk-osx-gtk3 2
+  - jbuild meta-gtk-osx-gtk3 3
+  - jbuild meta-gtk-osx-gtk3 4
+  - jbuild meta-gtk-osx-gtk3 5
+  - jbuild meta-gtk-osx-gtk3 6
+  - jbuild meta-gtk-osx-gtk3 7
+  - jbuild meta-gtk-osx-gtk3
+  - jbuild pycairo pygobject3
+  - jbuild icons
+  - jbuild gpodder + python deps
+
 build: true
 
 # only build on push of the travis branch for now
