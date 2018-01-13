@@ -16,12 +16,8 @@ jobs:
     - stage: "jbuild openssl .. itstool"
       script: ./travis_build.sh openssl python3 itstool
     - stage: "jbuild meta-gtk-osx-bootstrap 1"
-      script: ./travis_build.sh --python3 libpng libjpeg libtiff
+      script: ./travis_build.sh --python3 libpng libjpeg libtiff gettext-runtime hicolor-icon-theme
     - stage: "jbuild meta-gtk-osx-bootstrap 2"
-      script: ./travis_build.sh --python3 gettext-runtime
-    - stage: "jbuild meta-gtk-osx-bootstrap 3"
-      script: ./travis_build.sh --python3 hicolor-icon-theme
-    - stage: "jbuild meta-gtk-osx-bootstrap 4"
       script: ./travis_build.sh --python3 meta-gtk-osx-bootstrap
     - stage: "jbuild meta-gtk-osx-gtk3 1"
       script: ./travis_build.sh --python3 libffi glib

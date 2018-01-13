@@ -17,7 +17,7 @@ openssl aes-256-cbc -K $encrypted_66daf52526ba_key -iv $encrypted_66daf52526ba_i
 chmod go-wrx ../gpodderbuild
 
 # upload data
-rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz --exclude "$HOME/jhbuild_checkoutroot" \
+rsync -e "ssh -p$RSYNC_PORT -i ../gpodderbuild -o StrictHostKeyChecking=no" -arz \
 	_jhbuild \
 	_bundler \
 	"$HOME" \
