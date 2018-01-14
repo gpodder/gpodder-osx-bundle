@@ -22,9 +22,9 @@ jobs:
     - stage: "jbuild meta-gtk-osx-gtk3 1"
       script: ./travis_build.sh --python3 libffi glib
     - stage: "jbuild meta-gtk-osx-gtk3 2"
-      script: ./travis_build.sh --python3 gobject-introspection
+      script: ./travis_build.sh --python3 pixman cairo
     - stage: "jbuild meta-gtk-osx-gtk3 3"
-      script: ./travis_build.sh --python3 cairo
+      script: ./travis_build.sh --python3 gobject-introspection
     - stage: "jbuild meta-gtk-osx-gtk3 4"
       script: ./travis_build.sh --python3 pango
     - stage: "jbuild meta-gtk-osx-gtk3 5"
