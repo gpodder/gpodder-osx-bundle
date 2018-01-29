@@ -146,8 +146,8 @@
   </autotools>
 
    <autotools id="pygobject3" autogen-sh="configure" >
-    <branch version="3.24.1" module="pygobject/3.24/pygobject-3.24.1.tar.xz"
-	    hash="sha256:a628a95aa0909e13fb08230b1b98fc48adef10b220932f76d62f6821b3fdbffd"/>
+    <branch version="3.25.1" module="pygobject/3.25/pygobject-3.25.1.tar.xz"
+	    hash="sha256:8728bb27078f7ee45c431ccbc237a58fb6d6eb1b7a0668bbe29eb107267bd736"/>
     <dependencies>
       <dep package="pycairo"/>
     </dependencies>
