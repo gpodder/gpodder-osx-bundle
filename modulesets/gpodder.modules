@@ -30,8 +30,8 @@
   </autotools>
 
 <distutils id="podcastparser">
-    <branch repo="pypi" checkoutdir="podcastparser-0.6.2" module="e1/25/f83e02b093867f07bd39689c105ece535c5e5a19e5051551e7983d487146/podcastparser-0.6.2.tar.gz"
-	    version="0.6.2" md5sum="662d66916c5428d51f73c482e2401695"/>
+    <branch repo="pypi" checkoutdir="podcastparser-0.6.3" module="9f/cb/8114def4ca683116e5eece8347e692588941fb25662e35022abfe38f5c7f/podcastparser-0.6.3.tar.gz"
+	    version="0.6.3" md5sum="3ecd1714c55fcf8df97acc24392ef653"/>
 </distutils>
 
 <distutils id="mutagen">
