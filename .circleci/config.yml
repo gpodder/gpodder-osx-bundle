@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build-and-bundle:
+    macos:
+      xcode: "9.2"
+    working_directory: /Users/elelay/gpodder
+    #environment:
+    #  FL_OUTPUT_DIR: /Users/distiller/project/output
+    #  FASTLANE_LANE: test
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - run: ./bootstrap.sh
+      - run: ./build.sh
+      - run: ./bundle.sh
+      - run: ./release.sh _build/gPodder.app 3.10.x
+      - store_artifacts:
+          path: /Users/elelay/gpodder/_build
+
+workflows:
+  version: 2
+  build-bundle:
+    jobs:
+      - build-and-bundle
