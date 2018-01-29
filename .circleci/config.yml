@@ -21,7 +21,7 @@ workflows:
   version: 2
   build-bundle:
     jobs:
-      - build-and-bundle
-        filters:
-		  branches:
-            only: travis
+      - build-and-bundle:
+          filters:
+		    branches:
+              only: travis
