@@ -3,7 +3,6 @@ jobs:
   build-and-bundle:
     macos:
       xcode: "9.2.0"
-    working_directory: /Users/elelay/gpodder
     #environment:
     #  FL_OUTPUT_DIR: /Users/distiller/project/output
     #  FASTLANE_LANE: test
