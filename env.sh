@@ -20,9 +20,11 @@ export QL_OSXBUNDLE_BUNDLE_DEST="$DIR/_build"
 
 alias jhbuild="$(which python2.7 || which python2.6) $HOME/.local/bin/jhbuild"
 
-# Help autotools with 10.12 sdk on 10.11
+# Help autotools with 10.12 sdk on 10.11 & 10.12
 # see https://github.com/Homebrew/brew/pull/970
-for s in basename_r clock_getres clock_gettime clock_settime dirname_r getentropy \
-         mkostemp mkostemps; do
+# see https://github.com/Homebrew/brew/pull/3182
+for s in basename_r clock_getres clock_gettime clock_settime dirname_r \
+		 futimens getentropy \
+         mkostemp mkostemps timingsafe_bcmp utimensat; do
     export "ac_cv_func_$s"=no
 done
