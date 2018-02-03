@@ -23,7 +23,7 @@ jobs:
       xcode: "9.2.0"
     shell: /bin/bash --login -o pipefail
     steps:
-      - run: printf "$SSH_KEY" > /Users/distiller/project/gpodderbuild
+      - run: echo -e "$SSH_KEY" > /Users/distiller/project/gpodderbuild
       - run: chmod go-rwx /Users/distiller/project/gpodderbuild
       - run: rsync -e "ssh -p$RSYNC_PORT -i /Users/distiller/project/gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home" "_build" "$RSYNC_HOME/$CIRCLE_BUILD_NUM/"
       - run: rm /Users/distiller/project/gpodderbuild
