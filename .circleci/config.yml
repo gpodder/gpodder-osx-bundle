@@ -11,18 +11,8 @@ jobs:
       - run: ./build.sh
       - run: ./bundle.sh
       - run: ./release.sh _build/gPodder.app 3.10.x
-  store:
-    macos:
-      xcode: "9.2.0"
-    shell: /bin/bash --login -o pipefail
-    steps:
       - store_artifacts:
           path: /Users/distiller/project/_build
-  upload:
-    macos:
-      xcode: "9.2.0"
-    shell: /bin/bash --login -o pipefail
-    steps:
       - run: echo -e "$SSH_KEY" > /Users/distiller/project/gpodderbuild
       - run: chmod go-rwx /Users/distiller/project/gpodderbuild
       - run: rsync -e "ssh -p$RSYNC_PORT -i /Users/distiller/project/gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home" "_build" "$RSYNC_HOME/$CIRCLE_BUILD_NUM/"
@@ -34,10 +24,6 @@ jobs:
     steps:
      - checkout
      - run: ./bootstrap.sh
-     - run: echo -e "$SSH_KEY" > /Users/distiller/project/gpodderbuild
-     - run: chmod go-rwx /Users/distiller/project/gpodderbuild
-     - run: rsync -e "ssh -p$RSYNC_PORT -i /Users/distiller/project/gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home" "_build" "$RSYNC_HOME/$CIRCLE_BUILD_NUM/"
-     - run: rm /Users/distiller/project/gpodderbuild
 
 workflows:
   version: 2
