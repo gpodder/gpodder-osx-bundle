@@ -32,7 +32,7 @@ jobs:
       xcode: "9.2.0"
     shell: /bin/bash --login -o pipefail
     steps:
-      - checkout
+     - checkout
      - run: ./bootstrap.sh
 
 workflows:
