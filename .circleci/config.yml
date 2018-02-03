@@ -10,7 +10,8 @@ jobs:
       - run: ./bootstrap.sh
       - run: ./build.sh
       - run: ./bundle.sh
-      - run: ./release.sh _build/gPodder.app 3.10.x
+      - run: ./release.sh _build/gPodder.app $(git describe --tags)
+      - run: ./release_deps.sh _build/gPodder.app $(git describe --tags)
       - store_artifacts:
           path: /Users/distiller/project/_build
       - run: echo -e "$SSH_KEY" > /Users/distiller/project/gpodderbuild
