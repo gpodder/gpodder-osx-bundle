@@ -14,6 +14,7 @@ import requests
 
 
 def debug_requests():
+    """ turn requests debug on """
     import logging
 
     # These two lines enable debugging at httplib level (requests->urllib3->http.client)
@@ -31,15 +32,17 @@ def debug_requests():
 
 
 def error_exit(msg, code=1):
+    """ print msg and exit with code """
     print(msg, file=sys.stderr)
     sys.exit(code)
 
 
 def download_circleci(circle_build, circle_token):
+    """ download build artifacts from circleCI and exit """
     print("I: downloading release artifacts")
     circle_auth = {"circle-token": circle_token}
     os.mkdir("_build")
-    artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % args.circle_build,
+    artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % circle_build,
                              params=circle_auth).json()
     items = set([u["url"] for u in artifacts
                 if re.match(".+/gPodder-.+\.deps\.zip.*$", u["path"])
@@ -59,6 +62,7 @@ def download_circleci(circle_build, circle_token):
 
 
 def checksum():
+    """ compare downloaded archive with checksums """
     for f in os.listdir("_build"):
         if re.match("gPodder-.+\.deps\.zip.md5$", f):
             md5 = os.path.join("_build", f)
@@ -94,8 +98,25 @@ def checksum():
                    % (archive, sha256value, sha256cmp))
 
 
-def upload(repo, tag, previous_tag):
+def get_diff_previous_tag(tag, previous_tag):
+    """ compare previous_tag's gPodder.contents with the one in _build
+        @return formatted diff or empty string if no previous_tag
+    """
+    if not previous_tag:
+        return ""
+    resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/gPodder.contents"
+                        % previous_tag)
+    if resp.status_code is not 200:
+        error_exit("Error getting previous gPodder.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
+    previousContents = [l + "\n" for l in resp.text.split("\n") if not l.startswith(" ")]
+    with open("_build/gPodder.contents", "r") as f:
+        contents = [l for l in f.readlines() if not l.startswith(" ")]
+    diff = difflib.unified_diff(previousContents, contents, fromfile=previous_tag, tofile=tag, n=1)
+    return "```\n%s\n```" % "".join(diff)
 
+
+def upload(repo, tag, previous_tag, circle_build):
+    """ create github release (draft) and upload assets """
     print("I: creating release %s" % tag)
     try:
         release = repo.create_release(tag, name=tag, draft=True)
@@ -117,29 +138,27 @@ def upload(repo, tag, previous_tag):
                 error_exit("Error uploading asset '%s' (%r)" % (itm, e))
     print("I: upload success")
 
-    if previous_tag:
-        print("I: updating release description with diff")
-        resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/gPodder.contents"
-                            % args.previous_tag)
-        if resp.status_code is not 200:
-            error_exit("Error getting previous gPodder.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
-        previousContents = [l + "\n" for l in resp.text.split("\n") if not l.startswith(" ")]
-        with open("_build/gPodder.contents", "r") as f:
-            contents = [l for l in f.readlines() if not l.startswith(" ")]
-        diff = difflib.unified_diff(previousContents, contents, fromfile=args.previous_tag, tofile=args.tag, n=1)
-        diff = "".join(diff)
-        if release.edit(body="```\n%s\n```" % diff):
-            print("I: updated release description with diff")
-        else:
-            error_exit("E: updating release description")
+    print("I: updating release description with diff")
+    diff = get_diff_previous_tag(tag, previous_tag)
+    if circle_build:
+        build = ("\ncircleCI build [%i](https://circleci.com/gh/gpodder/gpodder-osx-bundle/%i)"
+                 % (circle_build, circle_build))
+    else:
+        build = ""
+    if release.edit(body=diff + build):
+        print("I: updated release description with diff")
+    else:
+        error_exit("E: updating release description")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='upload built artifacts to a github release')
     parser.add_argument('tag', type=str,
                         help='gpodder-osx-bundle git tag to create a release from')
-    parser.add_argument('--circle-build', type=str, required=False,
+    parser.add_argument('--download',
                         help='download artifacts from given circle.ci build number')
+    parser.add_argument('--circle-build', type=str, required=False,
+                        help='circleCI build number')
     parser.add_argument('--previous-tag', type=str, required=False,
                         help='previous github tag for contents comparison')
     parser.add_argument('--debug', '-d',
@@ -157,7 +176,9 @@ if not github_token:
 gh = login(token=github_token)
 repo = gh.repository('gpodder', 'gpodder-osx-bundle')
 
-if args.circle_build:
+if args.download:
+    if not args.circle_build:
+        error_exit("E: --download requires --circle-build number")
     if os.path.isdir("_build"):
         error_exit("E: _build directory exists", -1)
     circle_token = os.environ.get("CIRCLE_TOKEN")
@@ -169,4 +190,4 @@ else:
         error_exit("E: _build directory doesn't exist. Maybe you want to download circleci build artifacts (see Usage)", -1)
 
 checksum()
-upload(repo, args.tag, args.previous_tag)
+upload(repo, args.tag, args.previous_tag, args.circle_build)
