@@ -37,13 +37,11 @@ def error_exit(msg, code=1):
     sys.exit(code)
 
 
-def download_circleci(circle_build, circle_token):
+def download_circleci(circle_build):
     """ download build artifacts from circleCI and exit """
     print("I: downloading release artifacts")
-    circle_auth = {"circle-token": circle_token}
     os.mkdir("_build")
-    artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % circle_build,
-                             params=circle_auth).json()
+    artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % circle_build).json()
     items = set([u["url"] for u in artifacts
                 if re.match(".+/gPodder-.+\.deps\.zip.*$", u["path"])
                 or u["path"].endswith("/gPodder.contents")])
@@ -57,6 +55,7 @@ def download_circleci(circle_build, circle_token):
             with open(output, "wb") as f:
                 for chunk in r.iter_content(chunk_size=1000000):
                     f.write(chunk)
+    checksum()
     print("I: download success. Rerun without --circle-build to upload")
     sys.exit(0)
 
@@ -181,10 +180,7 @@ if args.download:
         error_exit("E: --download requires --circle-build number")
     if os.path.isdir("_build"):
         error_exit("E: _build directory exists", -1)
-    circle_token = os.environ.get("CIRCLE_TOKEN")
-    if not circle_token:
-        error_exit("E: set CIRCLE_TOKEN environment", -1)
-    download_circleci(args.circle_build, circle_token)
+    download_circleci(args.circle_build)
 else:
     if not os.path.exists("_build"):
         error_exit("E: _build directory doesn't exist. Maybe you want to download circleci build artifacts (see Usage)", -1)
