@@ -85,8 +85,8 @@ rm -Rf "$resources"/share/dbus-1
 (cd "$resources" && patch -p0 < "$mydir"/modulesets/patches/dont_check_display.patch)
 
 # Command-XX shortcuts in gPodder menus 
-/usr/bin/xsltproc -o gpodder.ui.tmp "$mydir"/misc/adjust-modifiers.xsl "$resources"/share/gpodder/ui/gtk/gpodder.ui
-mv gpodder.ui.tmp "$resources"/share/gpodder/ui/gtk/gpodder.ui
+/usr/bin/xsltproc -o menus.ui.tmp "$mydir"/misc/adjust-modifiers.xsl "$resources"/share/gpodder/ui/gtk/menus.ui
+mv menus.ui.tmp "$resources"/share/gpodder/ui/gtk/menus.ui
 
 # Set the version and copyright automatically
 version=$(perl -ne "/__version__\\s*=\\s*'(.+)'/ && print \$1" "$checkout"/src/gpodder/__init__.py)
