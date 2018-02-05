@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# directory where the generated app and zip will end in
-workspace=/tmp
-
-usage="Usage: $0 /path/to/gpodder-x.y.z_w.deps.zip /path/to/gPodder/checkout version buildnumber"
+usage="Usage: $0 /path/to/gpodder-x.y.z_w.deps.zip /path/to/gPodder/checkout"
 
 if [ -z "$1" ] ; then
 	echo "$usage"
@@ -34,26 +31,13 @@ else
 	shift
 fi
 
-if [ -z "$1" ] ; then
-	echo "$usage"
-	exit -1
-else
-	version="$1"
-	shift
-fi
-
-if [ -z "$1" ] ; then
-	echo "$usage"
-	exit -1
-else
-	build="$1"
-	shift
-fi
-
 set -x
 
 me=$(readlink -e "$0")
 mydir=$(dirname "$me")
+
+# directory where the generated app and zip will end in
+workspace="$mydir/_build"
 
 app="$workspace"/gPodder.app
 
@@ -72,11 +56,10 @@ fi
 
 cd "$checkout"
 export GPODDER_INSTALL_UIS="cli gtk"
-make install DESTDIR="$resources/" PREFIX= PYTHON=python2
+make install DESTDIR="$resources/" PREFIX= PYTHON=python3
 
 find "$app" -name '*.pyc' -delete
 find "$app" -name '*.pyo' -delete
-rm -Rf "$resources"/lib/python2.7/site-packages/gpodder/webui
 rm -Rf "$resources"/share/applications
 rm -Rf "$resources"/share/dbus-1
 
@@ -97,4 +80,4 @@ sed "s/@VERSION@/$version/g" "$mydir/misc/bundle/Info.plist" | sed "s/@COPYRIGHT
 cp "$checkout"/tools/mac-osx/icon.icns "$resources"/gPodder.icns
 
 # release the thing
-"$mydir"/release.sh "$app" "${version}_${build}"
+"$mydir"/release.sh "$app" "$version"
