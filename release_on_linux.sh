@@ -56,7 +56,7 @@ fi
 
 cd "$checkout"
 export GPODDER_INSTALL_UIS="cli gtk"
-make install DESTDIR="$resources/" PREFIX= PYTHON=python3
+make install DESTDIR="$resources/" PREFIX=. PYTHON=python3
 
 find "$app" -name '*.pyc' -delete
 find "$app" -name '*.pyo' -delete
