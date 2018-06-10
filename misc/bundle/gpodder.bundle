@@ -263,4 +263,7 @@
     ${prefix}/bin/openssl
   </binary>
 
+  <!-- fix crash on file dialogs (#413) -->
+  <data>${prefix}/share/glib-2.0/schemas</data>
+
 </app-bundle>
