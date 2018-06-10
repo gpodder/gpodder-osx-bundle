@@ -51,7 +51,7 @@ def download_circleci(circle_build):
     for url in items:
         print("I: downloading %s" % url)
         output = os.path.join("_build", url.split('/')[-1])
-        with requests.get(url, params=circle_auth, stream=True) as r:
+        with requests.get(url, stream=True) as r:
             with open(output, "wb") as f:
                 for chunk in r.iter_content(chunk_size=1000000):
                     f.write(chunk)
@@ -151,16 +151,20 @@ def upload(repo, tag, previous_tag, circle_build):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='upload built artifacts to a github release')
+    parser = argparse.ArgumentParser(description='upload gpodder-osx-bundle artifacts to a github release\n'
+        'Example usage: \n'
+        '    GITHUB_TOKEN=xxx python github_release.py --download --circle-build 33 base-3.10.2_0\n'
+        '    GITHUB_TOKEN=xxx python github_release.py --circle-build 33 --previous-tag base-3.10.0_0 base-3.10.2_0\n',
+        formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('tag', type=str,
                         help='gpodder-osx-bundle git tag to create a release from')
-    parser.add_argument('--download',
+    parser.add_argument('--download', action='store_true',
                         help='download artifacts from given circle.ci build number')
-    parser.add_argument('--circle-build', type=str, required=False,
+    parser.add_argument('--circle-build', type=int, required=False,
                         help='circleCI build number')
     parser.add_argument('--previous-tag', type=str, required=False,
                         help='previous github tag for contents comparison')
-    parser.add_argument('--debug', '-d',
+    parser.add_argument('--debug', '-d', action='store_true',
                         help='debug requests')
 
 args = parser.parse_args()
