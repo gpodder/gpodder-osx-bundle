@@ -9,7 +9,7 @@
   <repository name="ftp.gnu.org" type="tarball" href="ftp://ftp.gnu.org/gnu/"/>
   <repository name="sourceforge" type="tarball"
               href="http://downloads.sourceforge.net/sourceforge/"/>
-  <repository name="gnutls" type="tarball" href="ftp://ftp.gnutls.org/"/>
+  <repository name="gnutls" type="tarball" href="https://www.gnupg.org/ftp/"/>
   <repository name="webm" type="tarball"
               href="http://downloads.webmproject.org/releases/"/>
   <repository name="webkit.org" type="tarball"
@@ -35,13 +35,11 @@
 
   <!-- of the many arguments such as prefix and libdir that jhbuild might pass
   to configure, openssl only understands prefix, and only with =. -->
-  <!-- Unfortunately Python2 hasn't been fixed up to use the 1.1 API
-       so we're stuck at 1.0. -->
   <autotools id="openssl" autogen-sh="Configure" autogenargs="shared "
              autogen-template="%(srcdir)s/%(autogen-sh)s --prefix=%(prefix)s --openssldir=%(prefix)s/etc/ssl %(autogenargs)s"
              makeinstallargs="install_sw" supports-non-srcdir-builds="no">
-    <branch module="openssl-1.0.2n.tar.gz" version="1.0.2n" repo="openssl"
-            hash="sha256:370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe"/>
+    <branch module="openssl-1.1.0g.tar.gz" version="1.1.0g" repo="openssl"
+            hash="sha256:de4d501267da39310905cb6dc8c6121f7a2cad45a7707f76df828fe1b85073af"/>
   </autotools>
 
   <!-- Rudely demands TeX to build documentation -->
@@ -50,7 +48,7 @@
              autogenargs="--disable-documentation --disable-assembler">
     <branch repo="ftp.gnu.org" version="3.3"
             module="nettle/nettle-3.3.tar.gz">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/libnettle-cc-for-build-needs-cflags.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/libnettle-cc-for-build-needs-cflags.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="gmp"/>
@@ -60,8 +58,9 @@
 
   <autotools id="libtasn1" supports-non-srcdir-builds="no"
              autogen-sh="configure">
-    <branch repo="ftp.gnu.org" version="4.10"
-            module="libtasn1/libtasn1-4.10.tar.gz"/>
+    <branch repo="ftp.gnu.org" version="4.12"
+            module="libtasn1/libtasn1-4.12.tar.gz"
+            hash="sha256:6753da2e621257f33f5b051cc114d417e5206a0818fe0b1ecfd6153f70934753" />
   </autotools>
 
   <autotools id="zlib" autogen-sh="configure" skip-autogen="never"
@@ -140,11 +139,11 @@
              makeargs="-j1">
 
     <branch repo="webkit.org" module="webkitgtk-2.4.11.tar.xz" version="2.4.11">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-140167-disable-netscape-api.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-140167-disable-netscape-api.patch" strip="1"/>
       <!-- This patch can be commented out for XCode >= 6.3, but does no harm if
       it's left in -->
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-133293-cfi-clang-failure.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/WebKit-2.4.11-fixups.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-133293-cfi-clang-failure.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit-2.4.11-fixups.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="libwebp"/>
@@ -164,11 +163,11 @@
              autogenargs="--enable-quartz-target --with-gtk=3.0 --disable-webkit2 --disable-credential-storage --disable-geolocation --disable-video --disable-web-audio CXXFLAGS='-stdlib=libc++'"
              makeargs="-j1" >
     <branch repo="webkit.org" module="webkitgtk-2.4.11.tar.xz" version="2.4.11">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-140167-disable-netscape-api.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-140167-disable-netscape-api.patch" strip="1"/>
       <!-- This patch can be commented out for XCode >= 6.3, but does no harm if
       it's left in -->
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-133293-cfi-clang-failure.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/WebKit-2.4.11-fixups.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-133293-cfi-clang-failure.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit-2.4.11-fixups.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="libwebp"/>
@@ -179,6 +178,7 @@
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="meta-gtk-osx-gtk3.14"/>
       <dep package="meta-gstreamer"/>
     </after>
   </autotools>
@@ -201,10 +201,10 @@
   <cmake id="webkit2gtk3"
          cmakeargs='-DPORT=GTK -DENABLE_X11_TARGET=OFF -DENABLE_QUARTZ_TARGET=ON -DENABLE_INTROSPECTION=OFF  -DENABLE_OPENGL=OFF -DENABLE_PLUGIN_PROCESS_GTK2=OFF -DENABLE_VIDEO=OFF -DENABLE_WEB_AUDIO=OFF -DENABLE_GEOLOCATION=OFF -DUSE_LIBNOTIFY=OFF -DUSE_LIBHYPHEN=OFF -DUSE_LIBSECRET=OFF -DENABLE_TOUCH_EVENTS=OFF -DCMAKE_CXX_FLAGS="-stdlib=libc++"'>
     <branch repo="webkit.org" module="webkitgtk-2.16.6.tar.xz" version="2.16.6">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/Webkit-2.16-build-without-OpenGL.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/Webkit-2.16-Fix-some-includes.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-2.16-No-stringview-lifetime.patch" strip="1"/>
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/webkit-2.16-main-thread.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/Webkit-2.16-build-without-OpenGL.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/Webkit-2.16-Fix-some-includes.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-2.16-No-stringview-lifetime.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-2.16-main-thread.patch" strip="1"/>
 
     </branch>
     <dependencies>
@@ -217,6 +217,7 @@
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="meta-gtk-osx-gtk3.14"/>
       <dep package="meta-gstreamer"/>
     </after>
   </cmake>

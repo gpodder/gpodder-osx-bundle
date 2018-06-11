@@ -48,9 +48,6 @@ rm -Rf "$APP_PREFIX"/lib/python3.6/site-packages/gpodder/{qmlui,webui}
 /usr/bin/xsltproc -o gpodder.ui.tmp $mydir/misc/adjust-modifiers.xsl "$APP_PREFIX"/share/gpodder/ui/gtk/gpodder.ui
 mv gpodder.ui.tmp "$APP_PREFIX"/share/gpodder/ui/gtk/gpodder.ui
 
-# localization of Quit and other menu items controlled by gtk-mac-integration
-cp -R "$JHBUILD_PREFIX"/share/strings/*.lproj "$APP_PREFIX"
-
 # check for dynamic linking consistency : nothing should reference gtk/inst
 find "$APP_PREFIX" -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
 

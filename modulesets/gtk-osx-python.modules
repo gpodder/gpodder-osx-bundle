@@ -27,20 +27,26 @@
 
   <metamodule id="meta-gtk-osx-python-gtk3">
     <dependencies>
-      <dep package="meta-gtk-osx-gtk3"/>
       <dep package="pycairo"/>
       <dep package="pygobject3"/>
       <dep package="gtk-mac-integration-python"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="meta-gtk-osx-gtk3.14"/>
+    </after>
   </metamodule>
 
   <metamodule id="meta-gtk-osx-python3-gtk3">
     <dependencies>
-      <dep package="meta-gtk-osx-gtk3"/>
       <dep package="pycairo"/>
       <dep package="pygobject3"/>
       <dep package="gtk-mac-integration-python"/>
     </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="meta-gtk-osx-gtk3.14"/>
+    </after>
   </metamodule>
 
 <!--Note the leading ; in autogen-template. It's there on purpose in case the user has set nice_build so that the nice prepended to the command doesn't eat the cd. -->
@@ -51,7 +57,7 @@
 
     <branch module="berkeley-db/db-4.8.30.NC.tar.gz" version="4.8.30"
         repo="oracle" >
-      <patch file="https://github.com/narkoleptik/os-x-berkeleydb-patch/raw/master/atomic.patch" strip='1'/>
+      <patch file="https://raw.githubusercontent.com/narkoleptik/os-x-berkeleydb-patch/master/atomic.patch" strip='1'/>
     </branch>
   </autotools>
 
@@ -73,8 +79,9 @@
   <autotools id="python" autogenargs="--enable-shared"
 	     autogen-sh="configure" supports-non-srcdir-builds="no">
     <branch repo="python"
-	    module="2.7.13/Python-2.7.13.tar.xz" version="2.7.13">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/python2-linkflags.patch" strip="1"/>
+           module="2.7.14/Python-2.7.14.tar.xz" version="2.7.14"
+           hash="sha256:71ffb26e09e78650e424929b2b457b9c912ac216576e6bd9e7d204ed03296a66">
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/python2-linkflags.patch" strip="1"/>"/>
     </branch>
     <dependencies>
       <dep package="gettext-runtime"/>
@@ -87,14 +94,14 @@
     </after>
   </autotools>
 
-  <!-- add with-pydebug configure flag to disable -03 -->
   <autotools id="python3" autogenargs="--enable-shared" autogen-sh="configure">
     <branch repo="python" module="3.6.4/Python-3.6.4.tar.xz" version="3.6.4">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/Python3.4-stack_size-flag.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/Python3.4-stack_size-flag.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="gettext-runtime"/>
       <dep package='readline'/>
+      <dep package="openssl"/> <!-- For hashlib -->
     </dependencies>
   </autotools>
 
@@ -122,6 +129,7 @@
       <dep package="python3"/>
       <dep package="python"/>
       <dep package="meta-gtk-osx-gtk3"/>
+      <dep package="meta-gtk-osx-gtk3.14"/>
       <dep package="meta-gtk-osx-core"/>
     </after>
   </distutils>
@@ -134,9 +142,7 @@
 	     autogenargs="--disable-introspection"
 	     supports-non-srcdir-builds="no">
     <branch version="2.28.6" module="pygobject/2.28/pygobject-2.28.6.tar.bz2"
-            hash="sha256:e4bfe017fa845940184c82a4d8949db3414cb29dfc84815fb763697dc85bdcee">
-      <patch file="patches/hiddengdesktopapp.patch" strip="0"/>
-    </branch>
+            hash="sha256:e4bfe017fa845940184c82a4d8949db3414cb29dfc84815fb763697dc85bdcee"/>
     <dependencies>
       <dep package="meta-gtk-osx-core"/>
     </dependencies>
@@ -145,9 +151,9 @@
     </after>
   </autotools>
 
-   <autotools id="pygobject3" autogen-sh="configure" >
+  <autotools id="pygobject3" autogen-sh="configure" >
     <branch version="3.25.1" module="pygobject/3.25/pygobject-3.25.1.tar.xz"
-	    hash="sha256:8728bb27078f7ee45c431ccbc237a58fb6d6eb1b7a0668bbe29eb107267bd736"/>
+            hash="sha256:8728bb27078f7ee45c431ccbc237a58fb6d6eb1b7a0668bbe29eb107267bd736"/>
     <dependencies>
       <dep package="pycairo"/>
     </dependencies>
@@ -162,7 +168,7 @@
 	     autogenargs="CFLAGS=&quot;$CFLAGS -xobjective-c&quot; lt_cv_sys_global_symbol_pipe=&quot;'sed -n -e '\''s/^.*[ ]\([BCDEGRST][BCDEGRST]*\)[ ][ ]*_\([_A-Za-z][_A-Za-z0-9]*\)$/\1 _\2 \2/p'\'' | sed '\''/ __gnu_lto/d'\'''&quot;">
     <branch version="2.24.0" module="pygtk/2.24/pygtk-2.24.0.tar.bz2"
             hash="sha256:cd1c1ea265bd63ff669e92a2d3c2a88eb26bcd9e5363e0f82c896e649f206912">
-      <patch file="https://git.gnome.org/browse/gtk-osx/plain/patches/pygtk-libtool.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/pygtk-libtool.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="pygobject"/>
@@ -176,9 +182,9 @@
 
   <autotools id="gtk-mac-integration-python" autogen-sh="configure"
              autogenargs="--enable-python">
-    <branch module="gtk-mac-integration/2.0/gtk-mac-integration-2.0.8.tar.xz"
-            version="2.0.8"
-            hash="sha256:74fce9dbc5efe4e3d07a20b24796be1b1d6c3ac10a0ee6b1f1d685c809071b79">
+    <branch module="gtk-mac-integration/2.1/gtk-mac-integration-2.1.2.tar.xz"
+            version="2.1.2"
+            hash="sha256:68e682a3ba952e7d4b1cfa2c7147c5fcd76f8bd9792a567e175a619af5954af1">
     </branch>
     <dependencies>
     </dependencies>

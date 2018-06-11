@@ -1,7 +1,7 @@
-commit a812ac2dc090f63b8b8cbd0921db4c596c3354d9
+commit 6d082ee505557d785271e0d6433e6067700bd546
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Fri Dec 8 12:40:12 2017 -0800
+Date:   Tue Jun 5 21:59:52 2018 -0700
 
-    Update CMake to 3.10.0.
+    Make i386/x86_64 universal builds only for MacOS 10.13 and earlier.
     
-    To fix https://gitlab.kitware.com/cmake/cmake/issues/17101.
+    MacOS 10.14 deprecates i386 and requires an extra library.
