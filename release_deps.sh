@@ -32,7 +32,7 @@ contents="${app%.app}.contents"
 resources="$app"/Contents/Resources
 
 # remove gPodder specific contents
-rm -Rf "${resources:?}"/bin/*
+rm     "${resources:?}"/bin/gpo*
 rm -Rf "$resources"/lib/python3.6/site-packages/gpodder
 rm -Rf "$resources"/share/gpodder
 rm     "$resources"/share/icons/hicolor/scalable/apps/gpodder.svg
