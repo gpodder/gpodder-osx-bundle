@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ A script to initialize our bundled openssl CA trust store
     based on your System's keychain
 
@@ -31,43 +32,43 @@ def get_certs(openssl):
 
     cmd = ["security", "find-certificate", "-a", "-p",
            "/System/Library/Keychains/SystemRootCertificates.keychain"]
-    cert_re = re.compile("^-----BEGIN CERTIFICATE-----$" +
-                         ".+?" +
-                         "^-----END CERTIFICATE-----$", re.M | re.S)
+    cert_re = re.compile(b"^-----BEGIN CERTIFICATE-----$" +
+                         b".+?" +
+                         b"^-----END CERTIFICATE-----$", re.M | re.S)
     try:
         certs_str = subprocess.check_output(cmd)
         all_certs = cert_re.findall(certs_str)
-        print "I: extracted %i certificates" % len(all_certs)
+        print("I: extracted %i certificates" % len(all_certs))
         valid_certs = [cert for cert in all_certs
                        if is_valid_cert(openssl, cert)]
-        print "I: of which %i are valid certificates" % len(valid_certs)
+        print("I: of which %i are valid certificates" % len(valid_certs))
         return valid_certs
     except OSError:
-        print "E: extracting certificates using %r" % cmd
+        print("E: extracting certificates using %r" % cmd)
         traceback.print_exc()
     except CalledProcessError as err:
-        print("E: extracting certificates using %r, exit=%i" %
-              (cmd, err.returncode))
+        print(("E: extracting certificates using %r, exit=%i" %
+              (cmd, err.returncode)))
 
 
 def write_certs(certs, dest):
     """ write concatenated certs to dest """
 
-    with open(dest, "w") as output:
-        output.write("\n".join(certs))
+    with open(dest, "wb") as output:
+        output.write(b"\n".join(certs))
 
 
 def main(openssl, dest):
     """ main program """
 
-    print "I: make_cert_pem.py %s %s" % (openssl, dest)
+    print("I: make_cert_pem.py %s %s" % (openssl, dest))
     certs = get_certs(openssl)
     if certs is None:
-        print "E: no certificate extracted"
+        print("E: no certificate extracted")
         return -1
     else:
         write_certs(certs, dest)
-        print "I: updated %s with %i certificates" % (dest, len(certs))
+        print("I: updated %s with %i certificates" % (dest, len(certs)))
         return 0
 
 
