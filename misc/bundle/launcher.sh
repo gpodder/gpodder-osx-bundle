@@ -66,7 +66,7 @@ else
 	# generate cert.extracted.pem
 	cert_gen=$gphome/openssl/cert.extracted.pem
 	cert_pem=$gphome/openssl/cert.pem
-	if test ! -f "$cert_gen" || /usr/bin/find "$cert_gen" -ctime +7 ; then
+	if test ! -f "$cert_gen" || /usr/bin/find "$cert_gen" -mtime +7 | /usr/bin/egrep -q .; then
 		echo "(Re)generating" "$cert_pem"
 		openssl=$bundle_bin/openssl
 		make_cert_pem=$bundle_bin/make_cert_pem.py
