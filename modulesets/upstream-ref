@@ -1,7 +1,5 @@
-commit 6d082ee505557d785271e0d6433e6067700bd546
+commit d78833805fe41a7ec1795bd4ffbbb21dc0dbacde
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Tue Jun 5 21:59:52 2018 -0700
+Date:   Mon Aug 20 21:40:11 2018 -0700
 
-    Make i386/x86_64 universal builds only for MacOS 10.13 and earlier.
-    
-    MacOS 10.14 deprecates i386 and requires an extra library.
+    Fix XML_CATALOG_FILES, remove un-needed with-xml-catalog autogenarg from gtk-doc.
