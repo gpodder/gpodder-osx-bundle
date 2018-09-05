@@ -13,7 +13,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="3.10.2">
+	    tag="3.10.3">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
@@ -30,18 +30,18 @@
   </autotools>
 
 <distutils id="podcastparser">
-    <branch repo="pypi" checkoutdir="podcastparser-0.6.3" module="9f/cb/8114def4ca683116e5eece8347e692588941fb25662e35022abfe38f5c7f/podcastparser-0.6.3.tar.gz"
-	    version="0.6.3" md5sum="3ecd1714c55fcf8df97acc24392ef653"/>
+    <branch repo="pypi" checkoutdir="podcastparser" module="e8/d6/d72f6127281ad455bf5642fff568148e0436f0df5052377e87ac9544e306/podcastparser-0.6.4.tar.gz"
+	    version="0.6.4" hash="sha256:8788bd7be741716a60828b4fceb9fadd445c855e1d5fd80789a5da55d90b52cf"/>
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="github" checkoutdir="mutagen-1.39" module="quodlibet/mutagen.git"
-	    version="1.39" tag="release-1.39"/>
+    <branch repo="pypi" checkoutdir="mutagen" module="c0/17/e1c3c18f5d637ebebcb94aa19d74c8c06925cb4ffb9f1031fe5f21a698d3/mutagen-1.41.1.tar.gz"
+	    version="1.41.1" hash="sha256:2ea9c900a05fa7f5f4c5bd9fc1475d7d576532e13b2f79b694452b997ff67200"/>
 </distutils>
 
 <distutils id="mygpoclient">
-    <branch repo="github" module="gpodder/mygpoclient.git" checkoutdir="mygpoclient"
-	    tag="1.8"/>
+    <branch repo="pypi" checkoutdir="mygpoclient" module="21/bd/9c81884d0ed0ad3caf7c654c20da3c85bb1135fe8e2ac7a75e425df362d6/mygpoclient-1.8.tar.gz"
+	    version="1.8" hash="b0027746e6fbe7db646673c7e231bfa70b3f5cb0440b1e7704f9d91aa6e925ba"/>
 </distutils>
 
 <distutils id="html5lib">
