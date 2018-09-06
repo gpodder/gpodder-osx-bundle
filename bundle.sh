@@ -45,8 +45,8 @@ rm -Rf "$APP_PREFIX"/lib/python3.6/site-packages/gpodder/{qmlui,webui}
 (cd "$APP_PREFIX" && patch -p0 < "$mydir/modulesets/patches/dont_check_display.patch")
 
 # Command-XX shortcuts in gPodder menus 
-/usr/bin/xsltproc -o gpodder.ui.tmp $mydir/misc/adjust-modifiers.xsl "$APP_PREFIX"/share/gpodder/ui/gtk/gpodder.ui
-mv gpodder.ui.tmp "$APP_PREFIX"/share/gpodder/ui/gtk/gpodder.ui
+/usr/bin/xsltproc -o menus.ui.tmp "$mydir"/misc/adjust-modifiers.xsl "$APP_PREFIX"/share/gpodder/ui/gtk/menus.ui
+mv menus.ui.tmp "$APP_PREFIX"/share/gpodder/ui/gtk/menus.ui
 
 # check for dynamic linking consistency : nothing should reference gtk/inst
 find "$APP_PREFIX" -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'
