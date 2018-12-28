@@ -1,5 +1,6 @@
-commit d78833805fe41a7ec1795bd4ffbbb21dc0dbacde
+commit 57e1557bbb14dcf6d7b210e42a5c2540a4e98c37
+Merge: 6e81255 7ab94df
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Mon Aug 20 21:40:11 2018 -0700
+Date:   Sat Dec 15 17:00:11 2018 -0800
 
-    Fix XML_CATALOG_FILES, remove un-needed with-xml-catalog autogenarg from gtk-doc.
+    Merge Alex Samorukov's Gimp Updates into master.
