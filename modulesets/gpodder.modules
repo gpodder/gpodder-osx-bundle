@@ -13,7 +13,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="3.10.3">
+	    tag="3.10.5">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
@@ -35,8 +35,8 @@
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="pypi" checkoutdir="mutagen" module="c0/17/e1c3c18f5d637ebebcb94aa19d74c8c06925cb4ffb9f1031fe5f21a698d3/mutagen-1.41.1.tar.gz"
-	    version="1.41.1" hash="sha256:2ea9c900a05fa7f5f4c5bd9fc1475d7d576532e13b2f79b694452b997ff67200"/>
+    <branch repo="pypi" checkoutdir="mutagen" module="30/4c/5ad1a6e1ccbcfaf6462db727989c302d9d721beedd9b09c11e6f0c7065b0/mutagen-1.42.0.tar.gz"
+	    version="1.42.0" hash="sha256:bb61e2456f59a9a4a259fbc08def6d01ba45a42da8eeaa97d00633b0ec5de71c"/>
 </distutils>
 
 <distutils id="mygpoclient">
@@ -54,8 +54,8 @@
 </distutils>
 
 <distutils id="six">
-	<branch repo="pypi" checkoutdir="six" module="16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"
-		version="1.11.0" md5sum="d12789f9baf7e9fb2524c0c64f1773f8"/>
+	<branch repo="pypi" checkoutdir="six" module="dd/bf/4138e7bfb757de47d1f4b6994648ec67a51efe58fa907c1e11e350cddfca/six-1.12.0.tar.gz"
+		version="1.12.0" hash="sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"/>
 </distutils>
 
 <distutils id="webencodings">
