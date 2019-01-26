@@ -1,6 +1,5 @@
-commit 57e1557bbb14dcf6d7b210e42a5c2540a4e98c37
-Merge: 6e81255 7ab94df
+commit 167437e4f01176c41f39fd223939d97bb632b0a5
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Sat Dec 15 17:00:11 2018 -0800
+Date:   Sun Jan 13 16:13:46 2019 -0800
 
-    Merge Alex Samorukov's Gimp Updates into master.
+    Add IMQuartz-GdkWindow.patch to gtk+-3.0
