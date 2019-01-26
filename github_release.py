@@ -56,7 +56,7 @@ def download_circleci(circle_build):
                 for chunk in r.iter_content(chunk_size=1000000):
                     f.write(chunk)
     checksum()
-    print("I: download success. Rerun without --circle-build to upload")
+    print("I: download success. Rerun without --download to upload")
     sys.exit(0)
 
 
