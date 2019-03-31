@@ -1,5 +1,5 @@
-commit 167437e4f01176c41f39fd223939d97bb632b0a5
+commit fb27c1c9558aa908fcc603743d95239180f1e83b
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Sun Jan 13 16:13:46 2019 -0800
+Date:   Mon Mar 25 22:20:08 2019 -0700
 
-    Add IMQuartz-GdkWindow.patch to gtk+-3.0
+    Get the spaces right in gtkmenu.c hunk.
