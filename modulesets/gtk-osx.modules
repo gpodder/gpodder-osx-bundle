@@ -269,10 +269,6 @@
     <branch module="cairo-1.16.0.tar.xz"  version="1.16.0"
             repo="cairographics"
             hash="sha1:00e81842ae5e81bb0343108884eb5205be0eac14">
-		<!-- A test file requiring freetype is still included when freetype is not detected
-		     Patch from John Ralls, see https://gitlab.freedesktop.org/cairo/cairo/issues/346.
-		  -->
-		<patch file="patches/cairo-no-ft2.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="pixman"/>
