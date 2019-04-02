@@ -18,6 +18,10 @@
     <dependencies>
       <dep package="podcastparser"/>
       <dep package="mygpoclient"/>
+      <!-- only for cairo because it currently doesn't build without
+           see https://gitlab.freedesktop.org/cairo/cairo/issues/346
+       -->
+      <dep package="meta-gtk-osx-freetype"/>
       <dep package="meta-gtk-osx-gtk3"/>
       <dep package="pycairo"/>
       <dep package="pygobject3"/>
