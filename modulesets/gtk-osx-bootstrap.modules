@@ -86,24 +86,47 @@
   </autotools>
 
   <autotools id="itstool" autogen-sh="configure">
-    <branch module="itstool/itstool-2.0.4.tar.bz2" version="2.0.4"
+    <branch module="itstool/itstool-2.0.6.tar.bz2" version="2.0.6n"
             repo="itstool">
-<!-- This patch can come out when itstool releases 2.0.5. -->
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/itstool-memory-management.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/itstool-config-python.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="libxml2"/>
     </dependencies>
   </autotools>
 
-  <autotools id="gtk-doc" autogen-sh="configure">
-    <branch version="1.29" module="gtk-doc/1.29/gtk-doc-1.29.tar.xz"
-            hash="sha256:14578e002496567276d310a62c9ffd6c56ee8806ce5079ffb0b81c4111f586b1"/>
+  <autotools id="yelp-xsl">
+    <branch version="3.20.1" module="yelp-xsl/3.20/yelp-xsl-3.20.1.tar.xz"
+            hash="sha256:dc61849e5dca473573d32e28c6c4e3cf9c1b6afe241f8c26e29539c415f97ba0"/>
     <dependencies>
       <dep package="libxml2"/>
+      <dep package="libxslt"/>
       <dep package="itstool"/>
-      <dep package="python3"/>
     </dependencies>
+  </autotools>
+
+  <autotools id="yelp-tools">
+    <branch version="3.18.0" module="yelp-tools/3.18/yelp-tools-3.18.0.tar.xz"
+            hash="sha256:c6c1d65f802397267cdc47aafd5398c4b60766e0a7ad2190426af6c0d0716932"/>
+    <dependencies>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <dep package="itstool"/>
+      <dep package="yelp-xsl"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk-doc" autogen-sh="configure">
+    <branch version="1.30" module="gtk-doc/1.30/gtk-doc-1.30.tar.xz"
+            hash="sha256:a4f6448eb838ccd30d76a33b1fd095f81aea361f03b12c7b23df181d21b7069e"/>
+    <dependencies>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <dep package="itstool"/>
+    </dependencies>
+    <after>
+      <dep package="python3"/>
+    </after>
   </autotools>
 
   <autotools id="icu" autogen-sh="source/configure" autogenargs="--enable-rpath"
@@ -120,12 +143,10 @@
   </autotools>
 
   <autotools id="harfbuzz" autogen-sh="configure"
-             autogenargs="--with-coretext --with-freetype --with-icu">
-    <branch repo="harfbuzz" module="harfbuzz-1.4.5.tar.bz2" version="1..45">
-       <!--patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/harfbuzz-kCTTypesetterOptionForcedEmbeddingLevel-Leopard.patch" strip="1"/-->
+             autogenargs="--with-coretext --with-icu">
+    <branch repo="harfbuzz" module="harfbuzz-2.5.3.tar.xz" version="2.5.3">
     </branch>
     <dependencies>
-      <dep package="freetype-no-harfbuzz"/>
       <dep package="ragel"/>
       <dep package="glib"/>
       <dep package="icu"/>
@@ -135,33 +156,20 @@
     </after>
   </autotools>
 
-  <autotools id="freetype-no-harfbuzz" autogen-sh="configure"
+  <autotools id="freetype" autogen-sh="configure"
              skip-autogen="never"
              autogenargs="--without-bzip2 --without-harfbuzz">
-    <branch module="freetype/freetype-2.9.1.tar.gz" version="2.9.1"
-            repo="sourceforge">
-      <!--patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/freetype-2.5.3-ccexe_cflags.patch" strip="1"/-->
-    </branch>
-    <dependencies>
-      <dep package="zlib"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="freetype" autogen-sh="configure" skip-autogen="never"
-	     autogenargs="--without-bzip2">
-    <branch module="freetype/freetype-2.9.1.tar.gz" version="2.9.1"
+    <branch module="freetype/freetype-2.10.1.tar.gz" version="2.10.1"
             repo="sourceforge">
     </branch>
     <dependencies>
-      <dep package="harfbuzz"/>
       <dep package="zlib"/>
     </dependencies>
   </autotools>
 
   <autotools id="fontconfig" autogen-sh="autoreconf"
              autogenargs="--disable-docs '--with-add-fonts=/System/Library/Fonts,/Library/Fonts,~/Library/Fonts'">
-    <branch repo="fontconfig" version="2.13.0" module="fontconfig-2.13.0.tar.bz2">
-      <patch file="https://bugs.freedesktop.org/attachment.cgi?id=137886" strip="1" />
+    <branch repo="fontconfig" version="2.13.1" module="fontconfig-2.13.1.tar.bz2">
     </branch>
     <dependencies>
       <dep package="freetype"/>
