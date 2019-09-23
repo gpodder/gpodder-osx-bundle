@@ -28,6 +28,7 @@
     <dependencies>
       <dep package="icon-naming-utils"/>
       <dep package="adwaita-icon-theme"/>
+      <dep package="gnome-themes-standard"/>
     </dependencies>
   </metamodule>
 
@@ -52,12 +53,22 @@
   </autotools>
 
   <autotools id="adwaita-icon-theme" autogen-sh="configure">
-    <branch module="adwaita-icon-theme/3.32/adwaita-icon-theme-3.32.0.tar.xz"
-            version="3.32.0" hash="sha256:698db6e407bb987baec736c6a30216dfc0317e3ca2403c7adf3a5aa46c193286"/>
+    <branch module="adwaita-icon-theme/3.24/adwaita-icon-theme-3.24.0.tar.xz"
+            version="3.24.0" hash="sha256:ccf79ff3bd340254737ce4d28b87f0ccee4b3358cd3cd5cd11dc7b42f41b272a"/>
     <dependencies>
       <dep package="librsvg"/>
       <dep package="hicolor-icon-theme"/>
       <dep package="icon-naming-utils"/>
+    </dependencies>
+  </autotools>
+
+ <autotools id="gnome-themes-standard" autogen-sh="configure"
+	    autogenargs='--disable-gtk2-engine'>
+    <branch module="gnome-themes-standard/3.22/gnome-themes-standard-3.22.3.tar.xz"
+            version="3.22.3" hash="sha256:61dc87c52261cfd5b94d65e8ffd923ddeb5d3944562f84942eeeb197ab8ab56a"/>
+    <dependencies>
+      <dep package="librsvg"/>
+      <dep package="adwaita-icon-theme"/>
     </dependencies>
   </autotools>
 
@@ -94,8 +105,26 @@
 
   <autotools id="libcroco" autogenargs="--disable-Bsymbolic"
 	     autogen-sh="configure">
-    <branch module="libcroco/0.6/libcroco-0.6.13.tar.xz" version="0.6.13"
-	    hash="sha256:767ec234ae7aa684695b3a735548224888132e063f92db585759b422570621d4"/>
+    <branch module="libcroco/0.6/libcroco-0.6.12.tar.xz" version="0.6.12"
+	    hash="sha256:ddc4b5546c9fb4280a5017e2707fbd4839034ed1aba5b7d4372212f34f84f860"/>
   </autotools>
- 
+
+  <autotools id="libccss" autogenargs="--disable-examples">
+    <branch module="ccss" repo="freedesktop.git"/>
+    <dependencies>
+      <dep package="libcroco"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk-css-engine" >
+    <branch module="gtk-css-engine/0.3/gtk-css-engine-0.3.1.tar.bz2"
+	    version="0.3.1" hash="sha256:c1d0000e00516b50f976db7726cd3f5e6318182704ad04be980d4ec7731e75d4"/>
+    <dependencies>
+      <dep package="libccss"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-core"/>
+    </after>
+  </autotools>
+
 </moduleset>
