@@ -27,6 +27,7 @@
       <dep package="pygobject3"/>
       <dep package="tango-icon-theme"/>
       <dep package="mutagen"/>
+      <dep package="youtube_dl"/>
       <dep package="html5lib"/>
       <!-- to get nice icons for downloaded files -->
       <dep package="shared-mime-info" />
