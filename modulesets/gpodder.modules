@@ -67,4 +67,9 @@
 		version="0.5.1" md5sum="32f6e261d52e57bf7e1c4d41546d15b8"/>
 </distutils>
 
+<distutils id="youtube_dl">
+	<branch repo="pypi" checkoutdir="youtube_dl" module="34/8b/a9d28a385c56f1945753614705ba2018355100efab7d4161e60b9d8dc801/youtube_dl-2019.9.12.1.tar.gz"
+		version="2019.9.12.1" hash="sha256:d61dd64e81a4cc026726b25981faf8ef8453363598483d51f7dc6f6d5580a78f"/>
+</distutils>
+
 </moduleset>
