@@ -41,7 +41,7 @@ export PYTHONHOME="$bundle_res"
 
 # select target based on our basename
 APP=$(basename "$0")
-if [ "$APP" == "run" ]; then
+if [ "$APP" == "run-python" ]; then
     "$PYTHON" "$@"
 elif  [ "$APP" == "gst-plugin-scanner" ]; then
     # Starting with 10.11 OSX will no longer pass DYLD_LIBRARY_PATH

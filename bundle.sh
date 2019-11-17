@@ -18,7 +18,7 @@ mv "$QL_OSXBUNDLE_BUNDLE_DEST/app.app" "$APP"
 # launcher scripts
 mv "$APP"/Contents/MacOS/{gPodder,gpodder}
 CMDS="gpo gpodder-migrate2tres run-python"
-for cmd in $CMDS; do
+for cmd in ${CMDS}; do
 	cp -a "$APP"/Contents/MacOS/{gpodder,$cmd}
 	ln -s gPodder.app/Contents/MacOS/$cmd "$QL_OSXBUNDLE_BUNDLE_DEST/"
 done
