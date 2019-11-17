@@ -3,7 +3,7 @@ version: 2
 jobs:
   build-and-bundle:
     macos:
-      xcode: "9.2.0"
+      xcode: "9.3.1"
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
