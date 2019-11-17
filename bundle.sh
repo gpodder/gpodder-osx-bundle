@@ -16,14 +16,15 @@ mv "$QL_OSXBUNDLE_BUNDLE_DEST/gpodder.app" "$QL_OSXBUNDLE_BUNDLE_DEST/app.app"
 mv "$QL_OSXBUNDLE_BUNDLE_DEST/app.app" "$APP"
 
 # launcher scripts
-mv "$APP"/Contents/MacOS/{gPodder,_launcher}
-(cd "$APP"/Contents/MacOS/ && ln -s _launcher gpodder)
-(cd "$APP"/Contents/MacOS/ && ln -s _launcher gpodder-migrate2tres)
-(cd "$APP"/Contents/MacOS/ && ln -s _launcher gpo)
-(cd "$APP"/Contents/MacOS/ && ln -s _launcher run)
+mv "$APP"/Contents/MacOS/{gPodder,gpodder}
+CMDS="gpo gpodder-migrate2tres run-python"
+for cmd in $CMDS; do
+	cp -a "$APP"/Contents/MacOS/{gpodder,$cmd}
+	ln -s gPodder.app/Contents/MacOS/$cmd "$QL_OSXBUNDLE_BUNDLE_DEST/"
+done
 
 # Set the version and copyright automatically (before removing *.pyc)
-"$APP"/Contents/MacOS/run "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
+"$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
 
 # kill some useless files
 rm -Rf "$APP_PREFIX"/lib/python3.6/test

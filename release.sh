@@ -9,7 +9,7 @@ if [ -z "$1" ] ; then
 	exit -1
 elif [ ! -d "$1" ] ; then
 	echo "$usage"
-	echo "$1 doesn't exist or is not a directory (give me /path/to/Quodlibet.app)"
+	echo "$1 doesn't exist or is not a directory (give me /path/to/gPodder.app)"
 else
 	app=$1
 	shift
@@ -41,6 +41,7 @@ if [ -f "$zip" ] ; then
 fi
 echo "Creating $d/$zip..."
 zip --symlinks -rq "$zip" "$appname" "$contents"
+find . -maxdepth 1 -type l -exec zip -q --symlinks "$zip" '{}' ';'
 
 echo "Checksumming..."
 shasum -a256 "$zip" > "$zip.sha256"
