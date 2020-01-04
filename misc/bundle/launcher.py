@@ -12,6 +12,7 @@ from subprocess import PIPE, CalledProcessError, Popen
 
 
 class MakeCertPem:
+    """ create openssl cert bundle from system certificates """
 
     def __init__(self, openssl):
         self.openssl = openssl
@@ -67,7 +68,7 @@ class MakeCertPem:
             print("I: updated %s with %i certificates" % (dest, len(certs)))
             return 0
 
-print("sys.argv=", sys.argv)
+# print("launcher.py sys.argv=", sys.argv)
 bundlepath = sys.argv.pop(0)
 app = os.path.basename(sys.argv[0])
 
@@ -99,6 +100,8 @@ if int(platform.release().split('.')[0]) > 10:
 
 os.environ['GI_TYPELIB_PATH'] = join(bundle_lib, 'girepository-1.0')
 
+# for forked python
+os.environ['PYTHONHOME'] = bundle_res
 #Set $PYTHON to point inside the bundle
 PYVER = 'python3.6'
 sys.path.append(bundle_res)
@@ -148,14 +151,19 @@ if not os.path.exists(cert_pem):
 os.environ['SSL_CERT_FILE'] = cert_pem
 
 # run chosen app
-print("running", join(bundle_contents, 'Resources', 'bin', app))
-#runpy.run_path(join(bundle_contents, 'Resources', 'bin', app), run_name='__main__')
-def ttt():
-  import gi
-  gi.require_version('Gdk', '3.0')
-  gi.require_version('Gtk', '3.0')
-  #from gi.repository import Gdk, GdkPixbuf, Gio, GLib, GObject, Gtk, Pango  # isort:skip
-  import pdb; pdb.set_trace()
-  from gi.repository import Gtk
+# tried to run it in-process with runpy, but we really need to execv
+# for all environment variables (esp. DYLD_LIBRARY_PATH and LD_LIBRARY_PATH
+# which are read at process startup by dyld) to take effect.
+# Otherwise I got strange errors in Gtk introspection overrides
+# segfaulting when referencing a Gtk enum member, etc.
+if app == 'python3':
+    args = []
+else:
+    args = [os.path.join(bundle_bin, app)]
 
-ttt()
+python_exe = os.path.join(bundle_contents, 'MacOS', 'python3')
+# executable is repeated as argv[0].
+# Old sys.argv[0] points to Contents/MacOS so must be removed
+args = [python_exe] + args + sys.argv[1:]
+# print("running", args)
+os.execv(python_exe, args)
