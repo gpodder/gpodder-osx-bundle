@@ -13,7 +13,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-	    tag="3.10.7">
+	    tag="3.10.11">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
@@ -40,8 +40,8 @@
 </distutils>
 
 <distutils id="mutagen">
-    <branch repo="pypi" checkoutdir="mutagen" module="30/4c/5ad1a6e1ccbcfaf6462db727989c302d9d721beedd9b09c11e6f0c7065b0/mutagen-1.42.0.tar.gz"
-	    version="1.42.0" hash="sha256:bb61e2456f59a9a4a259fbc08def6d01ba45a42da8eeaa97d00633b0ec5de71c"/>
+    <branch repo="pypi" checkoutdir="mutagen" module="aa/fd/ed738775442e3614849fefdf41417d7bff3ccb010d49c8f729432cc3c1e5/mutagen-1.43.0.tar.gz"
+	    version="1.43.0" hash="sha256:3a982d39f1b800520a32afdebe3543f972e83a6ddd0c0198739a161ee705b588"/>
 </distutils>
 
 <distutils id="mygpoclient">
@@ -69,8 +69,8 @@
 </distutils>
 
 <distutils id="youtube_dl">
-	<branch repo="pypi" checkoutdir="youtube_dl" module="34/8b/a9d28a385c56f1945753614705ba2018355100efab7d4161e60b9d8dc801/youtube_dl-2019.9.12.1.tar.gz"
-		version="2019.9.12.1" hash="sha256:d61dd64e81a4cc026726b25981faf8ef8453363598483d51f7dc6f6d5580a78f"/>
+	<branch repo="pypi" checkoutdir="youtube_dl" module="a2/7d/c620f8f3595756d2c2582e005cb5308acc601d564bae83e7957c7eb1534d/youtube_dl-2020.1.1.tar.gz"
+		version="2020.01.01" hash="sha256:0f8e62b5a3a5bb8bdf3d7ae3ec96c233f5110fa0ee1c9df51299b6636ebd4ff4"/>
 </distutils>
 
 </moduleset>
