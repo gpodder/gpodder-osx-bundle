@@ -122,7 +122,7 @@
   <!--<data>${prefix}/lib/python3.6/idlelib</data>-->
   <data>${prefix}/lib/python3.6/importlib</data>
   <data>${prefix}/lib/python3.6/json</data>
-  <data>${prefix}/lib/python3.6/lib-dynload</data>
+  <binary>${prefix}/lib/python3.6/lib-dynload</binary>
   <!--<data>${prefix}/lib/python3.6/lib2to3</data>-->
   <data>${prefix}/lib/python3.6/logging</data>
   <data>${prefix}/lib/python3.6/multiprocessing</data>

@@ -1,7 +1,0 @@
-commit e11493c5870159bafa213b6df80757e977d46dbb
-Author: John Ralls <jralls@ceridwen.us>
-Date:   Fri Sep 6 09:00:23 2019 -0700
-
-    Update pango to 1.44.6
-    
-    Fixes https://gitlab.gnome.org/GNOME/gtk-osx/issues/14
