@@ -156,7 +156,7 @@ os.environ['SSL_CERT_FILE'] = cert_pem
 # which are read at process startup by dyld) to take effect.
 # Otherwise I got strange errors in Gtk introspection overrides
 # segfaulting when referencing a Gtk enum member, etc.
-if app == 'python3':
+if app == 'run-python':
     args = []
 else:
     args = [os.path.join(bundle_bin, app)]

@@ -24,7 +24,7 @@ for cmd in ${CMDS}; do
 done
 
 # Set the version and copyright automatically (before removing *.pyc)
-#lldb --args "$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
+"$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
 
 # kill some useless files
 rm -Rf "$APP_PREFIX"/lib/python3.6/test
@@ -33,13 +33,6 @@ rm -Rvf "$APP_PREFIX"/lib/python3.6/*/test
 rm -f "$APP_PREFIX"/lib/python3.6/config/libpython3.6.a
 find "$APP_PREFIX"/lib/python3.6 -name '*.pyc' -delete
 find "$APP_PREFIX"/lib/python3.6 -name '*.pyo' -delete
-rm -f "$APP"/Contents/MacOS/gPodder-bin
-rm -Rf "$APP_PREFIX"/share/gpodder/ui/qml
-rm -Rf "$APP_PREFIX"/lib/python3.6/site-packages/gpodder/{qmlui,webui}
-
-# replace copy with symlink
-# rm "$APP_PREFIX"/lib/libicudata.55.dylib
-# ln -s libicudata.55.1.dylib "$APP_PREFIX"/lib/libicudata.55.dylib
 
 # remove the check for DISPLAY variable since it's not used AND it's not
 # available on Mavericks (see bug #1855)
