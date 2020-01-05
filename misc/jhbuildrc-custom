@@ -13,3 +13,4 @@ disable_Werror = False
 skip.append("libiconv")
 
 setup_sdk(target="10.9", sdk_version="native", architectures=[_default_arch])
+makeargs = 'CFLAGS="$CFLAGS -g" V=1'

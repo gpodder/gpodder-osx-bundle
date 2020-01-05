@@ -24,7 +24,7 @@ for cmd in ${CMDS}; do
 done
 
 # Set the version and copyright automatically (before removing *.pyc)
-"$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
+#lldb --args "$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
 
 # kill some useless files
 rm -Rf "$APP_PREFIX"/lib/python3.6/test

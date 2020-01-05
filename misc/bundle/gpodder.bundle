@@ -26,7 +26,7 @@
     <!--A launcher script is pretty much mandatory here so that we can
          set $PYTHON to point to the python in the bundle.
     -->
-    <launcher-script>${project}/launcher.sh</launcher-script >
+<!--    <launcher-script>${project}/launcher.sh</launcher-script > -->
 
      <!-- Indicate the active gtk version to use. This is needed only
          for gtk+-3.0 projects. -->
@@ -45,8 +45,11 @@
       so we use the original and ignore it. If your original will work
       in the bundle, you can use this instead.-->
  <main-binary>
+     ${prefix}/bin/gpodder-launcher
+ </main-binary>
+ <!-- <main-binary>
      ${prefix}/bin/python3
-  </main-binary>
+  </main-binary> -->
 
   <!-- We need to pack our own Python to avoid compatibility problems. -->
   <binary dest="${bundle}/Contents/MacOS">
@@ -137,8 +140,10 @@
 
   <!-- only required extra modules (no dbus, for instance) -->
   <data>${prefix}/lib/python3.6/site-packages/podcastparser.py</data>
-  <data>${prefix}/lib/python3.6/site-packages/gi</data>
-  <data>${prefix}/lib/python3.6/site-packages/cairo</data>
+  <data>${prefix}/lib/python3.6/site-packages/gi/overrides</data>
+  <data>${prefix}/lib/python3.6/site-packages/gi/repository</data>
+  <data>${prefix}/lib/python3.6/site-packages/gi/*.py</data>
+  <data>${prefix}/lib/python3.6/site-packages/cairo/*.py</data>
   <data>${prefix}/lib/python3.6/site-packages/gpodder</data>
   <data>${prefix}/lib/python3.6/site-packages/mutagen</data>
   <data>${prefix}/lib/python3.6/site-packages/mygpoclient</data>
@@ -267,4 +272,7 @@
   <!-- fix crash on file dialogs (#413) -->
   <data>${prefix}/share/glib-2.0/schemas</data>
 
+  <data dest="${bundle}/Contents/Resources">
+    ${project}/launcher.py
+  </data>
 </app-bundle>
