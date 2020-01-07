@@ -23,11 +23,6 @@
     <!-- Comment this out to keep the install names in binaries.  -->
     <run-install-name-tool/>
 
-    <!--A launcher script is pretty much mandatory here so that we can
-         set $PYTHON to point to the python in the bundle.
-    -->
-<!--    <launcher-script>${project}/launcher.sh</launcher-script > -->
-
      <!-- Indicate the active gtk version to use. This is needed only
          for gtk+-3.0 projects. -->
     <gtk>gtk+-3.0</gtk>
@@ -47,9 +42,6 @@
  <main-binary>
      ${prefix}/bin/gpodder-launcher
  </main-binary>
- <!-- <main-binary>
-     ${prefix}/bin/python3
-  </main-binary> -->
 
   <!-- We need to pack our own Python to avoid compatibility problems. -->
   <binary dest="${bundle}/Contents/MacOS">
