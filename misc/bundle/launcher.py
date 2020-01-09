@@ -150,20 +150,13 @@ if not os.path.exists(cert_pem):
 #Set path to CA files
 os.environ['SSL_CERT_FILE'] = cert_pem
 
-# run chosen app
-# tried to run it in-process with runpy, but we really need to execv
-# for all environment variables (esp. DYLD_LIBRARY_PATH and LD_LIBRARY_PATH
-# which are read at process startup by dyld) to take effect.
-# Otherwise I got strange errors in Gtk introspection overrides
-# segfaulting when referencing a Gtk enum member, etc.
 if app == 'run-python':
-    args = []
+    python_exe = os.path.join(bundle_contents, 'MacOS', 'python3')
+    # executable is repeated as argv[0].
+    # Old sys.argv[0] points to Contents/MacOS so must be removed
+    args = [python_exe] + sys.argv[1:]
+    # print("running", args)
+    os.execv(python_exe, args)
 else:
-    args = [os.path.join(bundle_bin, app)]
-
-python_exe = os.path.join(bundle_contents, 'MacOS', 'python3')
-# executable is repeated as argv[0].
-# Old sys.argv[0] points to Contents/MacOS so must be removed
-args = [python_exe] + args + sys.argv[1:]
-# print("running", args)
-os.execv(python_exe, args)
+    import runpy
+    runpy.run_path(os.path.join(bundle_bin, app), run_name='__main__')
