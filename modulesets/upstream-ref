@@ -1,9 +1,5 @@
-commit 28366b78eb4f072063482f42087e0793fe16ba97
+commit 3122d62147cc4fdbad60ffeb5c5abc4c12d3b863
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Tue Dec 3 16:41:09 2019 -0800
+Date:   Thu Jan 9 11:02:58 2020 -0800
 
-    Roll back freetype to 2.9.1
-    
-    2.10.1 crashed in GnuCash 3.7, see
-    https://bugs.gnucash.org/show_bug.cgi?id=797461. Reporter said
-    that GnuCash 3.6, built with freetype 2.9.1, didn't crash.
+    Make modulesets package versions coherent with modulesets-stable.
