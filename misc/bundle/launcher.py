@@ -7,7 +7,7 @@ import subprocess
 import sys
 import time
 import traceback
-from os.path import dirname, join
+from os.path import dirname, expanduser, join
 from subprocess import PIPE, CalledProcessError, Popen
 
 
@@ -106,6 +106,18 @@ os.environ['PYTHONHOME'] = bundle_res
 PYVER = 'python3.6'
 sys.path.append(bundle_res)
 print('System Path:\n','\n'.join(sys.path))
+
+# see https://gpodder.github.io/docs/user-manual.html#gpodder-home-folder-and-download-location
+# To override gPodder home and/or download directory:
+# 1. uncomment (remove the pound sign and space) at the begining of the relevant line
+# 2. replace ~/gPodderData or ~/gPodderDownloads with the path you want for your gPodder home
+#    (you can move the original folder in the Finder first,
+#     then drag and drop to the launcher.py in TextEdit to ensure the correct path is set)
+# uncomment the following line to override gPodder home
+# os.environ['GPODDER_HOME'] = expanduser('~/gPodderData')
+# uncomment the following line to override gPodder download directory
+# os.environ['GPODDER_DOWNLOAD_DIR'] = expanduser('~/gPodderDownloads')
+
 for k, v in os.environ.items():
   print("%s=%s" % (k,v))
 
