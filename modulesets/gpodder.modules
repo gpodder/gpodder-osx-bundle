@@ -21,6 +21,7 @@
       <dep package="meta-gtk-osx-gtk3"/>
       <dep package="pycairo"/>
       <dep package="pygobject3"/>
+      <dep package="icu" /> <!-- for harfbuz -->
       <dep package="python3"/>
       <dep package="adwaita-icon-theme"/>
       <dep package="mutagen"/>
