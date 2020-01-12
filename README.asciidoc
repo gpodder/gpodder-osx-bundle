@@ -3,15 +3,14 @@
 *Don't Panic*
 
 This is a collection of files required to build gPodder.app :
-gPodder as a native GTK+ Quartz application for Mac OS X 10.6+
+gPodder as a native GTK+ Quartz application for Mac OS X 10.9+
 
-The scripts are verified on an OSX 10.11.4 (15E65) `x86_64` machine with
-Xcode 7.3 (7D175).
+The scripts are executed on circle.ci, with xcode 9.3.
 
 NOTE: In case you want just want to run gPodder from source you can ignore all
 this and use the released bundle as a development environment.  Download the
 official bundle, git clone the gPodder repo and do
-`./gPodder.app/Contents/MacOS/run gpodder.py`.
+`./gPodder.app/Contents/MacOS/run-python bin/gpodder`.
 
 Uses https://git.gnome.org/browse/jhbuild/[jhbuild] and the stable module
 set provided by https://git.gnome.org/browse/gtk-osx/[gtk-osx] with a
@@ -24,7 +23,7 @@ tedious description.
 
 == Creating a Bundle
 
-Prerequisites: `OS X` 10.6+ and a working
+Prerequisites: `OS X` 10.9+ and a working
 https://developer.apple.com/xcode/downloads/[`Xcode`] and
 https://git-scm.com/download/mac[`git`].
 
@@ -34,7 +33,7 @@ default value (`{,/usr}/{,s}bin`) to make sure non-native programs, installed
 by other package managers like homebrew or macports, are not used (read more
 https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 
-(Tested on OS X 10.6.10 and 10.11.4)
+(Tested on macOS 10.15.1)
 
 . Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
 . Call `build.sh` to download and build all the dependencies.
@@ -46,9 +45,8 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 * After `bootstrap.sh` has finished executing `source env.sh` will put you
   in the build environment. After that jhbuild can be used directly.
 * `fetch_modules.sh` downloads the git master of the gtk-osx module set
-  and replaces the modules under "modulessets" and the
-  `misc/gtk-osx-jhbuildrc` file. Doing so so should ideally be followed by a
-  review of the gPodder module to reduce duplication and a rebuilt to verify
+  and replaces the modules under "modulesets. Doing so so should ideally be followed by a
+  review of the gPodder module to reduce duplication and a rebuild to verify
   that everything still works.
 
 == Releasing
@@ -62,7 +60,7 @@ Releasing on OS X
 Releasing on Linux by patching deps:
 
 [start=4]
-. `./release_on_linux.sh ~/Downloads/gPodder-3.8.4_0.deps.zip /tmp/gpodder master f699341`
+. `./release_on_linux.sh ~/Downloads/gPodder-3.8.4_0.deps.zip /tmp/gpodder`
 
 == Issues
 
