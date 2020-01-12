@@ -17,7 +17,7 @@ jobs:
           path: /Users/distiller/project/_build
       - run: echo -e "$SSH_KEY" > /Users/distiller/project/gpodderbuild
       - run: chmod go-rwx /Users/distiller/project/gpodderbuild
-      - run: if [ -n "<< pipeline.git.tag >>" ]; then rsync -e "ssh -p$RSYNC_PORT -i /Users/distiller/project/gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home" "_build" "$RSYNC_HOME/$CIRCLE_BUILD_NUM/"; fi
+      - run: if git describe --tags --exact-match 2>/dev/null; then rsync -e "ssh -p$RSYNC_PORT -i /Users/distiller/project/gpodderbuild -o StrictHostKeyChecking=no" -avrz "_home" "_build" "$RSYNC_HOME/$CIRCLE_BUILD_NUM/"; fi
       - run: rm /Users/distiller/project/gpodderbuild
   dummy:
     macos:
