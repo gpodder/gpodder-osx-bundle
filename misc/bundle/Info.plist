@@ -28,5 +28,7 @@
     <string>10.6</string>
     <key>NSHighResolutionCapable</key>
     <true/>
+    <key>GtkOSXLaunchScriptFile</key>
+    <string>launcher.py</string>
 </dict>
 </plist>

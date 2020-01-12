@@ -1,7 +1,5 @@
-commit e11493c5870159bafa213b6df80757e977d46dbb
+commit 3122d62147cc4fdbad60ffeb5c5abc4c12d3b863
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Fri Sep 6 09:00:23 2019 -0700
+Date:   Thu Jan 9 11:02:58 2020 -0800
 
-    Update pango to 1.44.6
-    
-    Fixes https://gitlab.gnome.org/GNOME/gtk-osx/issues/14
+    Make modulesets package versions coherent with modulesets-stable.

@@ -1,9 +1,6 @@
 #!/bin/sh
 
-source env.sh
-
-git clone https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
-cp -R _gtk-osx/modulesets-stable/. modulesets/
-cp _gtk-osx/jhbuildrc-gtk-osx misc/gtk-osx-jhbuildrc
-(cd _gtk-osx/ && git log -1) > modulesets/upstream-ref
-rm -Rf _gtk-osx
+git clone https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx-modules
+rsync -vrb --delete --exclude gpodder.modules --exclude patches/gpodder* _gtk-osx-modules/modulesets-stable/ modulesets/
+(cd _gtk-osx-modules/ && git log -1) > modulesets/upstream-ref
+rm -Rf _gtk-osx-modules

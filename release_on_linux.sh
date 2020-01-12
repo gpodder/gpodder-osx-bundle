@@ -65,7 +65,7 @@ rm -Rf "$resources"/share/dbus-1
 
 # remove the check for DISPLAY variable since it's not used AND it's not
 # available on Mavericks (see bug #1855)
-(cd "$resources" && patch -p0 < "$mydir"/modulesets/patches/dont_check_display.patch)
+(cd "$resources" && patch -p0 < "$mydir"/modulesets/patches/gpodder_dont_check_display.patch)
 
 # Command-XX shortcuts in gPodder menus 
 /usr/bin/xsltproc -o menus.ui.tmp "$mydir"/misc/adjust-modifiers.xsl "$resources"/share/gpodder/ui/gtk/menus.ui
