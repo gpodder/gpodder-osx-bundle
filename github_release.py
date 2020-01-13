@@ -105,7 +105,7 @@ def get_diff_previous_tag(tag, previous_tag):
         return ""
     resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/gPodder.contents"
                         % previous_tag)
-    if resp.status_code is not 200:
+    if resp.status_code != 200:
         error_exit("Error getting previous gPodder.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
     previousContents = [l + "\n" for l in resp.text.split("\n") if not l.startswith(" ")]
     with open("_build/gPodder.contents", "r") as f:
