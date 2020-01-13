@@ -4,7 +4,7 @@ usage="Usage: $0 /path/to/gPodder.app version_buildnumber"
 
 source env.sh
 
-JHBUILD_PREFIX="$HOME/jhbuild_prefix"
+JHBUILD_PREFIX="$HOME/gtk/inst"
 mydir=`pwd`
 
 
