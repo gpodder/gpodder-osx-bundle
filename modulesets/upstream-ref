@@ -1,5 +1,8 @@
-commit 3122d62147cc4fdbad60ffeb5c5abc4c12d3b863
+commit 232ba3f155188cd4c5170bf8a62da42476afb0eb
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Thu Jan 9 11:02:58 2020 -0800
+Date:   Sat Mar 7 17:49:44 2020 -0800
 
-    Make modulesets package versions coherent with modulesets-stable.
+    Set $PYTHON in the jhbuild environment to force using python3.
+    
+    Set it to "/usr/bin/env python3" so that it will work regardless of
+    whether it's the built or the virtenv python3.

@@ -15,7 +15,7 @@ mkdir -p "$HOME/.config"
 cp misc/jhbuildrc-custom "$HOME/.config/jhbuildrc-custom"
 git clone  https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
 # known working commit
-(cd _gtk-osx && git checkout 28366b78)
+(cd _gtk-osx && git checkout 232ba3f1)
 yes | ./_gtk-osx/gtk-osx-setup.sh
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git _bundler
 (cd _bundler && make install bindir=$HOME/.new_local/bin)
