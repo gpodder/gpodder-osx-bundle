@@ -133,7 +133,8 @@
   <autotools id="icu" autogen-sh="source/configure" autogenargs="--enable-rpath"
              makeargs='CFLAGS="$CFLAGS -DU_CHARSET_IS_UTF8=1 -DU_USING_ICU_NAMESPACE=0"'>
     <branch repo="github-tarball" version="58.3" checkoutdir="icu"
-            module="unicode-org/icu/releases/download/release-58-3/icu4c-58_3-src.tgz"/>
+	    module="unicode-org/icu/releases/download/release-58-3/icu4c-58_3-src.tgz"
+	    hash="sha512:efb3baa32bd01b1b2c63bed9d077c4df4df76db8c6007b50bb7de642df6e6723def2e7180712efdc1df763d89c3a22aa7f470c07c4a099ac9e647762448fd541"/>
   </autotools>
 
 
