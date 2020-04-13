@@ -32,7 +32,7 @@ resources="$app"/Contents/Resources
 
 # remove gPodder specific contents
 rm     "${resources:?}"/bin/gpo*
-rm -Rf "$resources"/lib/python3.6/site-packages/gpodder
+rm -Rf "$resources"/lib/python3.8/site-packages/gpodder
 rm -Rf "$resources"/share/gpodder
 rm     "$resources"/share/icons/hicolor/scalable/apps/gpodder.svg
 find   "$resources"/share/locale -name gpodder.mo -delete

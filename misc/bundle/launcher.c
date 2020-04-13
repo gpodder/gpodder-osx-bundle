@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <sys/syslimits.h>
@@ -92,16 +93,16 @@ set_python_path(void)
     mstr = CFStringCreateMutableCopy(NULL, 5 * PATH_MAX, str);
     CFStringAppendCString(mstr, "/lib/python36.zip:", kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.6:",
+    CFStringAppendCString(mstr, "/lib/python3.8:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.6/plat-darwin:",
+    CFStringAppendCString(mstr, "/lib/python3.8/plat-darwin:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.6/lib-dynload:",
+    CFStringAppendCString(mstr, "/lib/python3.8/lib-dynload:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.6/site-packages",
+    CFStringAppendCString(mstr, "/lib/python3.8/site-packages",
         kCFStringEncodingUTF8);
     CFRelease(str);
     path = widen_cfstring(mstr);

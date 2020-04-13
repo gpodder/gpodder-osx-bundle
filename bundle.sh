@@ -35,12 +35,12 @@ done
 "$APP"/Contents/MacOS/run-python "$mydir/misc/fixup_info.py" "$APP"/Contents/Info.plist
 
 # kill some useless files
-rm -Rf "$APP_PREFIX"/lib/python3.6/test
-rm -Rf "$APP_PREFIX"/lib/python3.6/unittest
-rm -Rvf "$APP_PREFIX"/lib/python3.6/*/test
-rm -f "$APP_PREFIX"/lib/python3.6/config/libpython3.6.a
-find "$APP_PREFIX"/lib/python3.6 -name '*.pyc' -delete
-find "$APP_PREFIX"/lib/python3.6 -name '*.pyo' -delete
+rm -Rf "$APP_PREFIX"/lib/python3.8/test
+rm -Rf "$APP_PREFIX"/lib/python3.8/unittest
+rm -Rvf "$APP_PREFIX"/lib/python3.8/*/test
+rm -f "$APP_PREFIX"/lib/python3.8/config/libpython3.8.a
+find "$APP_PREFIX"/lib/python3.8 -name '*.pyc' -delete
+find "$APP_PREFIX"/lib/python3.8 -name '*.pyo' -delete
 
 # remove the check for DISPLAY variable since it's not used AND it's not
 # available on Mavericks (see bug #1855)
