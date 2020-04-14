@@ -108,7 +108,7 @@
   <data>${prefix}/lib/python3.8/asyncio</data>
   <data>${prefix}/lib/python3.8/collections</data>
   <data>${prefix}/lib/python3.8/concurrent</data>
-  <data>${prefix}/lib/python3.8/config-3.8m-darwin</data>
+  <data>${prefix}/lib/python3.8/config-3.8-darwin</data>
   <data>${prefix}/lib/python3.8/ctypes</data>
   <data>${prefix}/lib/python3.8/curses</data>
   <!--<data>${prefix}/lib/python3.8/dbm</data>-->
@@ -176,7 +176,7 @@
   </binary>
 
   <data>
-    ${prefix}/include/python3.8m/pyconfig.h
+    ${prefix}/include/python3.8/pyconfig.h
   </data>
 
 

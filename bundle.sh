@@ -5,7 +5,7 @@ set -e
 source env.sh
 
 echo compiling native launcher...
-echo 'gcc -L$PREFIX/lib `python-config --cflags --ldflags` -o $PREFIX/bin/gpodder-launcher misc/bundle/launcher.c'| jhbuild shell
+echo 'gcc -L$PREFIX/lib `python3-config --cflags --ldflags --embed` -o $PREFIX/bin/gpodder-launcher misc/bundle/launcher.c'| jhbuild shell
 
 echo creating app...
 jhbuild run gtk-mac-bundler misc/bundle/gpodder.bundle
