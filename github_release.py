@@ -153,7 +153,7 @@ def upload(repo, tag, previous_tag, circle_build):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='upload gpodder-osx-bundle artifacts to a github release\n'
         'Example usage: \n'
-        '    GITHUB_TOKEN=xxx python github_release.py --download --circle-build 33 base-3.10.2_0\n'
+        '    GITHUB_TOKEN=xxx python github_release.py --download --circle-build 33 --previous-tag base-3.10.0_0 base-3.10.2_0\n'
         '    GITHUB_TOKEN=xxx python github_release.py --circle-build 33 --previous-tag base-3.10.0_0 base-3.10.2_0\n',
         formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('tag', type=str,
