@@ -14,7 +14,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-            tag="3.10.13">
+            tag="3.10.15">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
@@ -34,8 +34,8 @@
   </autotools>
 
 <distutils id="podcastparser" python3="true">
-    <branch repo="pypi" checkoutdir="podcastparser" module="e8/d6/d72f6127281ad455bf5642fff568148e0436f0df5052377e87ac9544e306/podcastparser-0.6.4.tar.gz"
-            version="0.6.4" hash="sha256:8788bd7be741716a60828b4fceb9fadd445c855e1d5fd80789a5da55d90b52cf"/>
+    <branch repo="pypi" checkoutdir="podcastparser" module="ca/7e/180d1867c0bc7082bc044c5d3983ad0f7386f0a77fbfb94263d451eb5432/podcastparser-0.6.5.tar.gz"
+            version="0.6.5" hash="sha256:eb008e490d8789778a4838ff7e313cc4dff58f95ada15e187b814420debdc24c"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
@@ -83,8 +83,8 @@
 </distutils>
 
 <distutils id="youtube_dl" python3="true">
-    <branch repo="pypi" checkoutdir="youtube_dl" module="15/2a/7f7699a3655762eb881dd451603e02f95ab6fffb983ad430c0a42d8740e7/youtube_dl-2020.3.8.tar.gz"
-            version="2020.3.8" hash="sha256:1b098b7ae41551f46dbae70e56dbabdf39c8faf50e072d0c0b42c44d64afebf8"/>
+    <branch repo="pypi" checkoutdir="youtube_dl" module="7b/06/82bee78a724330cd94cdc5f3fdfb2a10d1447d7148b4ed0192eb290380c6/youtube_dl-2020.6.16.1.tar.gz"
+            version="2020.6.16.1" hash="sha256:9fc0389a1bbbeb609a5bb4ad5630dea107a9d1a24c73721c611a78c234309a75"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
