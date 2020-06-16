@@ -1,6 +1,7 @@
-commit f14824ecbef0b9fbc3cf14aff4d773a9c0e603f7
-Merge: 5849b1f 95d994f
-Author: John Ralls <jralls@ceridwen.us>
-Date:   Wed Apr 8 12:55:36 2020 -0700
+commit 05ad8a7d7d17c7c52e3fd00a3cfde0d1a85e66f2
+Author: René de Hesselle <dehesselle@web.de>
+Date:   Thu May 21 14:03:03 2020 +0200
 
-    Merge Antoine Martin's 'lib-updates' into master.
+    Remove gnome-common from dependencies
+    
+    gnome-common is no longer part of any module set.
