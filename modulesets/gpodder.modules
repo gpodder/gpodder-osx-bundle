@@ -14,7 +14,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-            tag="3.10.15">
+            revision="requests">
     </branch>
     <dependencies>
       <dep package="podcastparser"/>
