@@ -28,6 +28,7 @@
       <dep package="mutagen"/>
       <dep package="youtube_dl"/>
       <dep package="html5lib"/>
+      <dep package="requests"/>
       <!-- to get nice icons for downloaded files -->
       <dep package="shared-mime-info" />
     </dependencies>
@@ -85,6 +86,57 @@
 <distutils id="youtube_dl" python3="true">
     <branch repo="pypi" checkoutdir="youtube_dl" module="7b/06/82bee78a724330cd94cdc5f3fdfb2a10d1447d7148b4ed0192eb290380c6/youtube_dl-2020.6.16.1.tar.gz"
             version="2020.6.16.1" hash="sha256:9fc0389a1bbbeb609a5bb4ad5630dea107a9d1a24c73721c611a78c234309a75"/>
+    <dependencies>
+        <dep package="python3"/>
+    </dependencies>
+</distutils>
+
+<distutils id="requests" python3="true">
+    <branch repo="pypi" checkoutdir="requests" module="da/67/672b422d9daf07365259958912ba533a0ecab839d4084c487a5fe9a5405f/requests-2.24.0.tar.gz"
+            version="2.24.0" hash="sha256:b3559a131db72c33ee969480840fff4bb6dd111de7dd27c8ee1f820f4f00231b"/>
+    <dependencies>
+        <dep package="chardet"/>
+        <dep package="urllib3"/>
+    </dependencies>
+</distutils>
+
+<distutils id="urllib3" python3="true">
+    <branch repo="pypi" checkoutdir="urllib3" module="05/8c/40cd6949373e23081b3ea20d5594ae523e681b6f472e600fbc95ed046a36/urllib3-1.25.9.tar.gz"
+            version="1.25.9" hash="sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"/>
+    <dependencies>
+        <dep package="certifi"/>
+        <dep package="idna"/>
+        <dep package="PySocks"/>
+    </dependencies>
+</distutils>
+
+<distutils id="PySocks" python3="true">
+    <branch repo="pypi" checkoutdir="PySocks" module="bd/11/293dd436aea955d45fc4e8a35b6ae7270f5b8e00b53cf6c024c83b657a11/PySocks-1.7.1.tar.gz"
+            version="1.7.1" hash="sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0"/>
+    <dependencies>
+        <dep package="python3"/>
+    </dependencies>
+</distutils>
+
+<distutils id="chardet" python3="true">
+    <branch repo="pypi" checkoutdir="chardet" module="fc/bb/a5768c230f9ddb03acc9ef3f0d4a3cf93462473795d18e9535498c8f929d/chardet-3.0.4.tar.gz"
+            version="3.0.4" hash="sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"/>
+    <dependencies>
+        <dep package="python3"/>
+    </dependencies>
+</distutils>
+
+<distutils id="idna" python3="true">
+    <branch repo="pypi" checkoutdir="idna" module="ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz"
+            version="2.10" hash="sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6"/>
+    <dependencies>
+        <dep package="python3"/>
+    </dependencies>
+</distutils>
+
+<distutils id="certifi" python3="true">
+    <branch repo="pypi" checkoutdir="certifi" module="40/a7/ded59fa294b85ca206082306bba75469a38ea1c7d44ea7e1d64f5443d67a/certifi-2020.6.20.tar.gz"
+            version="2020.6.20" hash="sha256:5930595817496dd21bb8dc35dad090f1c2cd0adfaf21204bf6732ca5d8ee34d3"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
