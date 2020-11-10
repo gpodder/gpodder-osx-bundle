@@ -10,7 +10,7 @@
               
   <!-- for setuptools, for feedparser -->
   <repository type="tarball" name="pypi"
-              href="https://pypi.python.org/packages/"/>
+              href="'https://files.pythonhosted.org/packages/source/"/>
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
@@ -34,23 +34,23 @@
   </autotools>
 
 <distutils id="podcastparser" python3="true">
-    <branch repo="pypi" checkoutdir="podcastparser" module="ca/7e/180d1867c0bc7082bc044c5d3983ad0f7386f0a77fbfb94263d451eb5432/podcastparser-0.6.5.tar.gz"
-            version="0.6.5" hash="sha256:eb008e490d8789778a4838ff7e313cc4dff58f95ada15e187b814420debdc24c"/>
+    <branch repo="pypi" checkoutdir="podcastparser" module="p/podcastparser/podcastparser-0.6.6.tar.gz"
+            version="0.6.6" hash="sha256:a30e84102003fb0eb42000546514245acf7b97541dba4e888d1c4c06b1c84454"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
 </distutils>
 
 <distutils id="mutagen" python3="true">
-    <branch repo="pypi" checkoutdir="mutagen" module="96/9f/280220926cabbf4822f80e094a5190fb3df245209648e169c8bcf708697b/mutagen-1.44.0.tar.gz"
-            version="1.44.0" hash="sha256:56065d8a9ca0bc64610a4d0f37e2bd4453381dde3226b8835ee656faa3287be4"/>
+    <branch repo="pypi" checkoutdir="mutagen" module="m/mutagen/mutagen-1.45.1.tar.gz"
+            version="1.45.1" hash="sha256:6397602efb3c2d7baebd2166ed85731ae1c1d475abca22090b7141ff5034b3e1"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
 </distutils>
 
 <distutils id="mygpoclient" python3="true">
-    <branch repo="pypi" checkoutdir="mygpoclient" module="21/bd/9c81884d0ed0ad3caf7c654c20da3c85bb1135fe8e2ac7a75e425df362d6/mygpoclient-1.8.tar.gz"
+    <branch repo="pypi" checkoutdir="mygpoclient" module="m/mygpoclient/mygpoclient-1.8.tar.gz"
             version="1.8" hash="b0027746e6fbe7db646673c7e231bfa70b3f5cb0440b1e7704f9d91aa6e925ba"/>
     <dependencies>
         <dep package="python3"/>
@@ -58,8 +58,8 @@
 </distutils>
 
 <distutils id="html5lib" python3="true">
-    <branch repo="pypi" checkoutdir="html5lib" module="85/3e/cf449cf1b5004e87510b9368e7a5f1acd8831c2d6691edd3c62a0823f98f/html5lib-1.0.1.tar.gz"
-            version="1.0.1" md5sum="942a0688d6bdf20d087c9805c40182ad"/>
+    <branch repo="pypi" checkoutdir="html5lib" module="h/html5lib/html5lib-1.1.tar.gz"
+            version="1.1" hash="sha256:b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"/>
     <dependencies>
         <dep package="six"/>
         <dep package="webencodings"/>
@@ -67,7 +67,7 @@
 </distutils>
 
 <distutils id="six" python3="true">
-    <branch repo="pypi" checkoutdir="six" module="dd/bf/4138e7bfb757de47d1f4b6994648ec67a51efe58fa907c1e11e350cddfca/six-1.12.0.tar.gz"
+    <branch repo="pypi" checkoutdir="six" module="s/six/six-1.12.0.tar.gz"
             version="1.12.0" hash="sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"/>
     <dependencies>
         <dep package="python3"/>
@@ -75,7 +75,7 @@
 </distutils>
 
 <distutils id="webencodings" python3="true">
-    <branch repo="pypi" checkoutdir="webencodings" module="0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
+    <branch repo="pypi" checkoutdir="webencodings" module="w/webencodings/webencodings-0.5.1.tar.gz"
             version="0.5.1" md5sum="32f6e261d52e57bf7e1c4d41546d15b8"/>
     <dependencies>
         <dep package="python3"/>
@@ -83,8 +83,8 @@
 </distutils>
 
 <distutils id="youtube_dl" python3="true">
-    <branch repo="pypi" checkoutdir="youtube_dl" module="7b/06/82bee78a724330cd94cdc5f3fdfb2a10d1447d7148b4ed0192eb290380c6/youtube_dl-2020.6.16.1.tar.gz"
-            version="2020.6.16.1" hash="sha256:9fc0389a1bbbeb609a5bb4ad5630dea107a9d1a24c73721c611a78c234309a75"/>
+    <branch repo="pypi" checkoutdir="youtube_dl" module="y/youtube_dl/youtube_dl-2020.11.1.1.tar.gz"
+            version="2020.6.16.1" hash="sha256:b73379d6b08f03aec49a1899affe4cfd35bb92002dbdb3a3a1435a5811d4f120"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
