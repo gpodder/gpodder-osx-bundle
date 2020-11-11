@@ -48,6 +48,7 @@
     <branch repo="ftp.gnu.org" version="3.5.1"
             module="nettle/nettle-3.5.1.tar.gz"
             hash="sha256:75cca1998761b02e16f2db56da52992aef622bf55a3b45ec538bc2eedadc9419">
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/libnettle-cc-for-build-return.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="gmp"/>
@@ -71,10 +72,9 @@
   <!-- Building with p11-kit support breaks g-ir-scanner, for some weird reason. -->
   <autotools id="gnutls" autogen-sh="autoreconf"
              autogenargs="--disable-gtk-doc-html --without-p11-kit">
-    <branch repo="gnutls" version="3.6.12"
-            hash="sha256:bfacf16e342949ffd977a9232556092c47164bd26e166736cf3459a870506c4b"
-            module="gcrypt/gnutls/v3.6/gnutls-3.6.12.tar.xz">
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/gnutls-yes-weak-imports.patch" strip="1"/>
+    <branch repo="gnutls" version="3.6.14"
+            hash="sha256:5630751adec7025b8ef955af4d141d00d252a985769f51b4059e5affa3d39d63"
+            module="gcrypt/gnutls/v3.6/gnutls-3.6.14.tar.xz">
     </branch>
     <dependencies>
       <dep package="libunistring"/>
@@ -85,21 +85,20 @@
   </autotools>
 
   <autotools id="libgcrypt" autogen-sh="configure">
-    <branch repo="gnutls" version="1.8.5"
-            hash="sha256:3b4a2a94cb637eff5bdebbcaf46f4d95c4f25206f459809339cdada0eb577ac3"
-            module="gcrypt/libgcrypt/libgcrypt-1.8.5.tar.bz2"/>
+    <branch repo="gnutls" version="1.8.6"
+            hash="sha256:626aafee84af9d2ce253d2c143dc1c0902dda045780cc241f39970fc60be05bc"
+            module="gcrypt/libgcrypt/libgcrypt-1.8.6.tar.bz2"/>
   </autotools>
 
-  <autotools id="glib-networking" autogen-sh="configure"
-             autogenargs="--without-ca-certificates set_more_warnings=no">
-    <branch module="glib-networking/2.50/glib-networking-2.50.0.tar.xz"
-            hash="sha256:3f1a442f3c2a734946983532ce59ed49120319fdb10c938447c373d5e5286bee"
-            version="2.50.0"/>
+  <meson id="glib-networking" mesonargs="-Dopenssl=enabled">
+         <branch module="glib-networking/2.65/glib-networking-2.65.1.tar.xz"
+            hash="sha256:45a4a22651f0268b45c26ab4a16282f06f2995fdaf5aa8d221e535099cdd7783"
+            version="2.65.1"/>
     <dependencies>
       <dep package="gnutls"/>
       <dep package="glib"/>
     </dependencies>
-  </autotools>
+  </meson>
 
   <autotools id="libpsl" autogen-sh='configure'>
     <branch repo="github-tarball" version="0.21.0"
@@ -107,7 +106,7 @@
             module="rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz"/>
   </autotools>
 
-  <meson id="libsoup" mesonargs="-Dintrospection=disabled">
+  <meson id="libsoup" mesonargs="-Dvapi=disabled">
     <branch module="libsoup/2.68/libsoup-2.68.4.tar.xz" version="2.68.4"
             hash="sha256:2d50b12922cc516ab6a7c35844d42f9c8a331668bbdf139232743d82582b3294">
     </branch>
@@ -162,7 +161,6 @@
       <dep package="enchant"/>
       <dep package="icu55"/>
       <dep package="libsoup"/>
-      <dep package="meta-gtk-osx-freetype"/>
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-gtk"/>
@@ -186,7 +184,6 @@
       <dep package="enchant"/>
       <dep package="icu55"/>
       <dep package="libsoup"/>
-      <dep package="meta-gtk-osx-freetype"/>
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-gtk3"/>
@@ -196,28 +193,39 @@
   </autotools>
 
   <!-- This is the stable release of WebKitGTK, for GTK 3.x. Use it if you need
-      the WebKit2 API (most applications do.)
+      the WebKit2 API.
     ENABLE_MINIBROWSER: This is enabled because it's an easy test of whether the
       library is working correctly: run "jhbuild run MiniBrowser".
-    ENABLE_PLUGIN_PROCESS_GTK2: Requires both GTK 2.x and 3.x. Currently not
-      supported.
+    USE_SYSTEMD: macOS doesn't have systemd.
     ENABLE_VIDEO, ENABLE_WEB_AUDIO: Requires gstreamer. If you want video and
       audio, fix this in your .jhbuildrc-custom. You may need some extra
       patches, this is untested.
-    ENABLE_CREDENTIAL_STORAGE: Requires libsecret. No module for this yet.
-    ENABLE_GEOLOCATION: Requires geoclue. No module for this yet.
-    ENABLE_OPENGL: Untested.
-    USE_LIBNOTIFY: Requires libnotify. No module for this yet.
-    USE_LIBHYPHEN: Requires libhyphen. No module for this yet.
-  -->
+    ENABLE_CREDENTIAL_STORAGE: Requires libsecret. No module for this.
+    ENABLE_GEOLOCATION: Requires geoclue. No module for this.
+    ENABLE_GRAPHICS_CONTEXT_GL: Known to not work with quartz.
+    USE_LIBNOTIFY: Requires libnotify. No module for this.
+    USE_LIBHYPHEN: Requires libhyphen. No module for this.
+    USE_LIBSECRET: Requires libsecret. No module for this.
+    ENABLE_TOUCH_EVENTS: Seems not to be needed.
+    USE_OPENJPEG: Requires openjpeg. No module for this.
+    USE_WOFF2: Requires Woff2. No module for this
+    USE_WPE_RENDERER: For embedded systems, not Macs.  -->
   <cmake id="webkit2gtk3"
-         cmakeargs='-DPORT=GTK -DENABLE_X11_TARGET=OFF -DENABLE_QUARTZ_TARGET=ON -DENABLE_INTROSPECTION=OFF  -DENABLE_OPENGL=OFF -DENABLE_PLUGIN_PROCESS_GTK2=OFF -DENABLE_VIDEO=OFF -DENABLE_WEB_AUDIO=OFF -DENABLE_GEOLOCATION=OFF -DUSE_LIBNOTIFY=OFF -DUSE_LIBHYPHEN=OFF -DUSE_LIBSECRET=OFF -DENABLE_TOUCH_EVENTS=OFF -DCMAKE_CXX_FLAGS="-stdlib=libc++"'>
-    <branch repo="webkit.org" module="webkitgtk-2.16.6.tar.xz" version="2.16.6">
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/Webkit-2.16-build-without-OpenGL.patch" strip="1"/>
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/Webkit-2.16-Fix-some-includes.patch" strip="1"/>
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-2.16-No-stringview-lifetime.patch" strip="1"/>
-      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-2.16-main-thread.patch" strip="1"/>
-
+         cmakeargs='-DPORT=GTK -DENABLE_X11_TARGET=OFF -DENABLE_QUARTZ_TARGET=ON -DENABLE_MINIBROWSER=ON -DENABLE_INTROSPECTION=OFF  -DUSE_SYSTEMD=OFF -DENABLE_VIDEO=OFF -DENABLE_WEB_AUDIO=OFF -DENABLE_GEOLOCATION=OFF -DUSE_LIBNOTIFY=OFF -DUSE_LIBHYPHEN=OFF -DUSE_LIBSECRET=OFF -DENABLE_TOUCH_EVENTS=OFF  -DUSE_OPENJPEG=OFF -DUSE_WOFF2=OFF -DUSE_WPE_RENDERER=OFF -DENABLE_GRAPHICS_CONTEXT_GL=OFF -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_MACOSX_RPATH=OFF'>
+    <branch repo="webkit.org" module="webkitgtk-2.30.2.tar.xz" version="2.30.2">
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/patch-webkit2gtk-macports.diff" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/patch-webkit2gtk-272-macports.diff" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/patch-webkit2gtk-2282-unprotected-egl-changes.diff" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/patch-webkit2gtk-2282-os-log-availability.diff" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/patch-bundle-link-webcore.diff" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/webkit-clang-fixes.patch" strip="0"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/0001-Prevent-WebKitWebProcess-from-being-in-the-dock-or-p.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Disable-AUDIT_TOKEN-for-Gtk-builds.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Disable-WebKitGenericCueAPIEnabled.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Enable-and-fix-build-of-JSCustomXPathNSResolver.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Extend-UNIX_DOMAIN_SOCKETS-precedence-over-Mac-and-Win.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Fix-Socket-signal-defines-for-Darwin-and-maybe-BSD.patch" strip="1"/>
+      <patch file="https://gitlab.gnome.org/GNOME/gtk-osx/raw/master/patches/WebKit2Gtk3-2.30.1-Force-FindICU-instead-of-inserting-heade.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="libwebp"/>
@@ -225,7 +233,6 @@
       <dep package="icu"/>
       <dep package="libsoup"/>
       <dep package="libgcrypt"/>
-      <dep package="meta-gtk-osx-freetype"/>
     </dependencies>
     <after>
       <dep package="meta-gtk-osx-gtk3"/>

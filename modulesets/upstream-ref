@@ -1,7 +1,5 @@
-commit 05ad8a7d7d17c7c52e3fd00a3cfde0d1a85e66f2
-Author: René de Hesselle <dehesselle@web.de>
-Date:   Thu May 21 14:03:03 2020 +0200
+commit bb83596435664514f6fb087478926911898a7b1f
+Author: John Ralls <jralls@ceridwen.us>
+Date:   Mon Nov 9 10:47:40 2020 -0800
 
-    Remove gnome-common from dependencies
-    
-    gnome-common is no longer part of any module set.
+    Upgrade WebKit2Gtk3 to latest 2.30.2 release.
