@@ -10,7 +10,7 @@
               
   <!-- for setuptools, for feedparser -->
   <repository type="tarball" name="pypi"
-              href="'https://files.pythonhosted.org/packages/source/"/>
+              href="https://files.pythonhosted.org/packages/source/"/>
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
