@@ -54,8 +54,16 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 Releasing on OS X
 
 . see *<<Creating a Bundle>>*
-. `./release.sh _build/gPodder.app version_buildnumber`
-. `./release_deps.sh _build/gPodder.app version_buildnumber`
+. test latest gPodder-base-xxx.zip on macOS
+. `git tag -a -m "bla bla" base-x.y.z`
+. `git push`
+. rerun the latest circleci master job (will pick the new tag)
+. `GITHUB_TOKEN=xxxx ./github_release.py --download --circle-build LATEST_CI_BUILD --previous-tag THE_PREVIOUS_RELEASE_TAG base-x.y.z`
+  where LATEST_CI_BUILD is the latest circleci master job number (eg. 123)
+. repeat the command without `--download` to upload to github
+. edit and publish the release on github
+. now you can update the tag in `.circleci/config.yml` of the gPodder project.
+
 
 Releasing on Linux by patching deps:
 
