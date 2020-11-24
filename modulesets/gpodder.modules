@@ -35,7 +35,7 @@
   </autotools>
 
 <distutils id="podcastparser" python3="true">
-    <branch repo="pypi" checkoutdir="podcastparser" module="p/podcastparser/podcastparser-0.6.6.tar.gz"
+    <branch repo="pypi" checkoutdir="podcastparser" module="p/podcastparser/podcastparser-${version}.tar.gz"
             version="0.6.6" hash="sha256:a30e84102003fb0eb42000546514245acf7b97541dba4e888d1c4c06b1c84454"/>
     <dependencies>
         <dep package="python3"/>
@@ -43,7 +43,7 @@
 </distutils>
 
 <distutils id="mutagen" python3="true">
-    <branch repo="pypi" checkoutdir="mutagen" module="m/mutagen/mutagen-1.45.1.tar.gz"
+    <branch repo="pypi" checkoutdir="mutagen" module="m/mutagen/mutagen-${version}.tar.gz"
             version="1.45.1" hash="sha256:6397602efb3c2d7baebd2166ed85731ae1c1d475abca22090b7141ff5034b3e1"/>
     <dependencies>
         <dep package="python3"/>
@@ -51,7 +51,7 @@
 </distutils>
 
 <distutils id="mygpoclient" python3="true">
-    <branch repo="pypi" checkoutdir="mygpoclient" module="m/mygpoclient/mygpoclient-1.8.tar.gz"
+    <branch repo="pypi" checkoutdir="mygpoclient" module="m/mygpoclient/mygpoclient-${version}.tar.gz"
             version="1.8" hash="b0027746e6fbe7db646673c7e231bfa70b3f5cb0440b1e7704f9d91aa6e925ba"/>
     <dependencies>
         <dep package="python3"/>
@@ -59,7 +59,7 @@
 </distutils>
 
 <distutils id="html5lib" python3="true">
-    <branch repo="pypi" checkoutdir="html5lib" module="h/html5lib/html5lib-1.1.tar.gz"
+    <branch repo="pypi" checkoutdir="html5lib" module="h/html5lib/html5lib-${version}.tar.gz"
             version="1.1" hash="sha256:b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"/>
     <dependencies>
         <dep package="six"/>
@@ -68,7 +68,7 @@
 </distutils>
 
 <distutils id="requests" python3="true">
-    <branch repo="pypi" checkoutdir="requests" module="r/requests/requests-2.25.0.tar.gz"
+    <branch repo="pypi" checkoutdir="requests" module="r/requests/requests-${version}.tar.gz"
             version="2.25.0" hash="sha256:7f1a0b932f4a60a1a65caa4263921bb7d9ee911957e0ae4a23a6dd08185ad5f8"/>
     <dependencies>
         <dep package="certifi"/>
@@ -80,7 +80,7 @@
 </distutils>
 
 <distutils id="certifi" python3="true">
-    <branch repo="pypi" checkoutdir="certifi" module="c/certifi/certifi-2020.11.8.tar.gz"
+    <branch repo="pypi" checkoutdir="certifi" module="c/certifi/certifi-${version}.tar.gz"
             version="2020.11.8" hash="sha256:f05def092c44fbf25834a51509ef6e631dc19765ab8a57b4e7ab85531f0a9cf4"/>
     <dependencies>
         <dep package="python3"/>
@@ -88,7 +88,7 @@
 </distutils>
 
 <distutils id="chardet" python3="true">
-    <branch repo="pypi" checkoutdir="chardet" module="c/chardet/chardet-3.0.4.tar.gz"
+    <branch repo="pypi" checkoutdir="chardet" module="c/chardet/chardet-${version}.tar.gz"
             version="3.0.4" hash="sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"/>
     <dependencies>
         <dep package="python3"/>
@@ -96,7 +96,7 @@
 </distutils>
 
 <distutils id="idna" python3="true">
-    <branch repo="pypi" checkoutdir="idna" module="i/idna/idna-2.10.tar.gz"
+    <branch repo="pypi" checkoutdir="idna" module="i/idna/idna-${version}.tar.gz"
             version="2.10" hash="sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6"/>
     <dependencies>
         <dep package="python3"/>
@@ -104,7 +104,7 @@
 </distutils>
 
 <distutils id="urllib3" python3="true">
-    <branch repo="pypi" checkoutdir="urllib3" module="u/urllib3/urllib3-1.26.2.tar.gz"
+    <branch repo="pypi" checkoutdir="urllib3" module="u/urllib3/urllib3-${version}.tar.gz"
             version="1.26.2" hash="sha256:19188f96923873c92ccb987120ec4acaa12f0461fa9ce5d3d0772bc965a39e08"/>
     <dependencies>
         <dep package="brotlipy"/>
@@ -112,7 +112,7 @@
 </distutils>
 
 <distutils id="PySocks" python3="true">
-    <branch repo="pypi" checkoutdir="PySocks" module="P/PySocks/PySocks-1.7.1.tar.gz"
+    <branch repo="pypi" checkoutdir="PySocks" module="P/PySocks/PySocks-${version}.tar.gz"
             version="1.7.1" hash="sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0"/>
     <dependencies>
         <dep package="python3"/>
@@ -120,7 +120,7 @@
 </distutils>
 
 <distutils id="six" python3="true">
-    <branch repo="pypi" checkoutdir="six" module="s/six/six-1.12.0.tar.gz"
+    <branch repo="pypi" checkoutdir="six" module="s/six/six-${version}.tar.gz"
             version="1.12.0" hash="sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"/>
     <dependencies>
         <dep package="python3"/>
@@ -128,7 +128,7 @@
 </distutils>
 
 <distutils id="webencodings" python3="true">
-    <branch repo="pypi" checkoutdir="webencodings" module="w/webencodings/webencodings-0.5.1.tar.gz"
+    <branch repo="pypi" checkoutdir="webencodings" module="w/webencodings/webencodings-${version}.tar.gz"
             version="0.5.1" md5sum="32f6e261d52e57bf7e1c4d41546d15b8"/>
     <dependencies>
         <dep package="python3"/>
@@ -136,7 +136,7 @@
 </distutils>
 
 <distutils id="youtube_dl" python3="true">
-    <branch repo="pypi" checkoutdir="youtube_dl" module="y/youtube_dl/youtube_dl-2020.11.21.1.tar.gz"
+    <branch repo="pypi" checkoutdir="youtube_dl" module="y/youtube_dl/youtube_dl-${version}.tar.gz"
             version="2020.11.21.1" hash="sha256:a785c1373a3c2d0b82c54aabc4831e8e6f6ede059ec462e54526d694dd3c29ca"/>
     <dependencies>
         <dep package="python3"/>
