@@ -137,7 +137,7 @@
 
 <distutils id="youtube_dl" python3="true">
     <branch repo="pypi" checkoutdir="youtube_dl" module="y/youtube_dl/youtube_dl-${version}.tar.gz"
-            version="2020.11.21.1" hash="sha256:a785c1373a3c2d0b82c54aabc4831e8e6f6ede059ec462e54526d694dd3c29ca"/>
+            version="2021.03.25" hash="sha256:a303cfd327938e3f15890099be79958cc17d536d1f985301d5462e487af3485f"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
