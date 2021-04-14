@@ -12,25 +12,32 @@
   <repository type="tarball" name="pypi"
               href="https://files.pythonhosted.org/packages/source/"/>
 
-  <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
-    <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-            tag="3.10.17">
-    </branch>
+  <metamodule id="meta-gpodder-native">
     <dependencies>
-      <dep package="podcastparser"/>
-      <dep package="mygpoclient"/>
       <dep package="meta-gtk-osx-gtk3"/>
       <dep package="pycairo"/>
       <dep package="pygobject3"/>
       <dep package="icu" /> <!-- for harfbuz -->
       <dep package="python3"/>
       <dep package="adwaita-icon-theme"/>
+      <!-- to get nice icons for downloaded files -->
+      <dep package="shared-mime-info" />
+    </dependencies>
+  </metamodule>
+
+  <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
+    <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
+            tag="3.10.18">
+    </branch>
+    <dependencies>
+      <!-- when adding new python deps, don't forget to add them to gpodder.bundle -->
+      <dep package="podcastparser"/>
+      <dep package="mygpoclient"/>
+      <dep package="meta-gpodder-native"/>
       <dep package="mutagen"/>
       <dep package="youtube_dl"/>
       <dep package="html5lib"/>
       <dep package="requests"/>
-      <!-- to get nice icons for downloaded files -->
-      <dep package="shared-mime-info" />
     </dependencies>
   </autotools>
 
