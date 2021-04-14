@@ -144,7 +144,9 @@
   </data>
   <data>${prefix}/lib/python3.8/site-packages/cairo/*.py</data>
   <data>${prefix}/lib/python3.8/site-packages/certifi</data>
+  <data>${prefix}/lib/python3.8/site-packages/chardet</data>
   <data>${prefix}/lib/python3.8/site-packages/gpodder</data>
+  <data>${prefix}/lib/python3.8/site-packages/idna</data>
   <data>${prefix}/lib/python3.8/site-packages/mutagen</data>
   <data>${prefix}/lib/python3.8/site-packages/mygpoclient</data>
   <data>${prefix}/lib/python3.8/site-packages/html5lib</data>
@@ -152,6 +154,9 @@
   <data>${prefix}/lib/python3.8/site-packages/sockshandler.py</data>
   <data>${prefix}/lib/python3.8/site-packages/requests</data>
   <data>${prefix}/lib/python3.8/site-packages/six.py</data>
+  <data>${prefix}/lib/python3.8/site-packages/socks.py</data>
+  <data>${prefix}/lib/python3.8/site-packages/sockshandler.py</data>
+  <data>${prefix}/lib/python3.8/site-packages/urllib3</data>
   <data>${prefix}/lib/python3.8/site-packages/webencodings</data>
   <data>${prefix}/lib/python3.8/site-packages/youtube_dl</data>
 	
