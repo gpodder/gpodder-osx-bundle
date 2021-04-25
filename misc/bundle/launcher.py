@@ -121,7 +121,6 @@ print('System Path:\n','\n'.join(sys.path))
 for k, v in os.environ.items():
   print("%s=%s" % (k,v))
 
-# Gen cert.pem
 def gpodder_home():
     # don't inadvertently create the new gPodder home,
     # it would be prefered to the old one
@@ -135,6 +134,7 @@ def gpodder_home():
         if cand and os.path.exists(cand):
             return cand
     return default_path
+
 
 gphome = gpodder_home()
 os.makedirs(join(gphome, 'openssl'), exist_ok=True)
