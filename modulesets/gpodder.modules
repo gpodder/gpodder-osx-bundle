@@ -31,9 +31,9 @@
     </branch>
     <dependencies>
       <!-- when adding new python deps, don't forget to add them to gpodder.bundle -->
+      <dep package="meta-gpodder-native"/>
       <dep package="podcastparser"/>
       <dep package="mygpoclient"/>
-      <dep package="meta-gpodder-native"/>
       <dep package="mutagen"/>
       <dep package="youtube_dl"/>
       <dep package="html5lib"/>

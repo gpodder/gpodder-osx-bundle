@@ -163,15 +163,15 @@ if not os.path.exists(cert_pem):
 os.environ['SSL_CERT_FILE'] = cert_pem
 
 if app == 'run-python':
-    python_exe = os.path.join(bundle_contents, 'MacOS', 'python3')
+    python_exe = join(bundle_contents, 'MacOS', 'python3')
     # executable is repeated as argv[0].
     # Old sys.argv[0] points to Contents/MacOS so must be removed
     args = [python_exe] + sys.argv[1:]
     # print("running", args)
     os.execv(python_exe, args)
-if app == 'run-pip':
-    python_exe = os.path.join(bundle_contents, 'MacOS', 'python3')
-    pip = os.path.join(bundle_contents, 'Resources', 'bin', 'pip3')
+elif app == 'run-pip':
+    python_exe = join(bundle_contents, 'MacOS', 'python3')
+    pip = join(bundle_contents, 'Resources', 'bin', 'pip3')
     # executable is repeated as argv[0].
     # Old sys.argv[0] points to Contents/MacOS so must be removed
     args = [python_exe, pip] + sys.argv[1:]
@@ -179,4 +179,4 @@ if app == 'run-pip':
     os.execv(python_exe, args)
 else:
     import runpy
-    runpy.run_path(os.path.join(bundle_bin, app), run_name='__main__')
+    runpy.run_path(join(bundle_bin, app), run_name='__main__')

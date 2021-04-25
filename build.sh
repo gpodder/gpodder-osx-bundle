@@ -6,4 +6,4 @@ source env.sh
 
 jhbuild bootstrap-gtk-osx
 jhbuild build meta-gtk-osx-bootstrap
-jhbuild build gpodder
+jhbuild build meta-gpodder-native

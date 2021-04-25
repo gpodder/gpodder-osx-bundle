@@ -95,9 +95,10 @@
     ${prefix}/share/locale
   </translations>
 
+  <!-- don't bundle gpodder translations
   <translations name="gpodder">
     ${prefix}/share/locale
-  </translations>
+  </translations> -->
 
   <!-- Be careful, only to pick required python modules  -->
   
@@ -135,11 +136,12 @@
   <data>${prefix}/lib/python3.8/xml</data>
 
   <!-- only required extra modules (no dbus, for instance) -->
-  <data>${prefix}/lib/python3.8/site-packages/podcastparser.py</data>
   <data recurse="True">
     ${prefix}/lib/python3.8/site-packages/gi/*.py
   </data>
   <data>${prefix}/lib/python3.8/site-packages/cairo/*.py</data>
+
+  <!-- gpodder pure python deps
   <data>${prefix}/lib/python3.8/site-packages/certifi</data>
   <data>${prefix}/lib/python3.8/site-packages/chardet</data>
   <data>${prefix}/lib/python3.8/site-packages/gpodder</data>
@@ -147,6 +149,7 @@
   <data>${prefix}/lib/python3.8/site-packages/mutagen</data>
   <data>${prefix}/lib/python3.8/site-packages/mygpoclient</data>
   <data>${prefix}/lib/python3.8/site-packages/html5lib</data>
+  <data>${prefix}/lib/python3.8/site-packages/podcastparser.py</data>
   <data>${prefix}/lib/python3.8/site-packages/socks.py</data>
   <data>${prefix}/lib/python3.8/site-packages/sockshandler.py</data>
   <data>${prefix}/lib/python3.8/site-packages/requests</data>
@@ -156,16 +159,17 @@
   <data>${prefix}/lib/python3.8/site-packages/urllib3</data>
   <data>${prefix}/lib/python3.8/site-packages/webencodings</data>
   <data>${prefix}/lib/python3.8/site-packages/youtube_dl</data>
+  -->
 	
 
   <!-- Fake dbus module.
        d-bus can be built and bundled, but it doesn't add any service
        so it's not bundled to reduce the App size.
        If somebody requires it, it will be added.
-    -->
   <data dest="${bundle}/Contents/Resources/lib/python3.8/site-packages/dbus">
     ${env:JHBUILD_SOURCE}/gpodder/tools/fake-dbus-module/dbus
   </data>
+    -->
 
   <binary>
     ${prefix}/lib/python3.8/lib-dynload/*.so
@@ -189,42 +193,6 @@
   <gir>
     ${prefix}/share/gir-1.0/*.gir
   </gir>
-
-  <data>
-    ${prefix}/bin/gpodder
-  </data>
-  <data>
-    ${prefix}/bin/gpo
-  </data>
-  <data>
-    ${prefix}/bin/gpodder-migrate2tres
-  </data>
-
-
-  <data>
-    ${prefix}/share/gpodder
-  </data>
-
-  <data>
-    ${prefix}/share/icons/hicolor/scalable/apps
-  </data>
-
-  <data>
-    ${prefix}/share/man/man1/gpo.1
-  </data>
-  <data>
-    ${prefix}/share/man/man1/gpodder.1
-  </data>
-  <data>
-    ${prefix}/share/man/man1/gpodder-migrate2tres.1
-  </data>
-
-  <data dest="${bundle}/Contents/Resources/gPodder.icns">
-    ${env:JHBUILD_SOURCE}/gpodder/tools/mac-osx/icon.icns
-  </data>
-   
-  <!-- Copy in the themes data. You may want to trim this to save space
-       in your bundle. -->
 
   <!-- This is where theme commands go. You can copy them in from your
        theme of choice if they provide and example, or you can just
@@ -254,11 +222,6 @@
     hicolor
   </icon-theme>
 
-  <!-- gPodder icon in the about dialog (gpodder.icon_file initialised in gpodder script) -->
-  <data dest="${bundle}/Contents/Resources/share/icons/hicolor/scalable/apps">
-  	${prefix}/share/icons/hicolor/scalable/apps/gpodder.svg
-  </data>
-
   <!-- get file-dependent icons (e.g. music note if it's an audio file) -->
   <data dest="${bundle}/Contents/Resources/share/mime">
   	${prefix}/share/mime
@@ -274,6 +237,11 @@
     ${prefix}/bin/openssl
   </binary>
 
+  <!-- needed to compile translations -->
+  <binary dest="${bundle}/Contents/MacOS">
+    ${prefix}/bin/msgfmt
+  </binary>
+
   <!-- fix crash on file dialogs (#413) -->
   <data>${prefix}/share/glib-2.0/schemas</data>
 
@@ -287,4 +255,44 @@
   <data>${prefix}/lib/python3.8/site-packages/pip</data>
   <data>${prefix}/lib/python3.8/xmlrpc</data>
   <!--<data>${prefix}/lib/python3.8/ensurepip</data>-->
+  <!-- setuptools -->
+  <!-- <data>${prefix}/lib/python3.8/site-packages/pkg_resources</data>
+  <data>${prefix}/lib/python3.8/site-packages/setuptools</data> -->
+
+
+  <!-- gpodder contents
+  <data>
+    ${prefix}/bin/gpodder
+  </data>
+  <data>
+    ${prefix}/bin/gpo
+  </data>
+  <data>
+    ${prefix}/bin/gpodder-migrate2tres
+  </data>
+
+
+  <data>
+    ${prefix}/share/gpodder
+  </data>
+
+  <data>
+    ${prefix}/share/man/man1/gpo.1
+  </data>
+  <data>
+    ${prefix}/share/man/man1/gpodder.1
+  </data>
+  <data>
+    ${prefix}/share/man/man1/gpodder-migrate2tres.1
+  </data>
+
+  <data dest="${bundle}/Contents/Resources/gPodder.icns">
+    ${env:JHBUILD_SOURCE}/gpodder/tools/mac-osx/icon.icns
+  </data>
+  <!- - gPodder icon in the about dialog (gpodder.icon_file initialised in gpodder script) - ->
+  <data dest="${bundle}/Contents/Resources/share/icons/hicolor/scalable/apps">
+  	${prefix}/share/icons/hicolor/scalable/apps/gpodder.svg
+  </data>
+  -->
+
 </app-bundle>
