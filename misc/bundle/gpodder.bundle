@@ -112,10 +112,8 @@
   <data>${prefix}/lib/python3.8/ctypes</data>
   <data>${prefix}/lib/python3.8/curses</data>
   <!--<data>${prefix}/lib/python3.8/dbm</data>-->
-  <!--<data>${prefix}/lib/python3.8/distutils</data>-->
   <data>${prefix}/lib/python3.8/email</data>
   <data>${prefix}/lib/python3.8/encodings</data>
-  <!--<data>${prefix}/lib/python3.8/ensurepip</data>-->
   <data>${prefix}/lib/python3.8/html</data>
   <data>${prefix}/lib/python3.8/http</data>
   <!--<data>${prefix}/lib/python3.8/idlelib</data>-->
@@ -135,7 +133,6 @@
   <!--<data>${prefix}/lib/python3.8/venv</data>-->
   <data>${prefix}/lib/python3.8/wsgiref</data>
   <data>${prefix}/lib/python3.8/xml</data>
-  <!--<data>${prefix}/lib/python3.8/xmlrpc</data>-->
 
   <!-- only required extra modules (no dbus, for instance) -->
   <data>${prefix}/lib/python3.8/site-packages/podcastparser.py</data>
@@ -283,4 +280,11 @@
   <data dest="${bundle}/Contents/Resources">
     ${project}/launcher.py
   </data>
+
+  <!-- pip support -->
+  <data>${prefix}/bin/pip3*</data>
+  <data>${prefix}/lib/python3.8/distutils</data>
+  <data>${prefix}/lib/python3.8/site-packages/pip</data>
+  <data>${prefix}/lib/python3.8/xmlrpc</data>
+  <!--<data>${prefix}/lib/python3.8/ensurepip</data>-->
 </app-bundle>

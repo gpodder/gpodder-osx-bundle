@@ -22,7 +22,7 @@ mv "$QL_OSXBUNDLE_BUNDLE_DEST/app.app" "$APP"
 
 # launcher scripts
 mv "$APP"/Contents/MacOS/{gPodder,gpodder}
-CMDS="gpo gpodder-migrate2tres run-python"
+CMDS="gpo gpodder-migrate2tres run-python run-pip"
 for cmd in ${CMDS}; do
     cp -a "$APP"/Contents/MacOS/{gpodder,$cmd}
     if [ -e "$QL_OSXBUNDLE_BUNDLE_DEST/$cmd" ]; then
