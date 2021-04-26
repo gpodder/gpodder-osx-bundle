@@ -192,9 +192,9 @@
   	${prefix}/share/mime
   </data>
 
-  <!-- install script to generate cert.pem -->
-  <data dest="${bundle}/Contents/Resources/bin/make_cert_pem.py">
-    ${project}/make_cert_pem.py
+  <!-- install example main program -->
+  <data dest="${bundle}/Contents/Resources/bin/pythonbase">
+    ${project}/pythonbase.py
   </data>
 
   <!-- make_cert_pem.py needs openssl to run -->

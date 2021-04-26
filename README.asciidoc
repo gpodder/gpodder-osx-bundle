@@ -2,10 +2,11 @@
 
 *Don't Panic*
 
-This is a collection of files required to build gPodder.app :
-gPodder as a native GTK+ Quartz application for Mac OS X 10.9+
+This is a collection of files required to build pythonbase.app:
+native dependencies to run gPodder as a native GTK+ Quartz application for Mac OS X 10.9+,
+with a working python interpreter and pip utility.
 
-The scripts are executed on circle.ci, with xcode 9.3.
+The scripts are executed on circle.ci, with xcode 9.4.1.
 
 NOTE: In case you want just want to run gPodder from source you can ignore all
 this and use the released bundle as a development environment.  Download the
@@ -54,8 +55,8 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 Releasing on OS X
 
 . see *<<Creating a Bundle>>*
-. test latest gPodder-base-xxx.zip on macOS
-. `git tag -a -m "bla bla" base-x.y.z`
+. test latest pythonbase-xxx.zip on macOS
+. `git tag -a -m "bla bla" YY.MM.DD`
 . `git push`
 . rerun the latest circleci master job (will pick the new tag)
 . `GITHUB_TOKEN=xxxx ./github_release.py --download --circle-build LATEST_CI_BUILD --previous-tag THE_PREVIOUS_RELEASE_TAG base-x.y.z`
@@ -65,19 +66,20 @@ Releasing on OS X
 . now you can update the tag in `.circleci/config.yml` of the gPodder project.
 
 
-Releasing on Linux by patching deps:
+Releasing on macOS by using the working pip:
 
 [start=4]
-. `./release_on_linux.sh ~/Downloads/gPodder-3.8.4_0.deps.zip /tmp/gpodder`
+git clone https://github.com/gpodder/gpodder.git
+cd gpodder
+./tools/mac-osx/release_on_mac.sh ~/Downloads/pythonbase-21.4.27.zips
 
 == Issues
 
-See https://github.com/elelay/gpodder-osx-bundle
+See https://github.com/gpodder/gpodder-osx-bundle
 
 == Using gPodder:
 
-See https://github.com/elelay/gpoder-osx-bundle/wiki/Using for instructions...
-And the official help guide http://gpodder.github.io/docs/
+See the official help guide http://gpodder.github.io/docs/
 
 == Content Description
 

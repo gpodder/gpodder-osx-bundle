@@ -10,8 +10,8 @@ jobs:
       - run: ./bootstrap.sh
       - run: ./build.sh
       - run: ./bundle.sh
-      - run: ./release.sh _build/gPodder.app $(git describe --tags)
-      - run: rm -Rf _build/gPodder.app/
+      - run: ./release.sh _build/pythonbase.app $(git describe --tags)
+      - run: rm -Rf _build/pythonbase.app/ _build/run-*
       - store_artifacts:
           path: /Users/distiller/project/_build
   dummy:
