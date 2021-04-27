@@ -8,10 +8,8 @@
     <string>gpodder</string>
     <key>CFBundleGetInfoString</key>
     <string>gPodder @VERSION@ @COPYRIGHT@</string>
-    <key>CFBundleIconFile</key>
-    <string>gPodder.icns</string>
     <key>CFBundleIdentifier</key>
-    <string>org.gpodder</string>
+    <string>org.gpodder.pythonbase</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundlePackageType</key>
