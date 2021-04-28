@@ -43,8 +43,8 @@ def download_circleci(circle_build):
     os.mkdir("_build")
     artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % circle_build).json()
     items = set([u["url"] for u in artifacts
-                if re.match(".+/gPodder-.+\.deps\.zip.*$", u["path"])
-                or u["path"].endswith("/gPodder.contents")])
+                if re.match(".+/pythonbase-.+\.zip.*$", u["path"])
+                or u["path"].endswith("/pythonbase.contents")])
     if len(items) == 0:
         error_exit("Nothing found to download")
     print("D: downloading %s" % items)
@@ -63,11 +63,11 @@ def download_circleci(circle_build):
 def checksum():
     """ compare downloaded archive with checksums """
     for f in os.listdir("_build"):
-        if re.match("gPodder-.+\.deps\.zip.md5$", f):
+        if re.match("pythonbase-.+\.zip.md5$", f):
             md5 = os.path.join("_build", f)
-        elif re.match("gPodder-.+\.deps\.zip.sha256$", f):
+        elif re.match("pythonbase-.+\.zip.sha256$", f):
             sha256 = os.path.join("_build", f)
-        elif re.match("gPodder-.+\.deps\.zip$", f):
+        elif re.match("pythonbase-.+\.zip$", f):
             archive = os.path.join("_build", f)
     if md5 and sha256 and archive:
         m = hashlib.md5()
@@ -98,7 +98,7 @@ def checksum():
 
 
 def get_diff_previous_tag(tag, previous_tag):
-    """ compare previous_tag's gPodder.contents with the one in _build
+    """ compare previous_tag's pythonbase.contents with the one in _build
         @return formatted diff or empty string if no previous_tag
     """
     if not previous_tag:
@@ -106,9 +106,9 @@ def get_diff_previous_tag(tag, previous_tag):
     resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/gPodder.contents"
                         % previous_tag)
     if resp.status_code != 200:
-        error_exit("Error getting previous gPodder.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
+        error_exit("Error getting previous pythonbase.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
     previousContents = [l + "\n" for l in resp.text.split("\n") if not l.startswith(" ")]
-    with open("_build/gPodder.contents", "r") as f:
+    with open("_build/pythonbase.contents", "r") as f:
         contents = [l for l in f.readlines() if not l.startswith(" ")]
     diff = difflib.unified_diff(previousContents, contents, fromfile=previous_tag, tofile=tag, n=1)
     return "```\n%s\n```" % "".join(diff)
@@ -123,7 +123,7 @@ def upload(repo, tag, previous_tag, circle_build):
         error_exit("Error creating release '%s' (%r)" % (tag, e))
 
     items = [f for f in os.listdir("_build")
-             if re.match("gPodder-.+\.deps\.zip.*$", f) or f == "gPodder.contents"]
+             if re.match("pythonbase-.+\.zip.*$", f) or f == "pythonbase.contents"]
     if len(items) == 0:
         error_exit("Nothing found to upload")
     print("D: uploading items\n - %s" % "\n - ".join(items))
