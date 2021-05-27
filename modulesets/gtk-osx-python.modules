@@ -95,8 +95,9 @@
 
   <autotools id="python3" autogenargs="--enable-shared" autogen-sh="configure">
     <branch repo="python" module="3.8.5/Python-3.8.5.tar.xz" version="3.8.5"
-            hash="md5:35b5a3d0254c1c59be9736373d429db7"
-            />
+            hash="md5:35b5a3d0254c1c59be9736373d429db7">
+        <patch file="patches/disable_getentropy_clock_for_10.11.patch"/>
+    </branch>
     <dependencies>
       <dep package='readline'/>
       <dep package="openssl"/> <!-- For hashlib -->
