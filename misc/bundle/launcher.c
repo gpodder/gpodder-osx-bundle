@@ -21,7 +21,6 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <CoreFoundation/CoreFoundation.h>
-#import <Foundation/Foundation.h>
 #include <sys/syslimits.h>
 #include <stdio.h>
 
@@ -82,80 +81,6 @@ get_bundle_dir(void)
     return retval;
 }
 
-static NSString*
-gpodder_home(NSFileManager* fm) {
-    // 1. ${GPODDER_HOME}
-    char* gpodder_home = getenv("GPODDER_HOME");
-    if (gpodder_home != NULL) {
-        NSLog(@"gPodder home from environment GPODDER_HOME is %s", gpodder_home);
-        return [NSString stringWithUTF8String: gpodder_home];
-    }
-    // 2. Application Support/gPodder
-    NSError *error = nil;
-    NSURL *applicationSupport = [fm URLForDirectory:NSApplicationSupportDirectory
-                                                                      inDomain:NSUserDomainMask
-                                                                      appropriateForURL:0
-                                                                        create:YES
-                                                                         error:&error];
-    if (error) {
-        NSLog(@"Error getting Application Support directory %@", error);
-        exit(1);
-    }
-    NSString* path = applicationSupport.path;
-    path = [path stringByAppendingString: @"/gPodder"];
-    if ([fm fileExistsAtPath: path])
-    {
-        NSLog(@"gPodder home is %@", path);
-        return path;
-    }
-
-    // 3. ~/gPodder
-    NSURL* home = [fm homeDirectoryForCurrentUser];
-    path = home.path;
-    path = [path stringByAppendingString: @"/gPodder"];
-    NSLog(@"Default gPodder home is %@", path);
-    return path;
-}
-
-static NSString*
-handle_custom_pip_path(void) {
-    NSError *error = nil;
-    NSFileManager* fm = [NSFileManager defaultManager];
-    NSString* path = gpodder_home(fm);
-
-    NSString* new_path = [path stringByAppendingString: @"/new-pip"];
-    if ([fm fileExistsAtPath: new_path])
-    {
-        NSLog(@"new_path %@ exists", new_path);
-        NSString* old_path = [path stringByAppendingString: @"/pip"];
-        if ([fm fileExistsAtPath: old_path])
-        {
-            NSLog(@"old_path %@ exists, moving to trash", old_path);
-            NSURL *localURL = [NSURL fileURLWithPath:old_path];
-            if([fm trashItemAtURL:localURL resultingItemURL:nil error:&error] != YES)
-            {
-                NSLog(@"Unable to put old pip %@ to trash: %@", old_path, error);
-                exit(1);
-            }
-        }
-        NSLog(@"moving new_path %@ to %@", new_path, old_path);
-        if([fm moveItemAtPath:new_path toPath:old_path error:&error] != YES)
-        {
-            NSLog(@"Unable to move new pip %@ to %@: %@", new_path, old_path, error);
-            exit(1);
-        }
-    }
-
-    path = [path stringByAppendingString: @"/pip/lib/python3.8/site-packages"];
-    NSLog(@"considering %@", path);
-    if ([fm fileExistsAtPath: path])
-    {
-        NSLog(@"path %@ exists, adding to PYTHONPATH", path);
-        return path;
-    }
-    return nil;
-}
-
 static void
 set_python_path(void)
 {
@@ -165,14 +90,7 @@ set_python_path(void)
     wchar_t *path;
     CFStringRef str = make_filesystem_string(bundle_url);
     CFRelease(bundle_url);
-    mstr = CFStringCreateMutable(NULL, 5 * PATH_MAX);
-
-    NSString* customPath = handle_custom_pip_path();
-    if (customPath != NULL)
-    {
-        CFStringAppend(mstr, (__bridge CFStringRef)customPath);
-        CFStringAppendCString(mstr, ":", kCFStringEncodingUTF8);
-    }
+    mstr = CFStringCreateMutableCopy(NULL, 5 * PATH_MAX, str);
     CFStringAppendCString(mstr, "/lib/python36.zip:", kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
     CFStringAppendCString(mstr, "/lib/python3.8:",
