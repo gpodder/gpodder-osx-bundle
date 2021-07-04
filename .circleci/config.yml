@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-bundle:
     macos:
-      xcode: "9.4.1"
+      xcode: "11.1.0"
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
@@ -14,13 +14,6 @@ jobs:
       - run: rm -Rf _build/pythonbase.app/ _build/run-*
       - store_artifacts:
           path: /Users/distiller/project/_build
-  dummy:
-    macos:
-      xcode: "9.2.0"
-    shell: /bin/bash --login -o pipefail
-    steps:
-     - checkout
-     - run: ./bootstrap.sh
 
 workflows:
   version: 2
