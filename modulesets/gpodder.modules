@@ -27,7 +27,7 @@
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"
-            tag="3.10.18">
+            tag="3.10.20">
     </branch>
     <dependencies>
       <!-- when adding new python deps, don't forget to add them to gpodder.bundle -->
@@ -76,7 +76,7 @@
 
 <distutils id="requests" python3="true">
     <branch repo="pypi" checkoutdir="requests" module="r/requests/requests-${version}.tar.gz"
-            version="2.25.0" hash="sha256:7f1a0b932f4a60a1a65caa4263921bb7d9ee911957e0ae4a23a6dd08185ad5f8"/>
+            version="2.25.1" hash="sha256:7f1a0b932f4a60a1a65caa4263921bb7d9ee911957e0ae4a23a6dd08185ad5f8"/>
     <dependencies>
         <dep package="certifi"/>
         <dep package="chardet"/>
@@ -88,7 +88,7 @@
 
 <distutils id="certifi" python3="true">
     <branch repo="pypi" checkoutdir="certifi" module="c/certifi/certifi-${version}.tar.gz"
-            version="2020.11.8" hash="sha256:f05def092c44fbf25834a51509ef6e631dc19765ab8a57b4e7ab85531f0a9cf4"/>
+            version="2021.5.30" hash="sha256:f05def092c44fbf25834a51509ef6e631dc19765ab8a57b4e7ab85531f0a9cf4"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
@@ -96,7 +96,7 @@
 
 <distutils id="chardet" python3="true">
     <branch repo="pypi" checkoutdir="chardet" module="c/chardet/chardet-${version}.tar.gz"
-            version="3.0.4" hash="sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"/>
+            version="4.0.0" hash="sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
@@ -104,7 +104,7 @@
 
 <distutils id="idna" python3="true">
     <branch repo="pypi" checkoutdir="idna" module="i/idna/idna-${version}.tar.gz"
-            version="2.10" hash="sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6"/>
+            version="3.2" hash="sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
@@ -112,7 +112,7 @@
 
 <distutils id="urllib3" python3="true">
     <branch repo="pypi" checkoutdir="urllib3" module="u/urllib3/urllib3-${version}.tar.gz"
-            version="1.26.2" hash="sha256:19188f96923873c92ccb987120ec4acaa12f0461fa9ce5d3d0772bc965a39e08"/>
+            version="1.26.5" hash="sha256:19188f96923873c92ccb987120ec4acaa12f0461fa9ce5d3d0772bc965a39e08"/>
     <dependencies>
         <dep package="brotlipy"/>
     </dependencies>
@@ -128,7 +128,7 @@
 
 <distutils id="six" python3="true">
     <branch repo="pypi" checkoutdir="six" module="s/six/six-${version}.tar.gz"
-            version="1.12.0" hash="sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"/>
+            version="1.16.0" hash="sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
@@ -144,7 +144,7 @@
 
 <distutils id="youtube_dl" python3="true">
     <branch repo="pypi" checkoutdir="youtube_dl" module="y/youtube_dl/youtube_dl-${version}.tar.gz"
-            version="2021.3.25" hash="sha256:375c19339fd6b64cb09f174c4681159a88352c5559c3453dc082020adea2980e"/>
+            version="2021.6.6" hash="sha256:375c19339fd6b64cb09f174c4681159a88352c5559c3453dc082020adea2980e"/>
     <dependencies>
         <dep package="python3"/>
     </dependencies>
