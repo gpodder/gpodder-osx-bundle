@@ -66,7 +66,7 @@
   <autotools id="python3" autogenargs="--enable-shared" autogen-sh="configure">
     <branch repo="python" module="3.9.2/Python-3.9.2.tar.xz" version="3.9.2"
             hash="sha256:3c2034c54f811448f516668dce09d24008a0716c3a794dd8639b5388cbde247d">
-        <patch file="patches/disable_getentropy_clock_for_10.11.patch"/>
+        <patch file="patches/gpodder_disable_getentropy_clock_for_10.11.patch"/>
     </branch>
     <dependencies>
       <dep package='readline'/>
