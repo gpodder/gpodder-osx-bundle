@@ -188,9 +188,11 @@
   </icon-theme>
 
   <!-- get file-dependent icons (e.g. music note if it's an audio file) -->
+  <!-- disabled shared-mime-info
   <data dest="${bundle}/Contents/Resources/share/mime">
   	${prefix}/share/mime
   </data>
+  -->
 
   <!-- install example main program -->
   <data dest="${bundle}/Contents/Resources/bin/pythonbase">

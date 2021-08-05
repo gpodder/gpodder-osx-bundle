@@ -21,7 +21,9 @@
       <dep package="python3"/>
       <dep package="adwaita-icon-theme"/>
       <!-- to get nice icons for downloaded files -->
+      <!-- disabled for now: frodo website is down, breaking the build..
       <dep package="shared-mime-info" />
+      -->
     </dependencies>
   </metamodule>
 
