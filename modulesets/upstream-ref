@@ -1,5 +1,5 @@
-commit 02cc20cfe26b1641c15f0c57d2c1c86e2b5b69d6
+commit a636de41dc9cd957af87fc4785a03b53014b7711
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Mon Jul 26 11:39:22 2021 -0700
+Date:   Thu Jul 29 15:10:55 2021 -0700
 
-    Update gtk+-3.0 to gtk-3.24.30.
+    Patch graphviz to use full install-name-dir instead of rpath.
