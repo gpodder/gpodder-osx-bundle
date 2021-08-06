@@ -21,9 +21,21 @@
       <dep package="python3"/>
       <dep package="adwaita-icon-theme"/>
       <!-- to get nice icons for downloaded files -->
+      <!-- disabled for now: frodo website is down, breaking the build..
       <dep package="shared-mime-info" />
+      -->
     </dependencies>
   </metamodule>
+
+
+  <!--
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~ WARNING WARNING WARNING ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    EVERYTHING UNDER THIS LINE IS NOT USED TO BUILD THE BASE BUNDLE.
+    SEE gpodder/gpodder/tools/mac-osx for python dependency installs
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~ WARNING WARNING WARNING ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -->
 
   <autotools id="gpodder" skip-autogen="true" skip-configure="true" supports-non-srcdir-builds="no">
     <branch repo="github" module="gpodder/gpodder.git"  checkoutdir="gpodder"

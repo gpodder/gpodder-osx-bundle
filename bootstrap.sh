@@ -14,8 +14,8 @@ rm -f "$HOME/.config/jhbuildrc-custom"
 mkdir -p "$HOME/.config"
 cp misc/jhbuildrc-custom "$HOME/.config/jhbuildrc-custom"
 git clone  https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
-# try latest commit
-(cd _gtk-osx && git checkout 357671e5)
+# try latest commit (2021-07-26)
+(cd _gtk-osx && git checkout 02cc20cf)
 # fix boostrap failure: error message on pip download
 sed -i '' s,https://bootstrap.pypa.io/2.7/get-pip.py,https://bootstrap.pypa.io/pip/2.7/get-pip.py, _gtk-osx/gtk-osx-setup.sh
 yes | ./_gtk-osx/gtk-osx-setup.sh

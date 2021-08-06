@@ -1,5 +1,5 @@
-commit bb83596435664514f6fb087478926911898a7b1f
+commit a636de41dc9cd957af87fc4785a03b53014b7711
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Mon Nov 9 10:47:40 2020 -0800
+Date:   Thu Jul 29 15:10:55 2021 -0700
 
-    Upgrade WebKit2Gtk3 to latest 2.30.2 release.
+    Patch graphviz to use full install-name-dir instead of rpath.

@@ -99,59 +99,59 @@
   
   <!-- standard install minus unused -->
   <data>
-  ${prefix}/lib/python3.8/*.py
+  ${prefix}/lib/python3.9/*.py
   </data>
-  <data>${prefix}/lib/python3.8/asyncio</data>
-  <data>${prefix}/lib/python3.8/collections</data>
-  <data>${prefix}/lib/python3.8/concurrent</data>
-  <data>${prefix}/lib/python3.8/config-3.8-darwin</data>
-  <data>${prefix}/lib/python3.8/ctypes</data>
-  <data>${prefix}/lib/python3.8/curses</data>
-  <!--<data>${prefix}/lib/python3.8/dbm</data>-->
-  <data>${prefix}/lib/python3.8/email</data>
-  <data>${prefix}/lib/python3.8/encodings</data>
-  <data>${prefix}/lib/python3.8/html</data>
-  <data>${prefix}/lib/python3.8/http</data>
-  <!--<data>${prefix}/lib/python3.8/idlelib</data>-->
-  <data>${prefix}/lib/python3.8/importlib</data>
-  <data>${prefix}/lib/python3.8/json</data>
-  <binary>${prefix}/lib/python3.8/lib-dynload</binary>
-  <!--<data>${prefix}/lib/python3.8/lib2to3</data>-->
-  <data>${prefix}/lib/python3.8/logging</data>
-  <data>${prefix}/lib/python3.8/multiprocessing</data>
-  <!--<data>${prefix}/lib/python3.8/pydoc_data</data>-->
-  <data>${prefix}/lib/python3.8/sqlite3</data>
-  <!--<data>${prefix}/lib/python3.8/test</data>-->
-  <!--<data>${prefix}/lib/python3.8/tkinter</data>-->
-  <!--<data>${prefix}/lib/python3.8/turtledemo</data>-->
-  <!--<data>${prefix}/lib/python3.8/unittest</data>-->
-  <data>${prefix}/lib/python3.8/urllib</data>
-  <!--<data>${prefix}/lib/python3.8/venv</data>-->
-  <data>${prefix}/lib/python3.8/wsgiref</data>
-  <data>${prefix}/lib/python3.8/xml</data>
+  <data>${prefix}/lib/python3.9/asyncio</data>
+  <data>${prefix}/lib/python3.9/collections</data>
+  <data>${prefix}/lib/python3.9/concurrent</data>
+  <data>${prefix}/lib/python3.9/config-3.9-darwin</data>
+  <data>${prefix}/lib/python3.9/ctypes</data>
+  <data>${prefix}/lib/python3.9/curses</data>
+  <!--<data>${prefix}/lib/python3.9/dbm</data>-->
+  <data>${prefix}/lib/python3.9/email</data>
+  <data>${prefix}/lib/python3.9/encodings</data>
+  <data>${prefix}/lib/python3.9/html</data>
+  <data>${prefix}/lib/python3.9/http</data>
+  <!--<data>${prefix}/lib/python3.9/idlelib</data>-->
+  <data>${prefix}/lib/python3.9/importlib</data>
+  <data>${prefix}/lib/python3.9/json</data>
+  <binary>${prefix}/lib/python3.9/lib-dynload</binary>
+  <!--<data>${prefix}/lib/python3.9/lib2to3</data>-->
+  <data>${prefix}/lib/python3.9/logging</data>
+  <data>${prefix}/lib/python3.9/multiprocessing</data>
+  <!--<data>${prefix}/lib/python3.9/pydoc_data</data>-->
+  <data>${prefix}/lib/python3.9/sqlite3</data>
+  <!--<data>${prefix}/lib/python3.9/test</data>-->
+  <!--<data>${prefix}/lib/python3.9/tkinter</data>-->
+  <!--<data>${prefix}/lib/python3.9/turtledemo</data>-->
+  <!--<data>${prefix}/lib/python3.9/unittest</data>-->
+  <data>${prefix}/lib/python3.9/urllib</data>
+  <!--<data>${prefix}/lib/python3.9/venv</data>-->
+  <data>${prefix}/lib/python3.9/wsgiref</data>
+  <data>${prefix}/lib/python3.9/xml</data>
 
   <!-- only required extra modules (no dbus, for instance) -->
   <data recurse="True">
-    ${prefix}/lib/python3.8/site-packages/gi/*.py
+    ${prefix}/lib/python3.9/site-packages/gi/*.py
   </data>
-  <data>${prefix}/lib/python3.8/site-packages/cairo/*.py</data>
+  <data>${prefix}/lib/python3.9/site-packages/cairo/*.py</data>
 
   <binary>
-    ${prefix}/lib/python3.8/lib-dynload/*.so
+    ${prefix}/lib/python3.9/lib-dynload/*.so
   </binary>
   
   <!-- every bundled .so must have its dynamic links rewritten to point to the bundle.
        Can't specify site-packages/*/*.so, so list them based on the output of postproc.sh.
     -->
   <binary>
-    ${prefix}/lib/python3.8/site-packages/cairo/*.so
+    ${prefix}/lib/python3.9/site-packages/cairo/*.so
   </binary>
   <binary>
-    ${prefix}/lib/python3.8/site-packages/gi/*.so
+    ${prefix}/lib/python3.9/site-packages/gi/*.so
   </binary>
 
   <data>
-    ${prefix}/include/python3.8/pyconfig.h
+    ${prefix}/include/python3.9/pyconfig.h
   </data>
 
 
@@ -188,9 +188,11 @@
   </icon-theme>
 
   <!-- get file-dependent icons (e.g. music note if it's an audio file) -->
+  <!-- disabled shared-mime-info
   <data dest="${bundle}/Contents/Resources/share/mime">
   	${prefix}/share/mime
   </data>
+  -->
 
   <!-- install example main program -->
   <data dest="${bundle}/Contents/Resources/bin/pythonbase">
@@ -216,8 +218,8 @@
 
   <!-- pip support -->
   <data>${prefix}/bin/pip3*</data>
-  <data>${prefix}/lib/python3.8/distutils</data>
-  <data>${prefix}/lib/python3.8/site-packages/pip</data>
-  <data>${prefix}/lib/python3.8/xmlrpc</data>
+  <data>${prefix}/lib/python3.9/distutils</data>
+  <data>${prefix}/lib/python3.9/site-packages/pip</data>
+  <data>${prefix}/lib/python3.9/xmlrpc</data>
 
 </app-bundle>
