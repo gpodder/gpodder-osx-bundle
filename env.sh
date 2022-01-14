@@ -18,3 +18,5 @@ export PATH="$PATH:$HOME/.new_local/bin"
 export QL_OSXBUNDLE_MODULESETS_DIR="$DIR/modulesets"
 export QL_OSXBUNDLE_BUNDLE_DEST="$DIR/_build"
 
+# https://curl.se/ca/cacert.pem
+export CURL_CA_BUNDLE=cacert.pem
