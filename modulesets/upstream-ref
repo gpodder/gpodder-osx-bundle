@@ -1,5 +1,8 @@
-commit a636de41dc9cd957af87fc4785a03b53014b7711
+commit 1a8dd8730f4ca395b3bb23762cf61bdff165513f
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Thu Jul 29 15:10:55 2021 -0700
+Date:   Fri Feb 18 11:01:08 2022 -0800
 
-    Patch graphviz to use full install-name-dir instead of rpath.
+    Revert "Rename PYENV_VERSION to PYENV_PYTHON_VERSION"
+    
+    This reverts commit 18cd0e12797859eb8224e46429688f51208025e0 because
+    PYENV_VERSION is defined by pyenv and using something else breaks pyenv.

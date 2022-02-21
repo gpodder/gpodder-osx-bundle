@@ -170,9 +170,10 @@
   </autotools>
 
   <meson id="gobject-introspection">
-    <branch module="gobject-introspection/1.68/gobject-introspection-1.68.0.tar.xz"
-            version="1.68.0"
-            hash="sha256:d229242481a201b84a0c66716de1752bca41db4133672cfcfb37c93eb6e54a27">
+    <branch module="gobject-introspection/1.70/gobject-introspection-1.70.0.tar.xz"
+            version="1.70.0"
+            hash="sha256:902b4906e3102d17aa2fcb6dad1c19971c70f2a82a159ddc4a94df73a3cafc4a">
+      <patch file="gobject-introspection-1.70.0-obsolet.patch" strip="1"/>XS
       <patch file="girscanner-objc.patch" strip="1"/>
     </branch>
     <dependencies>
@@ -205,7 +206,7 @@
     </dependencies>
   </meson>
 
-  <meson id="pango">
+  <meson id="pango" mesonargs="-Dfontconfig=enabled">
     <branch version="1.48.4" module="pango/1.48/pango-1.48.4.tar.xz"
             hash="sha256:418913fb062071a075846244989d4a67aa5c80bf0eae8ee4555a092fd566a37a">
     </branch>
@@ -233,7 +234,7 @@
     </after>
   </meson>
 
-  <meson id="gdk-pixbuf" mesonargs="-Dx11=false -Dman=false">
+  <meson id="gdk-pixbuf" mesonargs="-Drelocatable=true -Dman=false">
     <branch module="gdk-pixbuf/2.42/gdk-pixbuf-2.42.4.tar.xz" version="2.42.4"
             hash="sha256:fe9c5dd88f486194ea2bc09b8814c1ed895bb6c530f37cbbf259757c4e482e4d">
       <patch file="gdk-pixbuf-loader-name.patch" strip="1"/>
@@ -294,10 +295,11 @@
   </meson>
 
   <!-- gtk3 is in maintenance mode with 3.24 the final release series. -->
-  <meson id="gtk+-3.0"
-             mesonargs="-Dquartz-backend=true -Dx11-backend=false -Dmedia=none">
+  <meson id="gtk+-3.0" mesonargs="-Dx11_backend=false">
     <branch module="gtk+/3.24/gtk+-3.24.30.tar.xz" version="3.24.30"
             hash="sha256:ba75bfff320ad1f4cfbee92ba813ec336322cc3c660d406aad014b07087a3ba9">
+      <patch file="Quartz-version-detection-for-macOS-12.patch" strip="1"/>
+      <patch file="gtk+-scale-absolute-value.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="glib"/>
@@ -313,7 +315,7 @@
     </after>
   </meson>
 
-  <meson id="graphene" mesonargs="-Dtests=false -Dbenchmarks=false">
+  <meson id="graphene" mesonargs="-Dtests=false">
     <branch repo="github-tarball" version="1.10.4"
             module="ebassi/graphene/releases/download/1.10.4/graphene-1.10.4.tar.xz"
             hash="sha256:b2a45f230f332478553bd79666eca8df1d1c6dbf208c344ba9f5120592772414"/>
@@ -338,6 +340,7 @@
       <dependencies>
       <dep package="pango"/>
       <dep package="atk"/>
+      <dep package="gdk-pixbuf"/>
       <dep package="graphene"/>
       <dep package="libsass"/>
       <dep package="libepoxy"/>
@@ -348,8 +351,8 @@
              autogenargs="--disable-python">
     <branch module="gtk-mac-integration/3.0/gtk-mac-integration-3.0.1.tar.xz"
             version="3.0.1"
-            hash="sha256:f19e35bc4534963127bbe629b9b3ccb9677ef012fc7f8e97fd5e890873ceb22d"
-            >
+            hash="sha256:f19e35bc4534963127bbe629b9b3ccb9677ef012fc7f8e97fd5e890873ceb22d">
+      <patch file="gtk-mac-integration-work-around-svg-locale-bug.patch" strip="1"/>
     </branch>
     <dependencies>
     </dependencies>
@@ -365,7 +368,8 @@
             hash="sha256:767ec234ae7aa684695b3a735548224888132e063f92db585759b422570621d4"/>
   </autotools>
 
-  <autotools id="librsvg" autogenargs="--disable-Bsymbolic">
+  <autotools id="librsvg" autogen-sh="autoreconf"
+             autogenargs="--disable-Bsymbolic">
     <branch module="librsvg/2.51/librsvg-2.51.0.tar.xz" version="2.51.0"
             hash="sha256:89d32e38445025e1b1d9af3dd9d3aeb9f6fce527aeecbecf38b369b34c80c038"/>
     <dependencies>

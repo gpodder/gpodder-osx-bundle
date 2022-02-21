@@ -35,23 +35,40 @@
   </autotools>
 
   <!-- Rudely demands TeX to build documentation -->
-  <autotools id="libnettle" autogen-sh="configure"
-             autogenargs="--disable-documentation">
-    <branch repo="ftp.gnu.org" version="3.7.2"
-            module="nettle/nettle-3.7.2.tar.gz"
-            hash="sha256:8d2a604ef1cde4cd5fb77e422531ea25ad064679ff0adf956e78b3352e0ef162">
-    </branch>
-    <dependencies>
-      <dep package="gmp"/>
-      <dep package="openssl"/>
-    </dependencies>
-  </autotools>
+  <!-- libnettle 3.7 doesn't have arm64 assembler support and the support that's added in master is for arm-64-neutron that's incompatible with Apple Silicon. -->
+  <if condition-set="arm64">
+    <autotools id="libnettle" autogen-sh="configure"
+               autogenargs="--disable-documentation --disable-assembler">
+      <branch repo="ftp.gnu.org" version="3.7.2"
+              module="nettle/nettle-3.7.2.tar.gz"
+              hash="sha256:8d2a604ef1cde4cd5fb77e422531ea25ad064679ff0adf956e78b3352e0ef162">
+      </branch>
+      <dependencies>
+        <dep package="gmp"/>
+        <dep package="openssl"/>
+      </dependencies>
+    </autotools>
+  </if>
+  <if condition-unset="arm64">
+    <autotools id="libnettle" autogen-sh="configure"
+               autogenargs="--disable-documentation">
+      <branch repo="ftp.gnu.org" version="3.7.2"
+              module="nettle/nettle-3.7.2.tar.gz"
+              hash="sha256:8d2a604ef1cde4cd5fb77e422531ea25ad064679ff0adf956e78b3352e0ef162">
+      </branch>
+      <dependencies>
+        <dep package="gmp"/>
+        <dep package="openssl"/>
+      </dependencies>
+    </autotools>
+  </if>
 
-  <autotools id="libtasn1" supports-non-srcdir-builds="no"
-             autogen-sh="configure">
-    <branch repo="ftp.gnu.org" version="4.16.0"
-            module="libtasn1/libtasn1-4.16.0.tar.gz"
-             hash="sha256:0e0fb0903839117cb6e3b56e68222771bebf22ad7fc2295a0ed7d576e8d4329d"/>
+  <autotools id="libtasn1" autogen-sh="configure">
+    <branch repo="ftp.gnu.org" version="4.17.0"
+            module="libtasn1/libtasn1-4.17.0.tar.gz"
+            hash="sha256:ece7551cea7922b8e10d7ebc70bc2248d1fdd73351646a2d6a8d68a9421c45a5">
+      <patch file="libtasn1-inline-fix.patch" strip="1"/>
+    </branch>
   </autotools>
 
   <autotools id="zlib" autogen-sh="configure" skip-autogen="never"
@@ -68,6 +85,7 @@
             hash="sha256:8a8f40153dd5a3f8e7c03e641f8db400133fb2a6a9ab2aee1b6d0cb0495ec6b6">
     </branch>
     <dependencies>
+      <dep package="libffi"/>
       <dep package="libtasn1"/>
     </dependencies>
   </autotools>
@@ -84,6 +102,7 @@
         <dep package="libtasn1"/>
         <dep package="zlib"/>
         <dep package="p11-kit"/>
+        <dep package="libgcrypt"/>
       </dependencies>
     </autotools>
   </if>
@@ -210,7 +229,9 @@
     <branch repo="webkit.org" module="webkitgtk-2.32.0.tar.xz" version="2.32.0"
             hash="sha256:9d7df4dae9ada2394257565acc2a68ace9308c4c61c3fcc00111dc1f11076bf0">
       <patch file="WebKit2Gtk3-2.32.0-cumulative.patch" strip="1"/>
-     <patch file="WebKit2Gtk3-2.30.1-Disable-AUDIT_TOKEN-for-Gtk-builds.patch" strip="1"/>
+      <patch file="WebKit2Gtk3-2.30.1-Disable-AUDIT_TOKEN-for-Gtk-builds.patch" strip="1"/>
+      <patch file="WebKit2Gtk3-2.30.1-Fix-Socket-signal-defines-for-Darwin-and-maybe-BSD.patch" strip="1"/>
+      <patch file="WebKit2Gtk3-2.32.0-color-components-correct-math-header.patch" strip="1"/>
     </branch>
     <dependencies>
       <dep package="libwebp"/>
