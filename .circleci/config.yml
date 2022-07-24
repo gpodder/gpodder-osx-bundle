@@ -14,6 +14,7 @@ jobs:
       - run: rm -Rf _build/pythonbase.app/ _build/run-*
       - store_artifacts:
           path: /Users/distiller/project/_build
+    resource_class: large
 
 workflows:
   version: 2
