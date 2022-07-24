@@ -27,7 +27,6 @@ done
 
 # kill some useless files
 rm -Rf "$APP_PREFIX"/lib/python3.9/test
-rm -Rf "$APP_PREFIX"/lib/python3.9/unittest
 rm -Rvf "$APP_PREFIX"/lib/python3.9/*/test
 rm -f "$APP_PREFIX"/lib/python3.9/config/libpython3.9.a
 find "$APP_PREFIX"/lib/python3.9 -name '*.pyc' -delete
