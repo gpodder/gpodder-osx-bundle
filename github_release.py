@@ -103,7 +103,7 @@ def get_diff_previous_tag(tag, previous_tag):
     """
     if not previous_tag:
         return ""
-    resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/gPodder.contents"
+    resp = requests.get("https://github.com/gpodder/gpodder-osx-bundle/releases/download/%s/pythonbase.contents"
                         % previous_tag)
     if resp.status_code != 200:
         error_exit("Error getting previous pythonbase.contents (%i): %s\n%s" % (resp.status_code, resp.reason, resp.text))
