@@ -91,8 +91,6 @@ set_python_path(void)
     CFStringRef str = make_filesystem_string(bundle_url);
     CFRelease(bundle_url);
     mstr = CFStringCreateMutableCopy(NULL, 5 * PATH_MAX, str);
-    CFStringAppendCString(mstr, "/lib/python36.zip:", kCFStringEncodingUTF8);
-    CFStringAppend(mstr, str);
     CFStringAppendCString(mstr, "/lib/python3.9:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
