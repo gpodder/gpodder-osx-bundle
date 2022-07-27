@@ -124,7 +124,7 @@
   <!--<data>${prefix}/lib/python3.9/test</data>-->
   <!--<data>${prefix}/lib/python3.9/tkinter</data>-->
   <!--<data>${prefix}/lib/python3.9/turtledemo</data>-->
-  <!--<data>${prefix}/lib/python3.9/unittest</data>-->
+  <data>${prefix}/lib/python3.9/unittest</data>
   <data>${prefix}/lib/python3.9/urllib</data>
   <!--<data>${prefix}/lib/python3.9/venv</data>-->
   <data>${prefix}/lib/python3.9/wsgiref</data>
