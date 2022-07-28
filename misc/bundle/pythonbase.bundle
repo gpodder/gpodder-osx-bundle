@@ -151,7 +151,7 @@
   </binary>
 
   <data>
-    ${prefix}/include/python3.9/pyconfig.h
+    ${prefix}/include/python3.9
   </data>
 
 
