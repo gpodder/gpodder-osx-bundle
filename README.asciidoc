@@ -59,7 +59,7 @@ Releasing on OS X
 . tags are now the year as 2 digits, month as 1 or 2 digits (no leading 0), day as 1 or 2 digits (no leading 0): `git tag -a -m "bla bla" YY.MM.DD`
 . `git push`
 . rerun the latest circleci master job (will pick the new tag)
-. `GITHUB_TOKEN=xxxx ./github_release.py --download --circle-build LATEST_CI_BUILD --previous-tag THE_PREVIOUS_RELEASE_TAG base-x.y.z`
+. `GITHUB_TOKEN=xxxx ./github_release.py --download --circle-build LATEST_CI_BUILD --previous-tag THE_PREVIOUS_RELEASE_TAG YY.MM.DD`
   where LATEST_CI_BUILD is the latest circleci master job number (eg. 123)
 . repeat the command without `--download` to upload to github
 . edit and publish the release on github
