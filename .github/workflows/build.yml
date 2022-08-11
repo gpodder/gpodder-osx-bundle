@@ -1,0 +1,26 @@
+name: build and bundle
+
+on: [push, pull_request]
+
+jobs:
+  build-and-bundle:
+    name: build
+    if: >-
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # fetch tags
+      - run: ./bootstrap.sh
+      - run: ./build.sh
+      - run: ./bundle.sh
+      - run: ./release.sh _build/pythonbase.app $(git describe --tags)
+      - run: rm -Rf _build/pythonbase.app/ _build/run-*
+      - uses: actions/upload-artifact@v3
+        with:
+          name: bundle
+          path: /Users/runner/work/gpodder-osx-bundle/gpodder-osx-bundle/_build
+          retention-days: 30
