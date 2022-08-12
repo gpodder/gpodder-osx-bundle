@@ -8,6 +8,7 @@ import hashlib
 import os
 import sys
 import re
+import zipfile
 
 from github3 import login
 import requests
@@ -37,24 +38,35 @@ def error_exit(msg, code=1):
     sys.exit(code)
 
 
-def download_circleci(circle_build):
-    """ download build artifacts from circleCI and exit """
-    print("I: downloading release artifacts")
-    os.mkdir("_build")
-    artifacts = requests.get("https://circleci.com/api/v1.1/project/github/gpodder/gpodder-osx-bundle/%s/artifacts" % circle_build).json()
-    items = set([u["url"] for u in artifacts
-                if re.match(".+/pythonbase-.+\.zip.*$", u["path"])
-                or u["path"].endswith("/pythonbase.contents")])
-    if len(items) == 0:
+def download_github(github_workflow):
+    """ download workflow artifacts from github and exit """
+    headers = {'Accept': 'application/vnd.github+json', 'Authorization': 'token %s' % github_token}
+
+    print("I: downloading release artifacts for workflow %d" % github_workflow)
+    r = requests.get("https://api.github.com/repos/gpodder/gpodder-osx-bundle/actions/artifacts", headers=headers)
+    if not r.ok:
+        print('ERROR: API fetch failed %d %s' % (r.status_code, r.reason))
+        sys.exit(1)
+    artifacts = r.json()
+    artifact = [(a['id'], a['archive_download_url']) for a in artifacts['artifacts'] if a['workflow_run']['id'] == github_workflow]
+    if len(artifact) != 1:
         error_exit("Nothing found to download")
-    print("D: downloading %s" % items)
-    for url in items:
-        print("I: downloading %s" % url)
-        output = os.path.join("_build", url.split('/')[-1])
-        with requests.get(url, stream=True) as r:
-            with open(output, "wb") as f:
-                for chunk in r.iter_content(chunk_size=1000000):
-                    f.write(chunk)
+    id, url = artifact[0]
+    print("I: found artifact %d" % id)
+
+    print("I: downloading %s" % url)
+    os.mkdir("_build")
+    with requests.get(url, stream=True, headers=headers) as r:
+        if not r.ok:
+            print('ERROR: artifact fetch failed %d %s' % (r.status_code, r.reason))
+            sys.exit(1)
+        with open('_build/bundle.zip', "wb") as f:
+            for chunk in r.iter_content(chunk_size=1000000):
+                f.write(chunk)
+    print("I: unzipping _build/bundle.zip")
+    with zipfile.ZipFile('_build/bundle.zip', 'r') as z:
+        z.extractall('_build')
+    os.remove('_build/bundle.zip')
     checksum()
     print("I: download success. Rerun without --download to upload")
     sys.exit(0)
@@ -114,7 +126,7 @@ def get_diff_previous_tag(tag, previous_tag):
     return "```\n%s\n```" % "".join(diff)
 
 
-def upload(repo, tag, previous_tag, circle_build):
+def upload(repo, tag, previous_tag, github_workflow):
     """ create github release (draft) and upload assets """
     print("I: creating release %s" % tag)
     try:
@@ -139,12 +151,12 @@ def upload(repo, tag, previous_tag, circle_build):
 
     print("I: updating release description with diff")
     diff = get_diff_previous_tag(tag, previous_tag)
-    if circle_build:
-        build = ("\ncircleCI build [%i](https://circleci.com/gh/gpodder/gpodder-osx-bundle/%i)"
-                 % (circle_build, circle_build))
+    if github_workflow:
+        workflow = ("\ngithub workflow [%i](https://github.com/gpodder/gpodder-osx-bundle/actions/runs/%i)"
+                 % (github_workflow, github_workflow))
     else:
-        build = ""
-    if release.edit(body=diff + build):
+        workflow = ""
+    if release.edit(body=diff + workflow):
         print("I: updated release description with diff")
     else:
         error_exit("E: updating release description")
@@ -153,15 +165,15 @@ def upload(repo, tag, previous_tag, circle_build):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='upload gpodder-osx-bundle artifacts to a github release\n'
         'Example usage: \n'
-        '    GITHUB_TOKEN=xxx python github_release.py --download --circle-build 33 --previous-tag base-3.10.0_0 base-3.10.2_0\n'
-        '    GITHUB_TOKEN=xxx python github_release.py --circle-build 33 --previous-tag base-3.10.0_0 base-3.10.2_0\n',
+        '    GITHUB_TOKEN=xxx python github_release.py --download --github-workflow 1234567890 --previous-tag 22.7.27 22.7.28\n'
+        '    GITHUB_TOKEN=xxx python github_release.py --github-workflow 1234567890 --previous-tag 22.7.27 22.7.28\n',
         formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('tag', type=str,
                         help='gpodder-osx-bundle git tag to create a release from')
     parser.add_argument('--download', action='store_true',
-                        help='download artifacts from given circle.ci build number')
-    parser.add_argument('--circle-build', type=int, required=False,
-                        help='circleCI build number')
+                        help='download artifacts from given github workflow')
+    parser.add_argument('--github-workflow', type=int, required=False,
+                        help='github workflow number (in URL)')
     parser.add_argument('--previous-tag', type=str, required=False,
                         help='previous github tag for contents comparison')
     parser.add_argument('--debug', '-d', action='store_true',
@@ -180,14 +192,14 @@ gh = login(token=github_token)
 repo = gh.repository('gpodder', 'gpodder-osx-bundle')
 
 if args.download:
-    if not args.circle_build:
-        error_exit("E: --download requires --circle-build number")
+    if not args.github_workflow:
+        error_exit("E: --download requires --github-workflow number")
     if os.path.isdir("_build"):
         error_exit("E: _build directory exists", -1)
-    download_circleci(args.circle_build)
+    download_github(args.github_workflow)
 else:
     if not os.path.exists("_build"):
-        error_exit("E: _build directory doesn't exist. Maybe you want to download circleci build artifacts (see Usage)", -1)
+        error_exit("E: _build directory doesn't exist. Maybe you want to download github workflow artifacts (see Usage)", -1)
 
 checksum()
-upload(repo, args.tag, args.previous_tag, args.circle_build)
+upload(repo, args.tag, args.previous_tag, args.github_workflow)
