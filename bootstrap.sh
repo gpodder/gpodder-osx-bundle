@@ -15,9 +15,10 @@ mkdir -p "$HOME/.config"
 cp misc/jhbuildrc-custom "$HOME/.config/jhbuildrc-custom"
 git clone  https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
 # try latest commit (2022-02-18)
-(cd _gtk-osx && git checkout 1a8dd873)
+(cd _gtk-osx && git checkout 6be92a11)
 # fix boostrap failure: error message on pip download
 sed -i '' s,https://bootstrap.pypa.io/2.7/get-pip.py,https://bootstrap.pypa.io/pip/2.7/get-pip.py, _gtk-osx/gtk-osx-setup.sh
-yes | ./_gtk-osx/gtk-osx-setup.sh
+sed -i '' 's:curl -ks :curl -ksS :' _gtk-osx/gtk-osx-setup.sh
+./_gtk-osx/gtk-osx-setup.sh
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git _bundler
 (cd _bundler && make install bindir=$HOME/.new_local/bin)

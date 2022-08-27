@@ -6,7 +6,7 @@ This is a collection of files required to build pythonbase.app:
 native dependencies to run gPodder as a native GTK+ Quartz application for Mac OS X 10.9+,
 with a working python interpreter and pip utility.
 
-The scripts are executed on circle.ci, with xcode 9.4.1.
+The scripts are executed on github.com, with xcode 13.2.1 on macos 11.6.8 (as of 27aug2022).
 
 NOTE: In case you want just want to run gPodder from source you can ignore all
 this and use the released bundle as a development environment.  Download the
@@ -58,9 +58,9 @@ Releasing on OS X
 . test latest pythonbase-xxx.zip on macOS
 . tags are now the year as 2 digits, month as 1 or 2 digits (no leading 0), day as 1 or 2 digits (no leading 0): `git tag -a -m "bla bla" YY.MM.DD`
 . `git push`
-. rerun the latest circleci master job (will pick the new tag)
-. `GITHUB_TOKEN=xxxx ./github_release.py --download --circle-build LATEST_CI_BUILD --previous-tag THE_PREVIOUS_RELEASE_TAG YY.MM.DD`
-  where LATEST_CI_BUILD is the latest circleci master job number (eg. 123)
+. rerun the latest github action master job (will pick the new tag)
+. `GITHUB_TOKEN=xxxx ./github_release.py --download --github-workflow LATEST_GA_WORKFLOW --previous-tag THE_PREVIOUS_RELEASE_TAG YY.MM.DD`
+  where LATEST_GA_WORKFLOW is the number in URL of the latest github action master job (eg. 1234567890)
 . repeat the command without `--download` to upload to github
 . edit and publish the release on github
 . now you can update the tag in `.circleci/config.yml` of the gPodder project.
