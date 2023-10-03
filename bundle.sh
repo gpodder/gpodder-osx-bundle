@@ -26,11 +26,11 @@ for cmd in ${CMDS}; do
 done
 
 # kill some useless files
-rm -Rf "$APP_PREFIX"/lib/python3.9/test
-rm -Rvf "$APP_PREFIX"/lib/python3.9/*/test
-rm -f "$APP_PREFIX"/lib/python3.9/config/libpython3.9.a
-find "$APP_PREFIX"/lib/python3.9 -name '*.pyc' -delete
-find "$APP_PREFIX"/lib/python3.9 -name '*.pyo' -delete
+rm -Rf "$APP_PREFIX"/lib/python3.11/test
+rm -Rvf "$APP_PREFIX"/lib/python3.11/*/test
+rm -f "$APP_PREFIX"/lib/python3.11/config/libpython3.11.a
+find "$APP_PREFIX"/lib/python3.11 -name '*.pyc' -delete
+find "$APP_PREFIX"/lib/python3.11 -name '*.pyo' -delete
 
 echo checking for dynamic linking consistency : nothing should reference gtk/inst
 find "$APP_PREFIX" -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /gtk/inst' '{}' '{}' ';'

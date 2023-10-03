@@ -91,16 +91,16 @@ set_python_path(void)
     CFStringRef str = make_filesystem_string(bundle_url);
     CFRelease(bundle_url);
     mstr = CFStringCreateMutableCopy(NULL, 5 * PATH_MAX, str);
-    CFStringAppendCString(mstr, "/lib/python3.9:",
+    CFStringAppendCString(mstr, "/lib/python3.11:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.9/plat-darwin:",
+    CFStringAppendCString(mstr, "/lib/python3.11/plat-darwin:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.9/lib-dynload:",
+    CFStringAppendCString(mstr, "/lib/python3.11/lib-dynload:",
         kCFStringEncodingUTF8);
     CFStringAppend(mstr, str);
-    CFStringAppendCString(mstr, "/lib/python3.9/site-packages",
+    CFStringAppendCString(mstr, "/lib/python3.11/site-packages",
         kCFStringEncodingUTF8);
     CFRelease(str);
     path = widen_cfstring(mstr);
