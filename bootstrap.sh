@@ -3,6 +3,7 @@
 set -e
 
 source env.sh
+source pins.sh
 
 # to allow bootstrapping again, try to delete everything first
 rm -Rf "_gtk-osx"
@@ -13,12 +14,14 @@ rm -f "$HOME/.config/jhbuildrc-custom"
 
 mkdir -p "$HOME/.config"
 cp misc/jhbuildrc-custom "$HOME/.config/jhbuildrc-custom"
+
 git clone https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
-# try latest commit (2023-01-03)
-(cd _gtk-osx && git checkout 78bd3324)
+(cd _gtk-osx && git checkout $PIN_GTK_OSX_COMMIT)
 # fix boostrap failure: error message on pip download
 sed -i '' s,https://bootstrap.pypa.io/2.7/get-pip.py,https://bootstrap.pypa.io/pip/2.7/get-pip.py, _gtk-osx/gtk-osx-setup.sh
 sed -i '' 's:curl -ks :curl -ksS :' _gtk-osx/gtk-osx-setup.sh
 ./_gtk-osx/gtk-osx-setup.sh
+
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git _bundler
+(cd _bundler && git checkout $PIN_GTK_MAC_BUNDLER_COMMIT)
 (cd _bundler && make install bindir=$HOME/.new_local/bin)
