@@ -178,9 +178,6 @@
   -->
   <!-- must say all to get file-dependent icons (e.g. music note if it's an audio file) -->
   <icon-theme icons="all">
-    Tango
-  </icon-theme>
-  <icon-theme icons="all">
     Adwaita
   </icon-theme>
   <icon-theme icons="all">
