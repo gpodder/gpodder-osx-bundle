@@ -7,3 +7,5 @@ source env.sh
 jhbuild bootstrap-gtk-osx
 jhbuild build meta-gtk-osx-bootstrap
 jhbuild build meta-gpodder-native
+
+jhbuild run ./install-pip.sh
