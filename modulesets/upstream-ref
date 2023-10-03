@@ -1,8 +1,5 @@
-commit 1a8dd8730f4ca395b3bb23762cf61bdff165513f
+commit a27e8ff6ac5f98b2fc2743fd64fde05775d46293
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Fri Feb 18 11:01:08 2022 -0800
+Date:   Sun Aug 20 11:01:48 2023 -0700
 
-    Revert "Rename PYENV_VERSION to PYENV_PYTHON_VERSION"
-    
-    This reverts commit 18cd0e12797859eb8224e46429688f51208025e0 because
-    PYENV_VERSION is defined by pyenv and using something else breaks pyenv.
+    Only set neon enabled when building on ARM.
