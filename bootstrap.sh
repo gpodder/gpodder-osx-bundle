@@ -17,8 +17,7 @@ cp misc/jhbuildrc-custom "$HOME/.config/jhbuildrc-custom"
 
 git clone https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx
 (cd _gtk-osx && git checkout $PIN_GTK_OSX_COMMIT)
-# fix boostrap failure: error message on pip download
-sed -i '' s,https://bootstrap.pypa.io/2.7/get-pip.py,https://bootstrap.pypa.io/pip/2.7/get-pip.py, _gtk-osx/gtk-osx-setup.sh
+# don't silence curl errors when bootstrapping
 sed -i '' 's:curl -ks :curl -ksS :' _gtk-osx/gtk-osx-setup.sh
 ./_gtk-osx/gtk-osx-setup.sh
 
