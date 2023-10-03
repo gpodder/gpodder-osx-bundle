@@ -108,8 +108,10 @@
   <data>${prefix}/lib/python3.11/ctypes</data>
   <data>${prefix}/lib/python3.11/curses</data>
   <!--<data>${prefix}/lib/python3.11/dbm</data>-->
+  <!--<data>${prefix}/lib/python3.11/distutils</data>-->
   <data>${prefix}/lib/python3.11/email</data>
   <data>${prefix}/lib/python3.11/encodings</data>
+  <!--<data>${prefix}/lib/python3.11/ensurepip</data>-->
   <data>${prefix}/lib/python3.11/html</data>
   <data>${prefix}/lib/python3.11/http</data>
   <!--<data>${prefix}/lib/python3.11/idlelib</data>-->
@@ -120,15 +122,20 @@
   <data>${prefix}/lib/python3.11/logging</data>
   <data>${prefix}/lib/python3.11/multiprocessing</data>
   <!--<data>${prefix}/lib/python3.11/pydoc_data</data>-->
+  <data>${prefix}/lib/python3.11/re</data>
   <data>${prefix}/lib/python3.11/sqlite3</data>
   <!--<data>${prefix}/lib/python3.11/test</data>-->
   <!--<data>${prefix}/lib/python3.11/tkinter</data>-->
+  <data>${prefix}/lib/python3.11/tomllib</data>
   <!--<data>${prefix}/lib/python3.11/turtledemo</data>-->
   <data>${prefix}/lib/python3.11/unittest</data>
   <data>${prefix}/lib/python3.11/urllib</data>
   <!--<data>${prefix}/lib/python3.11/venv</data>-->
   <data>${prefix}/lib/python3.11/wsgiref</data>
   <data>${prefix}/lib/python3.11/xml</data>
+  <data>${prefix}/lib/python3.11/xmlrpc</data>
+  <data>${prefix}/lib/python3.11/zoneinfo</data>
+  <data>${prefix}/lib/python3.11/__phello__</data>
 
   <!-- only required extra modules (no dbus, for instance) -->
   <data recurse="True">
@@ -216,6 +223,7 @@
   <!-- pip support -->
   <data>${prefix}/bin/pip3*</data>
   <data>${prefix}/lib/python3.11/distutils</data>
+  <data>${prefix}/lib/python3.11/ensurepip</data>
   <data>${prefix}/lib/python3.11/site-packages/pip</data>
   <data>${prefix}/lib/python3.11/xmlrpc</data>
 
