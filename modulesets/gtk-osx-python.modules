@@ -2,160 +2,109 @@
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
+  <!--
+    Please format this file using https://github.com/htacg/tidy-html5
 
-  <repository type="tarball" name="ftp.gnome.org" default="yes"
-              href="http://ftp.gnome.org/pub/GNOME/sources/"/>
-  <repository type="tarball" name="cairographics.org"
-              href="http://cairographics.org/releases/"/>
-  <repository type="tarball" name="python"
-              href="https://www.python.org/ftp/python/"/>
-  <repository type="tarball" name="oracle"
-	      href="http://download.oracle.com/"/>
-  <repository type="tarball" name="pymodules"
-              href="https://pypi.python.org/packages/"/>
-  <repository type="tarball" name="github-tarball"
-              href="https://github.com"/>
-
-  <metamodule id="meta-gtk-osx-python2-gtk2">
-    <dependencies>
-      <dep package="pycairo"/>
-      <dep package="pygobject2"/>
-      <dep package="pygtk"/>
-      <dep package="gtk-mac-integration-python"/>
-    </dependencies>
-  </metamodule>
-
-  <metamodule id="meta-gtk-osx-python2-gtk3">
-    <dependencies>
-      <dep package="pycairo"/>
-      <dep package="pygobject3-2"/>
-      <dep package="gtk-mac-integration-python"/>
-    </dependencies>
-    <after>
-      <dep package="meta-gtk-osx-gtk3"/>
-      <dep package="meta-gtk-osx-gtk3.14"/>
-    </after>
-  </metamodule>
-
+        tidy -config ../tidy.conf -m gtk-osx-python.modules
+  -->
+  <repository name="download.gnome.org"
+              default="yes"
+              href="https://download.gnome.org/sources/"
+              type="tarball" />
+  <repository name="cairographics.org"
+              href="http://cairographics.org/releases/"
+              type="tarball" />
+  <repository name="python"
+              href="https://www.python.org/ftp/python/"
+              type="tarball" />
+  <repository name="oracle"
+              href="http://download.oracle.com/"
+              type="tarball" />
+  <repository name="pymodules"
+              href="https://pypi.python.org/packages/"
+              type="tarball" />
+  <repository name="github-tarball"
+              href="https://github.com"
+              type="tarball" />
+  <!---->
   <metamodule id="meta-gtk-osx-python3-gtk3">
     <dependencies>
-      <dep package="pycairo"/>
-      <dep package="pygobject3"/>
-      <dep package="gtk-mac-integration-python"/>
+      <dep package="meta-gtk-osx-gtk3" />
+      <dep package='pygments' />
+      <dep package="pycairo" />
+      <dep package="pygobject3" />
+      <dep package="gtk-mac-integration-python" />
     </dependencies>
     <after>
-      <dep package="meta-gtk-osx-gtk3"/>
-      <dep package="meta-gtk-osx-gtk3.14"/>
+      <dep package="meta-gtk-osx-gtk3" />
     </after>
   </metamodule>
-
-  <!-- Python 2 end-of-life was 31 December 2020 and 2.7.18 was the last release. -->
-  <autotools id="python2" autogenargs="--enable-shared"
-	     supports-non-srcdir-builds="no" autogen-sh="autoreconf">
-       <branch repo="python"
-               module="2.7.18/Python-2.7.18.tgz" version="2.7.18"
-               hash="sha256:da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814">
-  <!-- related to https://bugs.python.org/issue11445 -->
-  <patch file="python-ldflags.patch" strip="1"/>
-    </branch>
+  <!---->
+  <autotools id="python3"
+             autogen-sh="configure"
+             autogenargs="--enable-shared">
+    <branch module="3.11.4/Python-3.11.4.tar.xz"
+            version="3.11.4"
+            hash="sha256:2f0e409df2ab57aa9fc4cbddfb976af44e4e55bf6f619eee6bc5c2297264a7f6"
+            repo="python" />
     <dependencies>
-      <dep package='readline'/>
+      <dep package='readline' />
+      <!--
+        for hashlib
+      -->
+      <dep package="openssl" />
     </dependencies>
   </autotools>
-
-  <autotools id="python3" autogenargs="--enable-shared" autogen-sh="configure">
-    <branch repo="python" module="3.9.2/Python-3.9.2.tar.xz" version="3.9.2"
-            hash="sha256:3c2034c54f811448f516668dce09d24008a0716c3a794dd8639b5388cbde247d">
-        <patch file="patches/gpodder_disable_getentropy_clock_for_10.11.patch"/>
-    </branch>
-    <dependencies>
-      <dep package='readline'/>
-      <dep package="openssl"/> <!-- For hashlib -->
-    </dependencies>
-  </autotools>
-
+  <!---->
   <meson id="pycairo">
-    <branch module="/pygobject/pycairo/releases/download/v1.20.0/pycairo-1.20.0.tar.gz" repo="github-tarball"
-            version="1.20.0"
-	    hash="sha256:5695a10cb7f9ae0d01f665b56602a845b0a8cb17e2123bfece10c2e58552468c"/>
+    <branch module="pygobject/pycairo/releases/download/v1.24.0/pycairo-1.24.0.tar.gz"
+            version="1.24.0"
+            hash="sha256:1444d52f1bb4cc79a4a0c0fe2ccec4bd78ff885ab01ebe1c0f637d8392bcafb6"
+            repo="github-tarball" />
     <dependencies>
-      <dep package="cairo"/>
+      <dep package="cairo" />
+      <dep package="python3" />
+      <dep package="meta-gtk-osx-gtk3" />
+    </dependencies>
+  </meson>
+  <!---->
+  <meson id="pygobject3">
+    <branch module="pygobject/3.44/pygobject-3.44.1.tar.xz"
+            version="3.44.1"
+            hash="sha256:3c6805d1321be90cc32e648215a562430e0d3d6edcda8f4c5e7a9daffcad5710" />
+    <dependencies>
+      <dep package="pycairo" />
     </dependencies>
     <after>
-      <dep package="python3"/>
-      <dep package="python2"/>
-      <dep package="meta-gtk-osx-gtk3"/>
-      <dep package="meta-gtk-osx-gtk2"/>
+      <dep package="python3" />
     </after>
   </meson>
-
-  <!-- PyGObject 3.36 is the last version of PyGObject that supports
-       Python2. It's provided here for those laggards who haven't yet
-       migrated their projects to Python3. Don't expect it to stay
-       forever, migrate now! -->
-
-   <meson id="pygobject3-2" >
-    <branch version="3.36.1" module="pygobject/3.36/pygobject-3.36.1.tar.xz"
-	    hash="sha256:d1bf42802d1cec113b5adaa0e7bf7f3745b44521dc2163588d276d5cd61d718f"/>
-    <dependencies>
-      <dep package="pycairo"/>
-    </dependencies>
-    <after>
-      <dep package="python2"/>
-      <dep package="python3"/>
-    </after>
-   </meson>
-
-  <!-- PyGObject 3.36 is the last version of PyGObject that supports
-       Python2. It's provided here for those laggards who haven't yet
-       migrated their projects to Python3. Don't expect it to stay
-       forever, migrate now! -->
-
-   <meson id="pygobject3-2" >
-    <branch version="3.36.1" module="pygobject/3.36/pygobject-3.36.1.tar.xz"
-	    hash="sha256:d1bf42802d1cec113b5adaa0e7bf7f3745b44521dc2163588d276d5cd61d718f"/>
-    <dependencies>
-      <dep package="pycairo"/>
-    </dependencies>
-    <after>
-      <dep package="python2"/>
-      <dep package="python3"/>
-    </after>
-   </meson>
-
-   <meson id="pygobject3" >
-    <branch version="3.40.1" module="pygobject/3.40/pygobject-3.40.1.tar.xz"
-	    hash="sha256:00c6d591f4cb40c335ab1fd3e8c17869ba15cfda54416fe363290af766790035"/>
-    <dependencies>
-      <dep package="pycairo"/>
-    </dependencies>
-    <after>
-      <dep package="python3"/>
-    </after>
-   </meson>
-
-  <autotools id="gtk-mac-integration-python" autogen-sh="configure"
+  <!---->
+  <autotools id="gtk-mac-integration-python"
+             autogen-sh="configure"
              autogenargs="--enable-python">
     <branch module="gtk-mac-integration/3.0/gtk-mac-integration-3.0.1.tar.xz"
             version="3.0.1"
             hash="sha256:f19e35bc4534963127bbe629b9b3ccb9677ef012fc7f8e97fd5e890873ceb22d">
-      <patch file="gtk-mac-integration-work-around-svg-locale-bug.patch" strip="1"/>
+
+      <patch file="gtk-mac-integration-work-around-svg-locale-bug.patch"
+             strip="1" />
     </branch>
-    <dependencies>
-    </dependencies>
     <after>
-      <dep package="pygtk"/>
-      <dep package="pygobject3"/>
+      <dep package="pygobject3" />
     </after>
   </autotools>
-
+  <!---->
   <distutils id="pygments">
-    <branch repo="pymodules" version="2.9.0"
-            module="ba/6e/7a7c13c21d8a4a7f82ccbfe257a045890d4dbf18c023f985f565f97393e3/Pygments-2.9.0.tar.gz">
+    <branch module="89/6b/2114e54b290824197006e41be3f9bbe1a26e9c39d1f5fa20a6d62945a0b3/Pygments-2.15.1.tar.gz"
+            version="2.15.1"
+            repo="pymodules">
+      <patch file="Pygments-setup-py.patch"
+             strip="1" />
     </branch>
     <dependencies>
-      <dep package="python3"/>
+      <dep package="python3" />
     </dependencies>
   </distutils>
-  
+  <!---->
 </moduleset>

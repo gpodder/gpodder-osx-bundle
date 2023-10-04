@@ -99,59 +99,66 @@
   
   <!-- standard install minus unused -->
   <data>
-  ${prefix}/lib/python3.9/*.py
+  ${prefix}/lib/python3.11/*.py
   </data>
-  <data>${prefix}/lib/python3.9/asyncio</data>
-  <data>${prefix}/lib/python3.9/collections</data>
-  <data>${prefix}/lib/python3.9/concurrent</data>
-  <data>${prefix}/lib/python3.9/config-3.9-darwin</data>
-  <data>${prefix}/lib/python3.9/ctypes</data>
-  <data>${prefix}/lib/python3.9/curses</data>
-  <!--<data>${prefix}/lib/python3.9/dbm</data>-->
-  <data>${prefix}/lib/python3.9/email</data>
-  <data>${prefix}/lib/python3.9/encodings</data>
-  <data>${prefix}/lib/python3.9/html</data>
-  <data>${prefix}/lib/python3.9/http</data>
-  <!--<data>${prefix}/lib/python3.9/idlelib</data>-->
-  <data>${prefix}/lib/python3.9/importlib</data>
-  <data>${prefix}/lib/python3.9/json</data>
-  <binary>${prefix}/lib/python3.9/lib-dynload</binary>
-  <!--<data>${prefix}/lib/python3.9/lib2to3</data>-->
-  <data>${prefix}/lib/python3.9/logging</data>
-  <data>${prefix}/lib/python3.9/multiprocessing</data>
-  <!--<data>${prefix}/lib/python3.9/pydoc_data</data>-->
-  <data>${prefix}/lib/python3.9/sqlite3</data>
-  <!--<data>${prefix}/lib/python3.9/test</data>-->
-  <!--<data>${prefix}/lib/python3.9/tkinter</data>-->
-  <!--<data>${prefix}/lib/python3.9/turtledemo</data>-->
-  <data>${prefix}/lib/python3.9/unittest</data>
-  <data>${prefix}/lib/python3.9/urllib</data>
-  <!--<data>${prefix}/lib/python3.9/venv</data>-->
-  <data>${prefix}/lib/python3.9/wsgiref</data>
-  <data>${prefix}/lib/python3.9/xml</data>
+  <data>${prefix}/lib/python3.11/asyncio</data>
+  <data>${prefix}/lib/python3.11/collections</data>
+  <data>${prefix}/lib/python3.11/concurrent</data>
+  <data>${prefix}/lib/python3.11/config-3.11-darwin</data>
+  <data>${prefix}/lib/python3.11/ctypes</data>
+  <data>${prefix}/lib/python3.11/curses</data>
+  <!--<data>${prefix}/lib/python3.11/dbm</data>-->
+  <!--<data>${prefix}/lib/python3.11/distutils</data>-->
+  <data>${prefix}/lib/python3.11/email</data>
+  <data>${prefix}/lib/python3.11/encodings</data>
+  <!--<data>${prefix}/lib/python3.11/ensurepip</data>-->
+  <data>${prefix}/lib/python3.11/html</data>
+  <data>${prefix}/lib/python3.11/http</data>
+  <!--<data>${prefix}/lib/python3.11/idlelib</data>-->
+  <data>${prefix}/lib/python3.11/importlib</data>
+  <data>${prefix}/lib/python3.11/json</data>
+  <binary>${prefix}/lib/python3.11/lib-dynload</binary>
+  <!--<data>${prefix}/lib/python3.11/lib2to3</data>-->
+  <data>${prefix}/lib/python3.11/logging</data>
+  <data>${prefix}/lib/python3.11/multiprocessing</data>
+  <!--<data>${prefix}/lib/python3.11/pydoc_data</data>-->
+  <data>${prefix}/lib/python3.11/re</data>
+  <data>${prefix}/lib/python3.11/sqlite3</data>
+  <!--<data>${prefix}/lib/python3.11/test</data>-->
+  <!--<data>${prefix}/lib/python3.11/tkinter</data>-->
+  <data>${prefix}/lib/python3.11/tomllib</data>
+  <!--<data>${prefix}/lib/python3.11/turtledemo</data>-->
+  <data>${prefix}/lib/python3.11/unittest</data>
+  <data>${prefix}/lib/python3.11/urllib</data>
+  <!--<data>${prefix}/lib/python3.11/venv</data>-->
+  <data>${prefix}/lib/python3.11/wsgiref</data>
+  <data>${prefix}/lib/python3.11/xml</data>
+  <data>${prefix}/lib/python3.11/xmlrpc</data>
+  <data>${prefix}/lib/python3.11/zoneinfo</data>
+  <data>${prefix}/lib/python3.11/__phello__</data>
 
   <!-- only required extra modules (no dbus, for instance) -->
   <data recurse="True">
-    ${prefix}/lib/python3.9/site-packages/gi/*.py
+    ${prefix}/lib/python3.11/site-packages/gi/*.py
   </data>
-  <data>${prefix}/lib/python3.9/site-packages/cairo/*.py</data>
+  <data>${prefix}/lib/python3.11/site-packages/cairo/*.py</data>
 
   <binary>
-    ${prefix}/lib/python3.9/lib-dynload/*.so
+    ${prefix}/lib/python3.11/lib-dynload/*.so
   </binary>
   
   <!-- every bundled .so must have its dynamic links rewritten to point to the bundle.
        Can't specify site-packages/*/*.so, so list them based on the output of postproc.sh.
     -->
   <binary>
-    ${prefix}/lib/python3.9/site-packages/cairo/*.so
+    ${prefix}/lib/python3.11/site-packages/cairo/*.so
   </binary>
   <binary>
-    ${prefix}/lib/python3.9/site-packages/gi/*.so
+    ${prefix}/lib/python3.11/site-packages/gi/*.so
   </binary>
 
   <data>
-    ${prefix}/include/python3.9
+    ${prefix}/include/python3.11
   </data>
 
 
@@ -177,9 +184,6 @@
        needed for the "hicolor" base theme.
   -->
   <!-- must say all to get file-dependent icons (e.g. music note if it's an audio file) -->
-  <icon-theme icons="all">
-    Tango
-  </icon-theme>
   <icon-theme icons="all">
     Adwaita
   </icon-theme>
@@ -218,8 +222,9 @@
 
   <!-- pip support -->
   <data>${prefix}/bin/pip3*</data>
-  <data>${prefix}/lib/python3.9/distutils</data>
-  <data>${prefix}/lib/python3.9/site-packages/pip</data>
-  <data>${prefix}/lib/python3.9/xmlrpc</data>
+  <data>${prefix}/lib/python3.11/distutils</data>
+  <data>${prefix}/lib/python3.11/ensurepip</data>
+  <data>${prefix}/lib/python3.11/site-packages/pip</data>
+  <data>${prefix}/lib/python3.11/xmlrpc</data>
 
 </app-bundle>

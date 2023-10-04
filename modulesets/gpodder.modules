@@ -3,14 +3,16 @@
 <!DOCTYPE moduleset SYSTEM "moduleset.dtd">
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
-  <include href="gtk-osx.modules"/>
+  <include href="gtk-osx.modules" />
 
-  <repository type="git" name="github"
-      href="git://github.com/"/>
-              
+  <repository name="github"
+              href="git://github.com/"
+              type="git" />
+
   <!-- for setuptools, for feedparser -->
-  <repository type="tarball" name="pypi"
-              href="https://files.pythonhosted.org/packages/source/"/>
+  <repository name="pypi"
+              href="https://files.pythonhosted.org/packages/source/"
+              type="tarball" />
 
   <metamodule id="meta-gpodder-native">
     <dependencies>

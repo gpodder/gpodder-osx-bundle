@@ -9,9 +9,9 @@ jobs:
       github.event_name == 'push' ||
       github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
 
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # fetch tags
       - run: ./bootstrap.sh
