@@ -1,5 +1,7 @@
-commit a27e8ff6ac5f98b2fc2743fd64fde05775d46293
+commit fd86c364071099c08d4d6f6086747e71d278982c
 Author: John Ralls <jralls@ceridwen.us>
-Date:   Sun Aug 20 11:01:48 2023 -0700
+Date:   Fri Jun 14 15:17:16 2024 -0700
 
-    Only set neon enabled when building on ARM.
+    Add name parameter to setup section of PIPFILE.
+    
+    Required for new versions of pipenv, without it pipenv install fails.

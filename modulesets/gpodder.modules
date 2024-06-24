@@ -21,6 +21,7 @@
       <dep package="pygobject3"/>
       <dep package="icu" /> <!-- for harfbuz -->
       <dep package="python3"/>
+      <dep package="packaging" /> <!-- for gtk+ -->
       <dep package="adwaita-icon-theme"/>
       <!-- to get nice icons for downloaded files -->
       <!-- disabled for now: frodo website is down, breaking the build..
@@ -28,4 +29,19 @@
       -->
     </dependencies>
   </metamodule>
+
+  <!-- for gtk+ -->
+  <distutils id="packaging">
+    <branch module="51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
+            version="24.1"
+            hash="026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+            repo="pypi" >
+    </branch>
+    <dependencies>
+      <dep package="python3" />
+    </dependencies>
+    <before>
+      <dep package="meta-gtk-osx-gtk3" />
+    </before>
+  </distutils>
 </moduleset>
