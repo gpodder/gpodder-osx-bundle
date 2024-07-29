@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source pins.sh
+source ./pins.sh
 
 git clone https://gitlab.gnome.org/GNOME/gtk-osx.git _gtk-osx-modules
 (cd _gtk-osx-modules && git checkout $PIN_GTK_OSX_COMMIT)
