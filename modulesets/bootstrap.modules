@@ -10,8 +10,8 @@
   <repository name="ftp.gnu.org"
               href="https://ftp.gnu.org/gnu/"
               type="tarball" />
-  <repository name="pkgconfig"
-              href="http://pkgconfig.freedesktop.org/releases/"
+  <repository name="pkgconf"
+              href="https://distfiles.ariadne.space/pkgconf/"
               type="tarball" />
   <repository name="sourceforge"
               href="http://downloads.sourceforge.net/sourceforge/"
@@ -35,9 +35,9 @@
   <autotools id="xz"
              autogen-sh="configure"
              bootstrap="true">
-    <branch module="xz/xz-5.4.3.tar.bz2"
-            version="5.4.3"
-            hash="sha256:9243a04598d7a70c1f567a0143a255581ac5c64b140fd55fd5cbc1e00b0e6f90"
+    <branch module="xz/xz-5.6.2.tar.bz2"
+            version="5.6.2"
+            hash="sha256:e12aa03cbd200597bd4ce11d97be2d09a6e6d39a9311ce72c91ac7deacde3171"
             repo="tukaani.org" />
   </autotools>
   <!--
@@ -53,14 +53,34 @@
             repo="ftp.gnu.org" />
   </autotools>
   <!---->
+  <autotools id="libiconv"
+             autogen-sh="configure"
+             autogenargs="--disable-debug --disable-dependency-tracking --enable-extra-encodings">
+
+    <branch module="libiconv/libiconv-1.17.tar.gz"
+            version="1.17"
+            hash="sha256:8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
+            repo="ftp.gnu.org" />
+  <!---->
+  </autotools>
+  <autotools id="libunistring" autogen-sh="configure">
+    <branch repo="ftp.gnu.org" module="libunistring/libunistring-1.2.tar.gz"
+           version="1.2">
+     </branch>
+   </autotools>
+  <!---->
   <autotools id="gettext"
              autogen-sh="configure"
              autogenargs="--without-emacs --disable-java --disable-native-java --disable-libasprintf --disable-csharp --with-included-glib --with-included-libcroco">
 
-    <branch module="gettext/gettext-0.22.tar.xz"
-            version="0.22"
-            hash="sha256:0e60393a47061567b46875b249b7d2788b092d6457d656145bb0e7e6a3e26d93"
+    <branch module="gettext/gettext-0.22.5.tar.xz"
+            version="0.22.5"
+            hash="sha256:fe10c37353213d78a5b83d48af231e005c4da84db5ce88037d88355938259640"
             repo="ftp.gnu.org" />
+    <dependencies>
+      <dep package="libiconv" />
+      <dep package="libunistring" />
+    </dependencies>
   </autotools>
   <!--
     cmakes ./configure is picky about invalid flags so we manually set it
@@ -69,9 +89,9 @@
              autogen-sh="bootstrap"
              autogen-template="%(srcdir)s/%(autogen-sh)s --prefix=%(prefix)s"
              bootstrap="true">
-    <branch module="v3.26/cmake-3.26.4.tar.gz"
-            version="3.26.4"
-            hash="sha256:313b6880c291bd4fe31c0aa51d6e62659282a521e695f30d5cc0d25abbd5c208"
+    <branch module="v3.29/cmake-3.29.3.tar.gz"
+            version="3.29.3"
+            hash="sha256:252aee1448d49caa04954fd5e27d189dd51570557313e7b281636716a238bccb"
             repo="cmake" />
   </autotools>
   <!--
@@ -90,9 +110,9 @@
   <autotools id="autoconf"
              autogen-sh="configure"
              bootstrap="true">
-    <branch module="autoconf/autoconf-2.71.tar.xz"
-            version="2.71"
-            hash="shas56:f14c83cfebcc9427f2c3cea7258bd90df972d92eb26752da4ddad81c87a0faa4"
+    <branch module="autoconf/autoconf-2.72.tar.xz"
+            version="2.72"
+            hash="sha256:ba885c1319578d6c94d46e9b0dceb4014caafe2490e437a0dbca3f270a223f5a"
             repo="ftp.gnu.org" />
     <dependencies>
       <dep package="m4" />
@@ -133,15 +153,15 @@
     </dependencies>
   </autotools>
   <!---->
-  <autotools id="pkg-config"
-             autogen-sh="configure"
-             autogenargs="--with-internal-glib"
-             bootstrap="true">
-    <branch module="pkg-config-0.29.2.tar.gz"
-            version="0.29.2"
-            hash="sha256:6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591"
-            repo="pkgconfig" />
-  </autotools>
+  <meson id="pkgconf"
+         mesonargs="-Dwith-system-libdir=/usr/lib -Dwith-system-includedir=/usr/include" >
+    <branch module="pkgconf-2.2.0.tar.xz"
+            version="2.2.0"
+            hash="sha256:b06ff63a83536aa8c2f6422fa80ad45e4833f590266feb14eaddfe1d4c853c69"
+            repo="pkgconf" >
+      <patch file="pkgconf-link-pkg-config.patch" strip="1" />
+    </branch>
+  </meson>
   <!--
     macOS provides 2.3 (presumably the last GPL2 version, gstreamer
     requires 2.4.
@@ -150,6 +170,7 @@
              autogen-sh="configure">
     <branch module="bison/bison-3.8.2.tar.xz"
             version="3.8.2"
+            hash="sha256:9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
             repo="ftp.gnu.org" />
     <dependencies>
       <dep package='flex' />
@@ -193,12 +214,13 @@
   <metamodule id="meta-bootstrap">
     <dependencies>
       <dep package="xz" />
+      <dep package="libiconv"/>
       <dep package="gettext" />
       <dep package="cmake" />
       <dep package="autoconf-archive" />
       <dep package="libtool" />
       <dep package="automake" />
-      <dep package="pkg-config" />
+      <dep package="pkgconf" />
       <dep package="bison" />
       <dep package="flex" />
       <dep package="gtk-osx-docbook" />

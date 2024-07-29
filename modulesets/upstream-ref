@@ -1,5 +1,5 @@
-commit a27e8ff6ac5f98b2fc2743fd64fde05775d46293
-Author: John Ralls <jralls@ceridwen.us>
-Date:   Sun Aug 20 11:01:48 2023 -0700
+commit b0864c09e715b4964b6fb1f8228e9c939f3545d0
+Author: Fabian Wüthrich <me@fabwu.ch>
+Date:   Fri Jul 19 23:27:52 2024 +0000
 
-    Only set neon enabled when building on ARM.
+    Add install instructions to README
