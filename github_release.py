@@ -75,11 +75,11 @@ def download_github(github_workflow):
 def checksum():
     """ compare downloaded archive with checksums """
     for f in os.listdir("_build"):
-        if re.match("pythonbase-.+\.zip.md5$", f):
+        if re.match(r"pythonbase-.+\.zip.md5$", f):
             md5 = os.path.join("_build", f)
-        elif re.match("pythonbase-.+\.zip.sha256$", f):
+        elif re.match(r"pythonbase-.+\.zip.sha256$", f):
             sha256 = os.path.join("_build", f)
-        elif re.match("pythonbase-.+\.zip$", f):
+        elif re.match(r"pythonbase-.+\.zip$", f):
             archive = os.path.join("_build", f)
     if md5 and sha256 and archive:
         m = hashlib.md5()
@@ -135,7 +135,7 @@ def upload(repo, tag, previous_tag, github_workflow):
         error_exit("Error creating release '%s' (%r)" % (tag, e))
 
     items = [f for f in os.listdir("_build")
-             if re.match("pythonbase-.+\.zip.*$", f) or f == "pythonbase.contents"]
+             if re.match(r"pythonbase-.+\.zip.*$", f) or f == "pythonbase.contents"]
     if len(items) == 0:
         error_exit("Nothing found to upload")
     print("D: uploading items\n - %s" % "\n - ".join(items))
