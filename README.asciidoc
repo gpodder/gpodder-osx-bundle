@@ -24,7 +24,7 @@ tedious description.
 
 == Creating a Bundle
 
-Prerequisites: `OS X` 10.9+ and a working
+Prerequisites: `OS X` 12+ and a working
 https://developer.apple.com/xcode/downloads/[`Xcode`] and
 https://git-scm.com/download/mac[`git`].
 
@@ -36,6 +36,7 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 
 (Tested on macOS 10.15.1)
 
+. Edit `pins.sh`, updating commit hashes.
 . Call `bootstrap.sh` to install jhbuild and set up dummy `$HOME` as base.
 . Call `build.sh` to download and build all the dependencies.
 . Call `bundle.sh` to create the finished bundles for gPodder in
@@ -54,16 +55,23 @@ https://wiki.gnome.org/Projects/GTK+/OSX/Building#line-38[here]).
 
 Releasing on OS X
 
-. see *<<Creating a Bundle>>*
+. edit `pins.sh`, updating commit hashes
+. run `fetch_modules.sh`
+. remove `modulesets/*~`, `modulesets/gtk-osx.modules.orig` and `_gtk-osx`
+. commit and push changes
+. wait for github action to build the bundle
 . test latest pythonbase-xxx.zip on macOS
-. tags are now the year as 2 digits, month as 1 or 2 digits (no leading 0), day as 1 or 2 digits (no leading 0): `git tag -a -m "bla bla" YY.MM.DD`
+
+. tags are now the year as 2 digits, month as 1 or 2 digits (no leading 0), day as 1 or 2 digits (no leading 0): `git tag -a -m "update deps" YY.MM.DD`
 . `git push`
-. rerun the latest github action master job (will pick the new tag)
-. `GITHUB_TOKEN=xxxx ./github_release.py --download --github-workflow LATEST_GA_WORKFLOW --previous-tag THE_PREVIOUS_RELEASE_TAG YY.MM.DD`
-  where LATEST_GA_WORKFLOW is the number in URL of the latest github action master job (eg. 1234567890)
+. wait for github action to build the tagged bundle
+
+. remove `_build`
+. `GITHUB_TOKEN=xxxx python github_release.py --download --github-workflow LATEST_GA_WORKFLOW --previous-tag THE_PREVIOUS_RELEASE_TAG YY.MM.DD`
+  where LATEST_GA_WORKFLOW is the number in URL of the latest github action for the tag, not master (eg. 1234567890)
 . repeat the command without `--download` to upload to github
 . edit and publish the release on github
-. now you can update the tag in `.circleci/config.yml` of the gPodder project.
+. now you can update the tag in `.github/workflows/release-from-macos.yml` of the gPodder project.
 
 
 Releasing on macOS by using the working pip:
