@@ -1,5 +1,5 @@
-commit b0864c09e715b4964b6fb1f8228e9c939f3545d0
-Author: Fabian Wüthrich <me@fabwu.ch>
-Date:   Fri Jul 19 23:27:52 2024 +0000
+commit c9d2f4bb809ceb6ed6f0adfbb2625e5e85b0af54
+Author: John Ralls <jralls@ceridwen.us>
+Date:   Sat Feb 22 16:26:53 2025 -0800
 
-    Add install instructions to README
+    Pass a strip argument to sqlite-install-name.patch
