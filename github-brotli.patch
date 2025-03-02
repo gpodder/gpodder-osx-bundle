@@ -1,24 +1,24 @@
 --- modulesets/gtk-osx.modules
 +++ modulesets/gtk-osx.modules
-@@ -127,8 +127,9 @@
-     then build harfbuzz without cairo because cairo requires
-     harfbuzz.
+@@ -109,8 +109,9 @@
+        path so none of the libraries that depend on it can link. Require
+        the install name to be an absolute path.
    -->
 +  <!-- gpodder github action needs to disable BrotliDec -->
    <cmake id="freetype-no-harfbuzz"
--         cmakeargs="-DCMAKE_DISABLE_FIND_PACKAGE_HarfBuzz=TRUE -DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Release">
-+         cmakeargs="-DCMAKE_DISABLE_FIND_PACKAGE_HarfBuzz=TRUE -DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Release -DCMAKE_DISABLE_FIND_PACKAGE_BrotliDec=TRUE">
- 
-     <branch module="freetype/freetype-2.11.1.tar.gz"
-             version="2.11.1"
-@@ -153,8 +154,9 @@
+-         cmakeargs='-DFT_DISABLE_HARFBUZZ=ON -DBUILD_SHARED_LIBS=true -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_NAME_DIR="${JHBUILD_PREFIX}/lib"'>
++         cmakeargs='-DFT_DISABLE_HARFBUZZ=ON -DBUILD_SHARED_LIBS=true -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_NAME_DIR="${JHBUILD_PREFIX}/lib" -DCMAKE_DISABLE_FIND_PACKAGE_BrotliDec=TRUE'>
+     <branch module="freetype/freetype-2.13.3.tar.xz"
+             version="2.13.3"
+             hash="sha256:0550350666d427c74daeb85d5ac7bb353acba5f76956395995311a9c6f063289"
+@@ -141,8 +141,9 @@
+       <dep package="icu" />
      </dependencies>
    </meson>
-   <!---->
 +   <!-- gpodder github action needs to disable BrotliDec -->
    <cmake id="freetype"
--         cmakeargs="-DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Release">
-+         cmakeargs="-DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Release -DCMAKE_DISABLE_FIND_PACKAGE_BrotliDec=TRUE">
- 
-     <branch module="freetype/freetype-2.11.1.tar.gz"
-             version="2.11.1"
+-         cmakeargs='-DFT_REQUIRE_HARFBUZZ=ON -DBUILD_SHARED_LIBS=true -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_NAME_DIR="${JHBUILD_PREFIX}/lib"'>
++         cmakeargs='-DFT_REQUIRE_HARFBUZZ=ON -DBUILD_SHARED_LIBS=true -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_NAME_DIR="${JHBUILD_PREFIX}/lib" -DCMAKE_DISABLE_FIND_PACKAGE_BrotliDec=TRUE'>
+     <branch module="freetype/freetype-2.13.3.tar.xz"
+             version="2.13.3"
+             hash="sha256:0550350666d427c74daeb85d5ac7bb353acba5f76956395995311a9c6f063289"
